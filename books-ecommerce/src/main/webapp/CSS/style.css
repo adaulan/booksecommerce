@@ -12,12 +12,11 @@ body {
     margin-top: 200px;
     padding:0px;
     font-family:sans-serif;
-    background-color: #E6E6E6 !important;
+    background-color: #FAFAFA !important;
 }
 .swiper-slide{
     width:250px !important;
 }
-
 
 .slider-box {
     margin:20px;
@@ -57,19 +56,17 @@ body {
     align-items:center;
     box-sizing: border-box;
     font-size:13px;
-    line-height:35px;
+    line-height:20px;
 }
 .price {
-    color:#FFFFFF;
-    background-color: #FF555B;
+    color:#06A2AF;
+    font-size: 30px;
     border-radius: 2px;
-    line-height: 20px;
+    line-height: 30px;
 }
 
 .price:hover{
     text-decoration: none;
-    background-color: #FE9048;
-    color: #FFFFFF;
 }
 
 .cart{
@@ -108,16 +105,16 @@ body {
 
 /* HEADING CAROUSEL E HEADING TEXTO */
 .heading {
-    display:flex;
-    justify-content: flex-start;
     width: 200px;
     margin:30px 0px 0px 50px;
     padding:0px 0px;
     text-align: left;
-    color: #2E2E2E;
+    color: #A4A4A4;
+    
 }
 #carouselExampleIndicators {
     height:300px;
     display: flex;
     justify-content: center;
 }
+/* FIM HEADING CAROUSEL E HEADING TEXTO */
