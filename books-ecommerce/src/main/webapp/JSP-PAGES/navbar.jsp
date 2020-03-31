@@ -59,7 +59,7 @@
             <div id="signin-div" class="top-bar-section">
 
                 <a href="#"><span id="signin-text"> Login/Inscreva-se</span></a>
-                <a href="#"><img src="../IMAGES/LANDING-PAGE/cart.png"></a>
+                <a href="#"><img src="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/LANDING-PAGE/cart.png"></a>
 
             </div>
         </div>
@@ -67,7 +67,7 @@
         <nav class="navbar navbar-expand-sm navbar-light bg-light">
             <div class="container">
                 <a class="navbar-brand" href="home.jsp">
-                    <img src="../IMAGES/LANDING-PAGE/booksicon.png">
+                    <img src="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/LANDING-PAGE/booksicon.png">
                     Livraria Projeto x</a>
                 <button class="navbar-toggler"
                         data-toggle="collapse"
@@ -77,7 +77,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Home</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/homeServlet">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">About</a>   
@@ -87,6 +87,20 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Contact</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Produtos</a>
+                            <div class="dropdown-menu">
+                                <a href="${pageContext.request.contextPath}/JSP-PAGES/cadastrarProdutos.jsp" class="dropdown-item">Cadastro</a>
+                                <a href="${pageContext.request.contextPath}/JSP-PAGES/consultaProdutos.jsp" class="dropdown-item">Consulta</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Clientes</a>
+                            <div class="dropdown-menu">
+                                <a href="#" class="dropdown-item">Cadastro</a>
+                                <a href="#" class="dropdown-item">Consulta</a>
+                            </div>
                         </li>
                     </ul>
 
