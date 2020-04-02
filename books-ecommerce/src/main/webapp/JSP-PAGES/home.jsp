@@ -3,83 +3,28 @@
     Created on : 26/03/2020, 13:52:50
     Author     : Adaulan 
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home</title>
-        <link rel="stylesheet" href="../CSS/style.css"/>
-        <link rel="stylesheet" href="../CSS/swiper.min.css"/>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/JSP-STYLES/CSS/style.css"/>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/JSP-STYLES/CSS/swiper.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <style type="text/css">
-        .heading-bar {
-            margin: 0px auto;
-            height: 60px;
-            background-color: #F8F8F8 !important;
-            border: 1px solid rgba(187,187,187,0.40);
-        }
-
-        footer {
-            height: 360px;
-            padding: 15px;
-        }
-
-        .footerBox{
-            height: 200px;
-            width: 400px;
-            color: black;
-            float:right;
-
-        }
-        footer ul a, h3{
-            color:#585858;
-        }
-
-        footer ul a:hover{
-            text-decoration: none;
-            color:#848484;
-        }
-
-
-        footer hr{
-            clear:both;
-            margin-top:220px;
-        }
-
-        #copyright {
-            color: black;
-            font-size: 9px;
-            font-style: italic;
-        }
-
-        #copyrightBox{
-            clear:both;
-            height:80px;
-            width:100%;
-            text-align: center;
-            padding-top: 30px;
-            padding-bottom: 0px;
-        }
-
-        #copyrightBox p{
-            margin-top:1px;
-            margin-bottom:1px;
-        }
-
-
-
-
     </style>
 
     <jsp:include page="navbar.jsp"/>
-    
+
     <body>
         <div class="heading-bar"></div>
-        
+
         <!-- INICIO DO BODY -->
-        
+
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -88,13 +33,13 @@
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img class="d-block w-100" src="../IMAGES/LANDING-PAGE/sit.png" alt="First slide">
+                    <img class="d-block w-100" src="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/LANDING-PAGE/sit.png" alt="First slide">
                 </div>
                 <div class="carousel-item">
-                    <img class="d-block w-100" src="../IMAGES/LANDING-PAGE/livraria-banner.jpg" alt="Second slide">
+                    <img class="d-block w-100" src="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/LANDING-PAGE/livraria-banner.jpg" alt="Second slide">
                 </div>
                 <div class="carousel-item">
-                    <img class="d-block w-100" src="../IMAGES/LANDING-PAGE/bannercoloredbooks.png" alt="Third slide">
+                    <img class="d-block w-100" src="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/LANDING-PAGE/bannercoloredbooks.png" alt="Third slide">
                 </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -112,6 +57,30 @@
         <div class="heading">
             <h4>Mais Populares</h4>
         </div>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+
+                <c:forEach items ="${listaProduto}" var="produto">
+                    <div class="swiper-slide">
+                        <div class="slider-box">
+                            <p class="time"><c:out value="${produto.getTag()}"/></p>
+                            <div class="img-box">
+                                <img src="${produto.getImagem()}">
+                            </div>
+                            <p class="detail" id="productTitle"><c:out value="${produto.getTitulo()}"/>
+                            <span id="autor" class="detail"><c:out value="${produto.getAutor()}"/></span>
+                            <a href="#" class="price"><span id="valorUnitario" onload="formatToReal()"><c:out value="${produto.formatarValor(produto.getValorVenda())}"/></span></a>
+                            </p>
+                            <div class="cart">
+                                <a href="#">COMPRAR</a>  
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+
+
+            </div>
+        </div>
         <!-- SLIDER 1 -->
         <div class="swiper-container">
             <div class="swiper-wrapper">
@@ -122,7 +91,7 @@
                     <div class="slider-box">
                         <p class="time">New</p>
                         <div class="img-box">
-                            <img src="../IMAGES/edgarallanpoe.jpg">
+                            <img src="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/edgarallanpoe.jpg">
                         </div>
 
                         <p class="detail" id="productTitle">Edgar Allan Poe Box
@@ -143,7 +112,7 @@
                     <div class="slider-box">
                         <p class="time">New</p>
                         <div class="img-box">
-                            <img src="../IMAGES/edgarallanpoe.jpg">
+                            <img src="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/edgarallanpoe.jpg">
                         </div>
 
                         <p class="detail" id="productTitle">Edgar Allan Poe Box
@@ -543,9 +512,9 @@
             </div>
         </div>
         <!-- SLIDER 2 END  -->
-    <!-- FIM DO BODY -->
+        <!-- FIM DO BODY -->
         <div class="heading-bar"></div>
-        
+
         <!--FOOTER -->
         <footer>
             <div class="footerBox">
@@ -559,7 +528,7 @@
                     </li>
                 </ul>
             </div>
-            
+
 
             <div class="footerBox">
                 <h3>Sobre</h3>
@@ -610,7 +579,7 @@
                 </p>
             </div>
         </footer>
-        <script type="text/javascript" src="../JS/swiper.min.js"></script>
-        <script src="../JS/script.js"></script>   
+        <script type="text/javascript" src="${pageContext.request.contextPath}/JSP-STYLES/JS/swiper.min.js"></script>
+        <script src="${pageContext.request.contextPath}/JSP-STYLES/JS/script.js"></script>
     </body>
 </html>
