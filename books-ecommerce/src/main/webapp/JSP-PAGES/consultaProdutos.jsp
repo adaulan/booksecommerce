@@ -9,6 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="icon" href="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/LANDING-PAGE/booksicon.ico" type="image/ico" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Cadastro de Produtos</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/JSP-STYLES/CSS/style.css"/>
@@ -27,13 +28,13 @@
         <!-- INICIO DO BODY -->
         <div id="body-changes" class="text-center" style="margin-top: 20px;">
             <form id="FadeForm" class="form-type" 
-                  action="${pageContext.request.contextPath}/consultaProdutoServlet" method = "post" accept-charset="UTF-8">
+                  action="${pageContext.request.contextPath}/consultaProdutoServlet" method = "post" accept-charset="UTF-8"
+                  style="max-width: 1300px; height:auto; max-height: 800px;">
                 <div class="row justify-content-center">
                     <h2>Consulta</h2>
                 </div>
                 <div class="row justify-content-center">
                     <div class="input-group col-12">
-
                         <input type="text" class="form-control" placeholder="O que você busca?" aria-label="Recipient's username" aria-describedby="button-addon2" name="Busca">
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Pesquisar <i class="fa fa-search"></i></button>
@@ -43,11 +44,11 @@
                 <br>
                 <div class="row justify-content-center">
                     <div class="form-group col-12">
-                        <div class="table-wrapper-scroll-y my-custom-scrollbar" id="style-1">
+                        <div class="table-wrapper-scroll-y my-custom-scrollbar" id="style-1" style="height:500px;">
                             <table class="table" style="color: white;">
                                 <thead>
                                     <tr>
-                                         <th scope="col">Capa</th>
+                                        <th scope="col">Capa</th>
                                         <th scope="col">Título</th>
                                         <th scope="col">Autor</th>
                                         <th scope="col">Editora</th>
@@ -68,12 +69,12 @@
                                 <c:forEach items ="${listaProduto}" var="produto">
                                     <tr>
                                         <td><img src="${produto.getImagem()}" style="max-height: 80px;"></td>
-                                        <td><c:out value="${produto.getTitulo()}"/></td>
+                                        <td style="max-width:250px;"><c:out value="${produto.getTitulo()}"/></td>
                                         <td><c:out value="${produto.getAutor()}"/></td>
                                         <td><c:out value="${produto.getEditora()}"/></td>
                                         <td><c:out value="${produto.getData()}"/></td>
                                         <td><c:out value="${produto.getCategoria()}"/></td>
-                                        <td><c:out value="${produto.getValorVenda()}"/></td>
+                                        <td><c:out value="${produto.formatarValor(produto.getValorVenda())}"/></td>
                                         <td><c:out value="${produto.getQuantidade()}"/></td>
                                         <td>
                                             <form method="get" action="${pageContext.request.contextPath}/editarProdutoServlet">
@@ -82,11 +83,36 @@
                                             </form>
                                         </td>
                                         <td>
-                                            <form  method="post" action="${pageContext.request.contextPath}/ProdutoExcluir">
-                                                <input type="hidden" value="${produto.getID()}" name="id">
-                                                <button id="btn-form-search" type="submit" alt="Remover Produto"><i class="fa fa-times"></i></button>                                        
+                                            <form  method="post" action="${pageContext.request.contextPath}/deletarProdutoServlet">
+                                                <input type="hidden" value="${produto.getID()}" name="ID">
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn" data-toggle="modal" data-target="#exampleModalCenter" id="btn-form-search"> 
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document" style="color: black;">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Deletar Produto</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Tem certeza que deseja deletar o Produto?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                                <button type="submit" class="btn btn-warning">Confirmar</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- FIM MODAL -->
                                             </form>
-                                        </td>    
+                                        </td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>

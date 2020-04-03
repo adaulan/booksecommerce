@@ -12,7 +12,6 @@ var swiper = new Swiper('.swiper-container', {
         clickable: true
     }
 });
-
 //Redirecionar para Home
 function redirectToPage(jspAddress) {
     window.location.href = jspAddress;
@@ -22,75 +21,26 @@ function redirectToPage(jspAddress) {
 $('#customFile').on('change', function () {
 
     var fileName = $(this).val().replace('C:\\fakepath\\', " ");
-
-
     $(this).next('.custom-file-label').html(fileName);
-
 });
-
 //IMAGENS EM BINÁRIO
 /*
-function uploadFile() {
-    $("#labelImagem").css("display", "block");
-    $("#target").css("display", "inline");
-
-    var target = document.querySelector("img[id=target]");
-    var target1 = document.querySelector("img[id=target1]");
-    var target2 = document.querySelector("img[id=target2]");
-    var file = document.querySelector("input[type=file]").files[0];
-    var file1 = document.querySelector("input[type=file]").files[1];
-    var file2 = document.querySelector("input[type=file]").files[2];
-
-    var reader = new FileReader();
-    var reader1 = new FileReader();
-    var reader2 = new FileReader();
-
-    reader.onloadend = function () {
-        target.src = reader.result;
-        $("#base64").val(reader.result);
-    };
-    if (file) {
-        reader.readAsDataURL(file);
-    } else {
-        target.src = "";
-    }
-    //Reader1
-    reader1.onloadend = function () {
-        $("#target1").css("display", "inline");
-        target1.src = reader1.result;
-        $("#base641").val(reader1.result);
-    };
-    if (file) {
-        reader1.readAsDataURL(file1);
-    } else {
-        target.src = "";
-    }
-    //Reader2
-    reader2.onloadend = function () {
-        $("#target2").css("display", "inline");
-
-        target2.src = reader2.result;
-        $("#base642").val(reader2.result);
-    };
-    if (file) {
-        reader2.readAsDataURL(file2);
-    } else {
-        target.src = "";
-    }
-
-
-};
-*/
-function uploadFile() {
- 
+ function uploadFile() {
  $("#labelImagem").css("display", "block");
  $("#target").css("display", "inline");
  
  var target = document.querySelector("img[id=target]");
+ var target1 = document.querySelector("img[id=target1]");
+ var target2 = document.querySelector("img[id=target2]");
  var file = document.querySelector("input[type=file]").files[0];
- var reader = new FileReader();
- reader.onloadend = function () {
+ var file1 = document.querySelector("input[type=file]").files[1];
+ var file2 = document.querySelector("input[type=file]").files[2];
  
+ var reader = new FileReader();
+ var reader1 = new FileReader();
+ var reader2 = new FileReader();
+ 
+ reader.onloadend = function () {
  target.src = reader.result;
  $("#base64").val(reader.result);
  };
@@ -99,11 +49,53 @@ function uploadFile() {
  } else {
  target.src = "";
  }
+ //Reader1
+ reader1.onloadend = function () {
+ $("#target1").css("display", "inline");
+ target1.src = reader1.result;
+ $("#base641").val(reader1.result);
+ };
+ if (file) {
+ reader1.readAsDataURL(file1);
+ } else {
+ target.src = "";
+ }
+ //Reader2
+ reader2.onloadend = function () {
+ $("#target2").css("display", "inline");
+ 
+ target2.src = reader2.result;
+ $("#base642").val(reader2.result);
+ };
+ if (file) {
+ reader2.readAsDataURL(file2);
+ } else {
+ target.src = "";
+ }
+ 
  
  };
+ */
+function uploadFile() {
 
+    $("#labelImagem").css("display", "block");
+    $("#target").css("display", "inline");
+    var target = document.querySelector("img[id=target]");
+    var file = document.querySelector("input[type=file]").files[0];
+    var reader = new FileReader();
+    reader.onloadend = function () {
 
+        target.src = reader.result;
+        $("#base64").val(reader.result);
+    };
+    if (file) {
+        reader.readAsDataURL(file);
+    } else {
+        target.src = "";
+    }
 
+}
+;
 // Mascaras para valor monetário
 function moeda(a, e, r, t) {
     let n = ""
@@ -140,8 +132,25 @@ function moeda(a, e, r, t) {
         a.value += r + l.substr(u - 2, u)
     }
     return !1
+};
+
+function mensagemCadastro() {
+    if ($('#alertaR').val() === "sucesso") {
+        $('#RespostaSucesso').css("display", "block");
+        setTimeout(function () {
+            $('#RespostaSucesso').css("display", "none");
+        }, 5000);
+    } else if ($('#alertaR').val() == "falha") {
+        if ($('#alertaR').val() === "sucesso") {
+            $('#RespostaFalha').css("display", "block");
+            setTimeout(function () {
+                $('#RespostaFalha').css("display", "none");
+            }, 5000);
+        } else {
+        };
+    };
 }
-;
 
-
-
+function ativaDivLogin() {
+    $("#loginButton").trigger('click');
+};

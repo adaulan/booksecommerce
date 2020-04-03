@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="icon" href="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/LANDING-PAGE/booksicon.ico" type="image/ico" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/JSP-STYLES/CSS/style.css"/>
@@ -121,7 +122,7 @@
                         <label> Acabamento: </label>
                         <select class="form-control" name="Acabamento" required>  
                             <option selected value="${livro.getAcabamento()}" required>${livro.getAcabamento()}</option>
-                            <option  value="Capa Mole">Brochura</option>
+                            <option  value="Brochura">Brochura</option>
                             <option  value="Capa Dura">Capa Dura</option>
                         </select>
                     </div>
@@ -195,7 +196,7 @@
         </div>
 
         <!-- FIM DO BODY -->
-        <div class="heading-bar"></div>
+        <div class="footer-bar"></div>
 
         <!--FOOTER -->
         <footer>

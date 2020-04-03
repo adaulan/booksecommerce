@@ -28,6 +28,7 @@ public class editarProdutoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         int ID = Integer.parseInt(request.getParameter("ID"));
         System.out.println(ID + " <= ID encontrado!");
         Livro L = null;

@@ -9,14 +9,13 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="icon" href="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/LANDING-PAGE/booksicon.ico" type="image/ico" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Home</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/JSP-STYLES/CSS/style.css"/>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/JSP-STYLES/CSS/swiper.min.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
-    <style type="text/css">
-    </style>
 
     <jsp:include page="navbar.jsp"/>
 
@@ -60,16 +59,23 @@
         <div class="swiper-container">
             <div class="swiper-wrapper">
 
-                <c:forEach items ="${listaProduto}" var="produto">
+                <c:forEach items ="${listaMaisVendidos}" var="produto">
                     <div class="swiper-slide">
                         <div class="slider-box">
                             <p class="time"><c:out value="${produto.getTag()}"/></p>
-                            <div class="img-box">
-                                <img src="${produto.getImagem()}">
-                            </div>
+
+
+                            <form method="post" action="${pageContext.request.contextPath}/detalhesProdutoServlet">
+                                <div class="img-box">
+                                    <input style="max-height: 170px;" type="image" src="${produto.getImagem()}" value="submit">
+                                    <input name="ID" type="hidden" value="${produto.getID()}"/>
+                                </div>
+                            </form>
+
+
                             <p class="detail" id="productTitle"><c:out value="${produto.getTitulo()}"/>
-                            <span id="autor" class="detail"><c:out value="${produto.getAutor()}"/></span>
-                            <a href="#" class="price"><span id="valorUnitario" onload="formatToReal()"><c:out value="${produto.formatarValor(produto.getValorVenda())}"/></span></a>
+                                <span id="autor" class="detail"><c:out value="${produto.getAutor()}"/></span>
+                                <a href="#" class="price"><span id="valorUnitario" onload=""><c:out value="${produto.formatarValor(produto.getValorVenda())}"/></span></a>
                             </p>
                             <div class="cart">
                                 <a href="#">COMPRAR</a>  
@@ -78,440 +84,77 @@
                     </div>
                 </c:forEach>
 
-
             </div>
         </div>
-        <!-- SLIDER 1 -->
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <!--Slide 1-------------------------------->
-                <div class="swiper-slide">
 
 
-                    <div class="slider-box">
-                        <p class="time">New</p>
-                        <div class="img-box">
-                            <img src="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/edgarallanpoe.jpg">
-                        </div>
-
-                        <p class="detail" id="productTitle">Edgar Allan Poe Box
-                            <span id="autor" class="detail">Autor</span>
-                            <a href="#" class="price">R$ <span id="valorUnitario">50,00</span></a>
-                        </p>
-                        <div class="cart">
-                            <a href="#">COMPRAR</a>  
-                        </div>
-                    </div>
-
-                </div>
-
-                <!--Slide 2-------------------------------->
-                <div class="swiper-slide">
-
-
-                    <div class="slider-box">
-                        <p class="time">New</p>
-                        <div class="img-box">
-                            <img src="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/edgarallanpoe.jpg">
-                        </div>
-
-                        <p class="detail" id="productTitle">Edgar Allan Poe Box
-                            <span id="autor" class="detail">Autor</span>
-                            <a href="#" class="price">R$ <span id="valorUnitario">50,00</span></a>
-                        </p>
-                        <div class="cart">
-                            <a href="#">COMPRAR</a>  
-                        </div>
-                    </div>
-
-                </div>
-                <!--Slide 3-------------------------------->
-                <div class="swiper-slide">
-
-
-                    <div class="slider-box">
-                        <p class="time">New</p>
-                        <div class="img-box">
-                            <img src="../IMAGES/edgarallanpoe.jpg">
-                        </div>
-
-                        <p class="detail" id="productTitle">Edgar Allan Poe Box
-                            <span id="autor" class="detail">Autor</span>
-                            <a href="#" class="price">R$ <span id="valorUnitario">50,00</span></a>
-                        </p>
-                        <div class="cart">
-                            <a href="#">COMPRAR</a>  
-                        </div>
-                    </div>
-
-                </div>
-                <!--Slide 4-------------------------------->
-                <div class="swiper-slide">
-
-
-                    <div class="slider-box">
-                        <p class="time">New</p>
-                        <div class="img-box">
-                            <img src="../IMAGES/edgarallanpoe.jpg">
-                        </div>
-
-                        <p class="detail" id="productTitle">Edgar Allan Poe Box
-                            <span id="autor" class="detail">Autor</span>
-                            <a href="#" class="price">R$ <span id="valorUnitario">50,00</span></a>
-                        </p>
-                        <div class="cart">
-                            <a href="#">COMPRAR</a>  
-                        </div>
-                    </div>
-
-                </div>
-
-                <!--Slide 5-------------------------------->
-                <div class="swiper-slide">
-
-
-                    <div class="slider-box">
-                        <p class="time">New</p>
-                        <div class="img-box">
-                            <img src="../IMAGES/edgarallanpoe.jpg">
-                        </div>
-
-                        <p class="detail" id="productTitle">Edgar Allan Poe Box
-                            <span id="autor" class="detail">Autor</span>
-                            <a href="#" class="price">R$ <span id="valorUnitario">50,00</span></a>
-                        </p>
-                        <div class="cart">
-                            <a href="#">COMPRAR</a>  
-                        </div>
-                    </div>
-
-                </div>
-
-                <!--Slide 6-------------------------------->
-                <div class="swiper-slide">
-
-
-                    <div class="slider-box">
-                        <p class="time">New</p>
-                        <div class="img-box">
-                            <img src="../IMAGES/edgarallanpoe.jpg">
-                        </div>
-
-                        <p class="detail" id="productTitle">Edgar Allan Poe Box
-                            <span id="autor" class="detail">Autor</span>
-                            <a href="#" class="price">R$ <span id="valorUnitario">50,00</span></a>
-                        </p>
-                        <div class="cart">
-                            <a href="#">COMPRAR</a>  
-                        </div>
-                    </div>
-
-                </div>
-
-                <!--Slide 7-------------------------------->
-                <div class="swiper-slide">
-
-
-                    <div class="slider-box">
-                        <p class="time">New</p>
-                        <div class="img-box">
-                            <img src="../IMAGES/edgarallanpoe.jpg">
-                        </div>
-
-                        <p class="detail" id="productTitle">Edgar Allan Poe Box
-                            <span id="autor" class="detail">Autor</span>
-                            <a href="#" class="price">R$ <span id="valorUnitario">50,00</span></a>
-                        </p>
-                        <div class="cart">
-                            <a href="#">COMPRAR</a>  
-                        </div>
-                    </div>
-
-                </div>
-
-                <!--Slide 8-------------------------------->
-                <div class="swiper-slide">
-
-
-                    <div class="slider-box">
-                        <p class="time">New</p>
-                        <div class="img-box">
-                            <img src="../IMAGES/edgarallanpoe.jpg">
-                        </div>
-
-                        <p class="detail" id="productTitle">Edgar Allan Poe Box
-                            <span id="autor" class="detail">Autor</span>
-                            <a href="#" class="price">R$ <span id="valorUnitario">50,00</span></a>
-                        </p>
-                        <div class="cart">
-                            <a href="#">COMPRAR</a>  
-                        </div>
-                    </div>
-
-                </div>
-
-                <!--Slide 9-------------------------------->
-                <div class="swiper-slide">
-
-
-                    <div class="slider-box">
-                        <p class="time">New</p>
-                        <div class="img-box">
-                            <img src="../IMAGES/edgarallanpoe.jpg">
-                        </div>
-
-                        <p class="detail" id="productTitle">Edgar Allan Poe Box
-                            <span id="autor" class="detail">Autor</span>
-                            <a href="#" class="price">R$ <span id="valorUnitario">50,00</span></a>
-                        </p>
-                        <div class="cart">
-                            <a href="#">COMPRAR</a>  
-                        </div>
-                    </div>
-
-                </div>
-
-                <!--Slide 10-------------------------------->
-                <div class="swiper-slide">
-
-
-                    <div class="slider-box">
-                        <p class="time">New</p>
-                        <div class="img-box">
-                            <img src="../IMAGES/edgarallanpoe.jpg">
-                        </div>
-
-                        <p class="detail" id="productTitle">Edgar Allan Poe Box
-                            <span id="autor" class="detail">Autor</span>
-                            <a href="#" class="price">R$ <span id="valorUnitario">50,00</span></a>
-                        </p>
-                        <div class="cart">
-                            <a href="#">COMPRAR</a>  
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-        <!-- SLIDER 1 END  -->
         <div class="heading">
             <h4>Novos Livros</h4>
         </div>
         <!-- SLIDER 2 -->
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                <!--Slide 1-------------------------------->
-                <div class="swiper-slide">
+                <c:forEach items ="${listaNovos}" var="produto1">
+                    <div class="swiper-slide">
+                        <div class="slider-box">
+                            <p class="time"><c:out value="${produto1.getTag()}"/></p>
 
 
-                    <div class="slider-box">
-                        <p class="time">New</p>
-                        <div class="img-box">
-                            <img src="../IMAGES/edgarallanpoe.jpg">
-                        </div>
-
-                        <p class="detail" id="productTitle">Edgar Allan Poe Box
-                            <span id="autor" class="detail">Autor</span>
-                            <a href="#" class="price">R$ <span id="valorUnitario">50,00</span></a>
-                        </p>
-                        <div class="cart">
-                            <a href="#">COMPRAR</a>  
-                        </div>
-                    </div>
-
-                </div>
-
-                <!--Slide 2-------------------------------->
-                <div class="swiper-slide">
+                            <form method="post" action="${pageContext.request.contextPath}/detalhesProdutoServlet">
+                                <div class="img-box">
+                                    <input style="max-height: 170px;" type="image" src="${produto1.getImagem()}" value="submit">
+                                    <input name="ID" type="hidden" value="${produto1.getID()}"/>
+                                </div>
+                            </form>
 
 
-                    <div class="slider-box">
-                        <p class="time">New</p>
-                        <div class="img-box">
-                            <img src="../IMAGES/edgarallanpoe.jpg">
-                        </div>
-
-                        <p class="detail" id="productTitle">Edgar Allan Poe Box
-                            <span id="autor" class="detail">Autor</span>
-                            <a href="#" class="price">R$ <span id="valorUnitario">50,00</span></a>
-                        </p>
-                        <div class="cart">
-                            <a href="#">COMPRAR</a>  
+                            <p class="detail" id="productTitle"><c:out value="${produto1.getTitulo()}"/>
+                                <span id="autor" class="detail"><c:out value="${produto1.getAutor()}"/></span>
+                                <a href="#" class="price"><span id="valorUnitario" onload=""><c:out value="${produto1.formatarValor(produto1.getValorVenda())}"/></span></a>
+                            </p>
+                            <div class="cart">
+                                <a href="#">COMPRAR</a>  
+                            </div>
                         </div>
                     </div>
-
-                </div>
-                <!--Slide 3-------------------------------->
-                <div class="swiper-slide">
-
-
-                    <div class="slider-box">
-                        <p class="time">New</p>
-                        <div class="img-box">
-                            <img src="../IMAGES/edgarallanpoe.jpg">
-                        </div>
-
-                        <p class="detail" id="productTitle">Edgar Allan Poe Box
-                            <span id="autor" class="detail">Autor</span>
-                            <a href="#" class="price">R$ <span id="valorUnitario">50,00</span></a>
-                        </p>
-                        <div class="cart">
-                            <a href="#">COMPRAR</a>  
-                        </div>
-                    </div>
-
-                </div>
-                <!--Slide 4-------------------------------->
-                <div class="swiper-slide">
-
-
-                    <div class="slider-box">
-                        <p class="time">New</p>
-                        <div class="img-box">
-                            <img src="../IMAGES/edgarallanpoe.jpg">
-                        </div>
-
-                        <p class="detail" id="productTitle">Edgar Allan Poe Box
-                            <span id="autor" class="detail">Autor</span>
-                            <a href="#" class="price">R$ <span id="valorUnitario">50,00</span></a>
-                        </p>
-                        <div class="cart">
-                            <a href="#">COMPRAR</a>  
-                        </div>
-                    </div>
-
-                </div>
-
-                <!--Slide 5-------------------------------->
-                <div class="swiper-slide">
-
-
-                    <div class="slider-box">
-                        <p class="time">New</p>
-                        <div class="img-box">
-                            <img src="../IMAGES/edgarallanpoe.jpg">
-                        </div>
-
-                        <p class="detail" id="productTitle">Edgar Allan Poe Box
-                            <span id="autor" class="detail">Autor</span>
-                            <a href="#" class="price">R$ <span id="valorUnitario">50,00</span></a>
-                        </p>
-                        <div class="cart">
-                            <a href="#">COMPRAR</a>  
-                        </div>
-                    </div>
-
-                </div>
-
-                <!--Slide 6-------------------------------->
-                <div class="swiper-slide">
-
-
-                    <div class="slider-box">
-                        <p class="time">New</p>
-                        <div class="img-box">
-                            <img src="../IMAGES/edgarallanpoe.jpg">
-                        </div>
-
-                        <p class="detail" id="productTitle">Edgar Allan Poe Box
-                            <span id="autor" class="detail">Autor</span>
-                            <a href="#" class="price">R$ <span id="valorUnitario">50,00</span></a>
-                        </p>
-                        <div class="cart">
-                            <a href="#">COMPRAR</a>  
-                        </div>
-                    </div>
-
-                </div>
-
-                <!--Slide 7-------------------------------->
-                <div class="swiper-slide">
-
-
-                    <div class="slider-box">
-                        <p class="time">New</p>
-                        <div class="img-box">
-                            <img src="../IMAGES/edgarallanpoe.jpg">
-                        </div>
-
-                        <p class="detail" id="productTitle">Edgar Allan Poe Box
-                            <span id="autor" class="detail">Autor</span>
-                            <a href="#" class="price">R$ <span id="valorUnitario">50,00</span></a>
-                        </p>
-                        <div class="cart">
-                            <a href="#">COMPRAR</a>  
-                        </div>
-                    </div>
-
-                </div>
-
-                <!--Slide 8-------------------------------->
-                <div class="swiper-slide">
-
-
-                    <div class="slider-box">
-                        <p class="time">New</p>
-                        <div class="img-box">
-                            <img src="../IMAGES/edgarallanpoe.jpg">
-                        </div>
-
-                        <p class="detail" id="productTitle">Edgar Allan Poe Box
-                            <span id="autor" class="detail">Autor</span>
-                            <a href="#" class="price">R$ <span id="valorUnitario">50,00</span></a>
-                        </p>
-                        <div class="cart">
-                            <a href="#">COMPRAR</a>  
-                        </div>
-                    </div>
-
-                </div>
-
-                <!--Slide 9-------------------------------->
-                <div class="swiper-slide">
-
-
-                    <div class="slider-box">
-                        <p class="time">New</p>
-                        <div class="img-box">
-                            <img src="../IMAGES/edgarallanpoe.jpg">
-                        </div>
-
-                        <p class="detail" id="productTitle">Edgar Allan Poe Box
-                            <span id="autor" class="detail">Autor</span>
-                            <a href="#" class="price">R$ <span id="valorUnitario">50,00</span></a>
-                        </p>
-                        <div class="cart">
-                            <a href="#">COMPRAR</a>  
-                        </div>
-                    </div>
-
-                </div>
-
-                <!--Slide 10-------------------------------->
-                <div class="swiper-slide">
-
-
-                    <div class="slider-box">
-                        <p class="time">New</p>
-                        <div class="img-box">
-                            <img src="../IMAGES/edgarallanpoe.jpg">
-                        </div>
-
-                        <p class="detail" id="productTitle">Edgar Allan Poe Box
-                            <span id="autor" class="detail">Autor</span>
-                            <a href="#" class="price">R$ <span id="valorUnitario">50,00</span></a>
-                        </p>
-                        <div class="cart">
-                            <a href="#">COMPRAR</a>  
-                        </div>
-                    </div>
-
-                </div>
-
+                </c:forEach>
             </div>
         </div>
-        <!-- SLIDER 2 END  -->
+
+
+        <div class="heading">
+            <h4>Mais Baratos</h4>
+        </div>
+        <!-- SLIDER 3 -->
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <c:forEach items ="${listaMenorPreco}" var="produto2">
+                    <div class="swiper-slide">
+                        <div class="slider-box">
+                            <p class="time"><c:out value="${produto2.getTag()}"/></p>
+
+
+                            <form method="post" action="${pageContext.request.contextPath}/detalhesProdutoServlet">
+                                <div class="img-box">
+                                    <input style="max-height: 170px;" type="image" src="${produto2.getImagem()}" value="submit">
+                                    <input name="ID" type="hidden" value="${produto2.getID()}"/>
+                                </div>
+                            </form>
+
+
+                            <p class="detail" id="productTitle"><c:out value="${produto2.getTitulo()}"/>
+                                <span id="autor" class="detail"><c:out value="${produto2.getAutor()}"/></span>
+                                <a href="#" class="price"><span id="valorUnitario" onload=""><c:out value="${produto2.formatarValor(produto2.getValorVenda())}"/></span></a>
+                            </p>
+                            <div class="cart">
+                                <a href="#">COMPRAR</a>  
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+        <!-- SLIDER 3 END  -->
         <!-- FIM DO BODY -->
         <div class="heading-bar"></div>
 
@@ -565,7 +208,7 @@
                     </li>
                 </ul>
             </div>
-
+            <input type="hidden" value="request.getSession().getAttribute('msg')" id="tipoUsuario">
             <hr>
 
             <div id="copyrightBox">
@@ -581,5 +224,9 @@
         </footer>
         <script type="text/javascript" src="${pageContext.request.contextPath}/JSP-STYLES/JS/swiper.min.js"></script>
         <script src="${pageContext.request.contextPath}/JSP-STYLES/JS/script.js"></script>
+        <script type="text/javascript">
+
+
+        </script>
     </body>
 </html>

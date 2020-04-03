@@ -77,9 +77,9 @@ public class cadastroProdutoServlet extends HttpServlet {
 
         try {
             if (LivroDAO.inserir(L)) {
-                request.setAttribute("msgResposta", "Cadastrado com sucesso!");
+                request.setAttribute("alertaResposta", "sucesso");
             } else {
-                request.setAttribute("msgResposta", "Não Foi possível efetuar o cadastro!");
+                request.setAttribute("alertaResposta", "falha");
             }
         } catch (Exception ex) {
             Logger.getLogger(cadastroProdutoServlet.class.getName()).log(Level.SEVERE, null, ex);

@@ -8,20 +8,21 @@ package SERVLETS;
 import DAO.LivroDAO;
 import MODELS.Livro;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Adaulan
  */
-@WebServlet(name = "consultaProdutoServlet", urlPatterns = {"/consultaProdutoServlet"})
-public class consultaProdutoServlet extends HttpServlet {
+@WebServlet(name = "deletarProdutoServlet", urlPatterns = {"/deletarProdutoServlet"})
+public class deletarProdutoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -29,33 +30,36 @@ public class consultaProdutoServlet extends HttpServlet {
 
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession sessao = request.getSession();
         request.setCharacterEncoding("UTF-8");
-        
+        int ID = Integer.parseInt(request.getParameter("ID"));
+        System.out.println(ID + " <= ID encontrado!");
+        Livro L = null;
+
         try {
-            List<Livro> listaProduto = LivroDAO.buscar(request.getParameter("Busca"));
-            for(Livro L: listaProduto){
-                System.out.println(L.getTitulo());
-            }
+            L = LivroDAO.getByID(ID);
+            L.setStatus("I");
+            LivroDAO.atualizarStatus(L);
+            List<Livro> listaProduto = LivroDAO.listar();
+
             request.setAttribute("listaProduto", listaProduto);
-            sessao.setAttribute("listaProduto", listaProduto);
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            e.getLocalizedMessage();
+            System.out.println("erro DAO produto: " + e);
         }
-        
-        request.getRequestDispatcher("JSP-PAGES/consultaProdutos.jsp").forward(request, response);
-       
+
+        RequestDispatcher dispatcher
+                = request.getRequestDispatcher("JSP-PAGES/consultaProdutos.jsp");
+        dispatcher.forward(request, response);
+
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
     }
 
 }

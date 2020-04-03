@@ -38,12 +38,39 @@ public class homeServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession sessao = request.getSession();
         request.setCharacterEncoding("UTF-8");
-        System.out.println("ENTROU NO SERVLET");
         try {
-            List<Livro> listaProduto = LivroDAO.listar();
+            List<Livro> listaMaisVendidos = LivroDAO.listarMaisVendidos();
+            List<Livro> listaNovos = LivroDAO.listarNovos();
+            List<Livro> listaMenorPreco = LivroDAO.listarMenorPreco();
 
-            request.setAttribute("listaProduto", listaProduto);
-            sessao.setAttribute("listaProduto", listaProduto);
+            request.setAttribute("listaMaisVendidos", listaMaisVendidos);
+            request.setAttribute("listaNovos", listaNovos);
+            request.setAttribute("listaMenorPreco", listaMenorPreco);
+
+            sessao.setAttribute("listaMaisVendidos", listaMaisVendidos);
+            sessao.setAttribute("listaNovos", listaNovos);
+            sessao.setAttribute("listaMenorPreco", listaMenorPreco);
+
+            if (request.getAttribute("loginText") == null) {
+                request.setAttribute("loginText", "Login/Inscrever-se");
+                sessao.setAttribute("loginText", "Login/Inscrever-se");
+            } else {
+
+            }
+
+            if (request.getAttribute("tipo") == null) {
+                request.setAttribute("tipo", "cliente");
+                sessao.setAttribute("tipo", "cliente");
+            } else {
+                if (request.getAttribute("tipo").equals("administrador")) {
+                    request.setAttribute("tipo", "administrador");
+                    sessao.setAttribute("tipo", "administrador");
+                } else {
+                    request.setAttribute("tipo", "cliente");
+                    sessao.setAttribute("tipo", "cliente");
+                }
+            }
+
         } catch (Exception e) {
             System.out.println(e);
         }

@@ -101,6 +101,11 @@ body {
     transform:scale(1.07);
     transition: all ease 0.3s;
 }
+
+.slider-box:hover .img-box input{
+    transform:scale(1.07);
+    transition: all ease 0.3s;
+}
 /*SLIDER HOME PAGE CSS FIM */
 
 /* HEADING CAROUSEL E HEADING TEXTO */
@@ -115,7 +120,7 @@ body {
 .heading-bar {
     margin: 0px auto;
     height: 60px;
-    background-color: #DCD0C0 !important;
+    background-color: #F8F8F8 !important;
     border: 1px solid rgba(187,187,187,0.40);
 }
 
@@ -214,7 +219,7 @@ footer hr{
     background-color: rgba(55, 55, 55, 0.8);
     padding: 1%;
     border-radius: 5px;
-    box-shadow: 5px 5px 10px 3px rgba(0, 0, 0, 0.5); 
+    box-shadow: 1px 1px 1px 1px rgba(132, 132, 132, 0.5); 
 }
 
 #btn-form{
@@ -268,7 +273,7 @@ footer hr{
 .my-custom-scrollbar {
     height: 300px;
     overflow-y: scroll;
-    
+
 }
 #button-addon2{
     background-color: grey;
@@ -300,4 +305,50 @@ footer hr{
 
 .table-wrapper-scroll-y {
     display: block;
+}
+
+/* PAGINA DE DETALHES */
+
+#div-box-compra {
+    max-height: 300px;
+    max-width:600px; 
+    background-color:#FAFAFA; 
+    border:1px solid #BFBFBF; 
+    border-radius: 1%;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
+    color: #1C1C1C;
+}
+/* LOGIN */
+.form-singin{
+    color: black; 
+    width: 100%;
+    max-width: 330px;
+    padding-top: 2em;
+    margin: auto;
+    background-color: rgba(250, 250, 250, 1);
+    padding: 2%;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px 3px rgba(0, 0, 0, 0.3);    
+}
+
+.table-wrapper-scroll-y {
+    display: block;
+}
+i.fa-journal-whills {
+    font-size: 60px;
+    padding-bottom: 0.5em;
+}
+#inputUsuario{
+    margin-bottom: 0.5em;
+}
+
+#btn-singin{
+    background-color: grey;
+    border: 0;
+}
+#btn-singin:hover{
+    background-color: white;
+    color: black;
+    border: 5px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
