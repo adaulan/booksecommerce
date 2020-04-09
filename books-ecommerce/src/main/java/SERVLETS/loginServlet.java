@@ -6,6 +6,7 @@
 package SERVLETS;
 
 import DAO.LoginDAO;
+import MODELS.Senha;
 import MODELS.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -53,15 +54,16 @@ public class loginServlet extends HttpServlet {
             e.getLocalizedMessage();
             System.out.println(e + " Erro no Login!");
         }
+        Senha crypto = new Senha();
         
-        if (user != null && user.validarSenha(senha)) {
+        if (user != null && crypto.checkPassword(senha, user.getSenha())) {
             // Se sucesso, salva usuario na sessao e redireciona para /protegido/home
             HttpSession sessao = request.getSession();
             sessao.setAttribute("usuario", user);
             sessao.setAttribute("loginText", user.getUsuario());
             sessao.setAttribute("tipo", user.getTipo());
-
-            
+                
+              
             request.setAttribute("usuario", user);
             request.setAttribute("loginText", user.getUsuario());
             request.setAttribute("tipo", user.getTipo());
@@ -71,7 +73,7 @@ public class loginServlet extends HttpServlet {
         } else {
              // Se erro, reapresenta tela de login com msg de erro
              request.setAttribute("msgErro", "Usuário ou senha inválidos");
-             request.getRequestDispatcher("home.jsp")
+             request.getRequestDispatcher("homeServlet")
                      .forward(request, response);
         }
     }

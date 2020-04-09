@@ -17,7 +17,6 @@ import java.sql.ResultSet;
 public class LoginDAO {
         public static Usuario Logar(String usuario) throws Exception {
         String sql = "SELECT * FROM USUARIO WHERE USUARIO=?";
-        System.out.println("Passou pela DAO!");
         Usuario user = null ;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -32,9 +31,11 @@ public class LoginDAO {
                 user.setNome(rs.getString("NOME"));
                 user.setUsuario(rs.getString("USUARIO"));
                 user.setSenha(rs.getString("SENHA"));
+                user.setEmail(rs.getString("EMAIL"));
                 user.setTipo(rs.getString("TIPO"));
                 user.setDataNascimento(rs.getString("DATANASC"));
-                user.setCelular("CELULAR");
+                user.setCelular(rs.getString("CELULAR"));
+                user.setCPF(rs.getString("CPF"));
             }
         } finally {
             if (preparedStatement != null && !preparedStatement.isClosed()) {
@@ -46,5 +47,9 @@ public class LoginDAO {
             }
         }
         return user;
+    }
+
+    public static Usuario Logar(Usuario usuario) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

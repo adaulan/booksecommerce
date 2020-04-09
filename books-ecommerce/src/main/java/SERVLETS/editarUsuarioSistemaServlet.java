@@ -6,9 +6,9 @@
 package SERVLETS;
 
 import DAO.UsuarioDAO;
+import MODELS.Senha;
 import MODELS.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -54,26 +54,18 @@ public class editarUsuarioSistemaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        int ID = Integer.parseInt(request.getParameter("ID"));
+        int ID = Integer.parseInt(request.getParameter("IDUpdate"));
         String Nome = request.getParameter("nome");
-        System.out.println(Nome);
         String Status = "A";
         String Email = request.getParameter("email");
-        System.out.println(Email);
         String DataNasc = request.getParameter("dataNascimento");
-        System.out.println(DataNasc);
         String Usuario = request.getParameter("usuario");
-        System.out.println(Usuario);
         String Senha = request.getParameter("senha");
-        System.out.println(Senha);
         String Tipo = request.getParameter("cargo");
-        System.out.println(Tipo);
         String Celular = request.getParameter("celular");
-        System.out.println(Celular);
         String CPF = request.getParameter("CPF");
-        System.out.println(CPF);
-        
-        Usuario user = new Usuario(ID,Status, Nome, Usuario, Senha, Email, Tipo, DataNasc, Celular, CPF);
+        Senha crypto = new Senha();
+        Usuario user = new Usuario(ID,Status, Nome, Usuario, crypto.hashSenha(Senha), Email, Tipo, DataNasc, Celular, CPF);
         
         try {
             if (UsuarioDAO.atualizar(user)) {

@@ -6,6 +6,7 @@
 package SERVLETS;
 
 import DAO.UsuarioDAO;
+import MODELS.Senha;
 import MODELS.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -41,24 +42,19 @@ public class cadastrarUsuarioClienteServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String Nome = request.getParameter("nome");
-        System.out.println(Nome);
+        String Status = "A";
         String Email = request.getParameter("EMAIL");
-        System.out.println(Email);
         String DataNasc = request.getParameter("DATA");
-        System.out.println(DataNasc);
         String Usuario = request.getParameter("usuario");
-        System.out.println(Usuario);
         String Senha = request.getParameter("senha1");
-        System.out.println(Senha);
         String Tipo = "cliente";
-        System.out.println(Tipo);
         String Celular = request.getParameter("CELULAR");
-        System.out.println(Celular);
         String CPF = request.getParameter("CPF");
-        System.out.println(Celular);
-        Usuario user = new Usuario(Nome, Usuario, Senha, Email, Tipo, DataNasc, Celular, CPF);
-        System.out.println(user.getNome());
-
+        Senha crypto = new Senha();
+        
+        Usuario user = new Usuario(Status, Nome, Usuario, crypto.hashSenha(Senha), Email, Tipo, DataNasc, Celular, CPF);
+        
+        
         try {
             if (UsuarioDAO.inserir(user)) {
                 request.setAttribute("msgResposta", "Cadastrado com sucesso!");

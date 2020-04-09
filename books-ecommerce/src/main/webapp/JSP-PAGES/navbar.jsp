@@ -251,12 +251,95 @@
                                 <h1 class="h3 mb-3 font-weight-normal">Deseja sair?</h1>
                                 <br>
                                 <button class="btn btn-lg btn-primary btn-block" type="submit" id="btn-singin"> Logout <i class="fas fa-sign-in-alt"></i> </button>
-
                             </form>
+                            <br/>
 
+                            <!-- ATUALIZAR CADASTRO FORM -->
+                            <button data-toggle="modal" data-target="#exampleModalCenter4" class="btn btn-lg btn-primary btn-block" id="btn-singin"> Atualizar Cadastro <i class="fas fa-edit"></i> </button>
+
+                            <div class="modal fade" id="exampleModalCenter4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"
+                                 onload="">
+                                <div class="modal-dialog modal-dialog-centered-lg" role="document" style="color: black;">
+                                    <div class="modal-content" style="background: transparent; border:none; width:600px; height:450px; margin-top:120px;">
+
+                                        <form name="formCadUpdate" class="form-type form-singin-cad" method="post" action="${pageContext.request.contextPath}/editarUsuarioClienteServlet" 
+                                              accept-charset="UTF-8">
+                                            <div class="row justify-content-center">
+                                                <div class="form-group col-3">
+                                                    <h2>Usuário</h2>
+                                                </div>
+                                            </div>
+                                            <div id="erroUpdate" class="alert alert-danger" role="alert" style='display:none'>
+                                                <span id='mensagemValUpdate'></span> invalido!
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <input type="hidden" value="${usuario.getID()}" name="IDUpdate">
+                                                <div class="form-group col-6">
+                                                    <label> Nome Completo: </label>
+                                                    <input type="text" class="form-control" placeholder="Nome" required name="nomeUpdate" id="nome" minlength="5"
+                                                           value="${usuario.getNome()}">
+                                                </div>
+                                                <div class="form-group col-6 ">
+                                                    <label> Email: </label>
+                                                    <input type="text" class="form-control" placeholder="exemplo@email.com" required 
+                                                           name="EMAILUpdate" id="email" onblur="checarEmailUpdate('formCadUpdate', 'EMAIL')"
+                                                           value="${usuario.getEmail()}">
+                                                </div>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class="form-group col-6">
+                                                    <label> Data de Nascimento: </label>
+                                                    <input type="text" class="form-control" placeholder="00/00/0000" required name="DATAUpdate" id="DATAUpdate"  onkeyup=""
+                                                           value="${usuario.getDataNascimento()}">
+                                                </div>
+                                                <div class="form-group col-6 ">
+                                                    <label> Celular: </label>
+                                                    <input type="text" class="form-control" placeholder="(00)0000-0000" required
+                                                           id="CELULARUpdate" name="CELULARUpdate" maxlength="15"
+                                                           value="${usuario.getCelular()}">
+                                                </div>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class="form-group col-6 ">
+                                                    <label> CPF: </label>
+                                                    <input type="text" class="form-control" placeholder="###.###.###-##" required name="CPFUpdate" id="CPFUpdate"
+                                                           minlength="" onfocus="validaCPFUpdate()" value="${usuario.getCPF()}">
+                                                </div>
+                                                <div class="form-group col-6 ">
+                                                    <label> Usuário: </label>
+                                                    <input type="text" class="form-control" placeholder="Usuário/Login" required name="usuarioUpdate" id="username"
+                                                           value="${usuario.getUsuario()}">
+                                                </div>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class="form-group col-6 ">
+                                                    <label> Senha: </label>
+                                                    <input type="password" class=" form-control" placeholder="*********" required name="senha1Update" id="Senha"
+                                                           value="${usuario.getSenha()}">
+                                                </div>
+                                                <div class="form-group col-6 ">
+                                                    <label> Confirmar Senha: </label>
+                                                    <input type="password" class=" form-control" placeholder="*********" required name="senha2" id="Senha"
+                                                           onblur="checarSenhaUpdate('formCadUpdate', 'senha1', 'senha2')">
+                                                </div>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <div class ="form group col-3 ">
+                                                    <button type="reset" class="btn btn-primary" id="btn-form" data-dismiss="modal"> Cancelar </button>
+                                                </div>
+                                                <div class ="form group   col-3">
+                                                    <button type="submit" class="btn btn-primary btn-confirmar-update" id="btn-form" > Confirmar </button>
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
         </div>
@@ -274,31 +357,39 @@
 
         <script type="text/javascript">
 
-                                           function testaLogin() {
-                                               if ($('#loginInput').val() === 'cliente') {
-                                                   $('#produtos').css('display', 'none');
-                                                   $('#clientes').css('display', 'none');
-                                                   $('#usuarios').css('display', 'none');
-                                               } else if ($('#loginInput').val() === 'administrador') {
-                                                   $('#produtos').css('display', 'block');
-                                                   $('#clientes').css('display', 'block');
-                                                   $('#usuarios').css('display', 'block');
-                                               } else if ($('#loginInput').val() === 'estoquista') {
-                                                   $('#produtos').css('display', 'block');
-                                                   $('#clientes').css('display', 'none');
-                                                   $('#usuarios').css('display', 'none');
-                                               }
-                                           }
+                                                               function testaLogin() {
+                                                                   if ($('#loginInput').val() === 'cliente') {
+                                                                       $('#produtos').css('display', 'none');
+                                                                       $('#clientes').css('display', 'none');
+                                                                       $('#usuarios').css('display', 'none');
+                                                                   } else if ($('#loginInput').val() === 'administrador') {
+                                                                       $('#produtos').css('display', 'block');
+                                                                       $('#clientes').css('display', 'block');
+                                                                       $('#usuarios').css('display', 'block');
+                                                                   } else if ($('#loginInput').val() === 'estoquista') {
+                                                                       $('#produtos').css('display', 'block');
+                                                                       $('#clientes').css('display', 'none');
+                                                                       $('#usuarios').css('display', 'none');
+                                                                   }
+                                                               }
 
 
-                                           $(document).ready(function () {
-                                               var campoCPF = $("#CPF");
-                                               campoCPF.mask('000.000.000-00', {reverse: true});
-                                               var campoData = $("#DATA");
-                                               campoData.mask('99/99/9999');
-                                               var campoCelular = $("#CELULAR");
-                                               campoCelular.mask('(99)999999999');
-                                           });
+                                                               $(document).ready(function () {
+                                                                   var campoCPF = $("#CPF");
+                                                                   campoCPF.mask('000.000.000-00', {reverse: true});
+                                                                   var campoData = $("#DATA");
+                                                                   campoData.mask('99/99/9999');
+                                                                   var campoCelular = $("#CELULAR");
+                                                                   campoCelular.mask('(99)999999999');
+                                                               });
+                                                               $(document).ready(function () {
+                                                                   var campoCPF = $("#CPFUpdate");
+                                                                   campoCPF.mask('000.000.000-00', {reverse: true});
+                                                                   var campoData = $("#DATAUpdate");
+                                                                   campoData.mask('99/99/9999');
+                                                                   var campoCelular = $("#CELULARUpdate");
+                                                                   campoCelular.mask('(99)999999999');
+                                                               });
 
 
 

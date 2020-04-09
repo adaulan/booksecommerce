@@ -5,11 +5,13 @@
  */
 package MODELS;
 
+
 /**
  *
  * @author Adaulan
  */
 public class Usuario {
+
     private int ID;
     private String status;
     private String nome;
@@ -33,7 +35,7 @@ public class Usuario {
         this.celular = celular;
         this.CPF = CPF;
     }
-    
+
     public Usuario(String nome, String usuario, String senha, String email, String tipo, String dataNascimento, String celular, String CPF) {
         this.nome = nome;
         this.usuario = usuario;
@@ -56,16 +58,16 @@ public class Usuario {
         this.celular = celular;
         this.CPF = CPF;
     }
-    
-    public Usuario(int ID, String nome, String usuario, String senha, String email, String tipo, String dataNascimento, String celular) {
+
+    public Usuario(int ID, String nome, String usuario, String senha, String email, String dataNascimento, String celular, String CPF) {
         this.ID = ID;
         this.nome = nome;
         this.usuario = usuario;
         this.senha = senha;
         this.email = email;
-        this.tipo = tipo;
         this.dataNascimento = dataNascimento;
         this.celular = celular;
+        this.CPF = CPF;
     }
 
     public Usuario(String nome, String usuario, String senha, String email, String tipo, String dataNascimento, String celular) {
@@ -86,8 +88,6 @@ public class Usuario {
         this.tipo = tipo;
         this.dataNascimento = dataNascimento;
     }
-    
-    
 
     public Usuario() {
     }
@@ -163,9 +163,9 @@ public class Usuario {
     public void setCelular(String celular) {
         this.celular = celular;
     }
-    
-    public boolean validarSenha(String senha){
-        if (senha.equals(this.senha)){
+
+    public boolean validarSenha(String senha) {
+        if (senha.equals(this.senha)) {
             return true;
         } else {
             return false;
@@ -179,6 +179,6 @@ public class Usuario {
     public void setCPF(String CPF) {
         this.CPF = CPF;
     }
-    
-    
+
+
 }

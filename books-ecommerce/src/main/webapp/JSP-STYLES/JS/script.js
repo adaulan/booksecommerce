@@ -234,6 +234,56 @@ function validaCPFCliente() {
     );
 }
 
+function validaCPFUpdate() {
+
+    $('#CPFUpdate').focusout(function testaCPF() {
+        var strCPF = $('#CPFUpdate').val();
+        strCPF = strCPF.replace(/\.|\-/g, '');
+        var Soma;
+        var Resto;
+        Soma = 0;
+        if (strCPF === "00000000000") {
+            $('#erroUpdate').fadeIn();
+            $('#mensagemValUpdate').html('CPF');
+            $('.btn-confirmar-update').prop('disabled', true);
+
+            return false;
+        }
+
+        for (i = 1; i <= 9; i++)
+            Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+        Resto = (Soma * 10) % 11;
+        if ((Resto === 10) || (Resto === 11)) {
+            Resto = 0;
+        }
+        if (Resto !== parseInt(strCPF.substring(9, 10))) {
+            $('#erroUpdate').fadeIn();
+            $('#mensagemValUpdate').html('CPF');
+            $('.btn-confirmar-update').prop('disabled', true);
+            return false;
+        }
+        Soma = 0;
+        for (i = 1; i <= 10; i++)
+            Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
+        Resto = (Soma * 10) % 11;
+        if ((Resto === 10) || (Resto === 11))
+            Resto = 0;
+        if (Resto !== parseInt(strCPF.substring(10, 11))) {
+            $('#erroUpdate').fadeIn();
+            $('#mensagemValUpdate').html('CPF');
+            $('.btn-confirmar-update').prop('disabled', true);
+
+            return false;
+        }
+
+        $('.btn-confirmar-update').prop('disabled', false);
+        $('#erroUpdate').fadeOut();
+        return true;
+
+    }
+    );
+}
+
 function checarEmail(form, email) {
     if (document.forms[form][email].value === ""
             || document.forms[form][email].value.indexOf('@') < 1
@@ -264,6 +314,21 @@ function checarEmailCliente(form, email) {
     }
 }
 
+function checarEmailUpdate(form, email) {
+    if (document.forms[form][email].value === ""
+            || document.forms[form][email].value.indexOf('@') < 1
+            || document.forms[form][email].value.indexOf('\.') < 3)
+    {
+        $('#erroUpdate').fadeIn();
+        $('#mensagemValUpdate').html('EMAIL');
+        $('.btn-confirmar-update').prop('disabled', true);
+        return false;
+    } else {
+        $('#erroUpdate').fadeOut();
+        $('.btn-confirmar-update').prop('disabled', false);
+    }
+}
+
 function checarSenha(form, senha, confirmaSenha) {
     if (document.forms[form][senha].value !== document.forms[form][confirmaSenha].value)
     {
@@ -290,6 +355,20 @@ function checarSenhaCliente(form, senha, confirmaSenha) {
     } else {
         $('#erroCliente').fadeOut();
         $('.btn-confirmar-cliente').prop('disabled', false);
+    }
+}
+
+function checarSenhaUpdate(form, senha, confirmaSenha) {
+    if (document.forms[form][senha].value !== document.forms[form][confirmaSenha].value)
+    {
+        
+        $('#erroUpdate').fadeIn();
+        $('#mensagemValUpdate').html('Campo de senha');
+        $('.btn-confirmar-update').prop('disabled', true);
+        return false;
+    } else {
+        $('#erroUpdate').fadeOut();
+        $('.btn-confirmar-update').prop('disabled', false);
     }
 }
 

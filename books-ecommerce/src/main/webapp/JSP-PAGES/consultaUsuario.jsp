@@ -99,12 +99,12 @@
                                             <form  method="post" action="${pageContext.request.contextPath}/deletarUsuarioServlet">
                                                 
                                                 <!-- Button trigger modal -->
-                                                <button type="button" class="btn" data-toggle="modal" data-target="#modalExclusao" id="btn-form-search"> 
+                                                <button type="button" class="btn" data-toggle="modal" data-target="#modalExclusao${usuario.getID()}" id="btn-form-search"> 
                                                     <i class="fa fa-times"></i>
                                                 </button>
 
                                                 <!-- MODAL CONFIRMAR EXCLUSÃO-->
-                                                <div class="modal fade" id="modalExclusao" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                <div class="modal fade" id="modalExclusao${usuario.getID()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document" style="color: black;">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -114,7 +114,7 @@
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                Tem certeza que deseja deletar o Usuario?
+                                                                Tem certeza que deseja deletar o Usuario ${usuario.getNome()}?
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

@@ -5,10 +5,12 @@
  */
 package SERVLETS;
 
+import DAO.LoginDAO;
 import DAO.UsuarioDAO;
 import MODELS.Senha;
 import MODELS.Usuario;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Adaulan
  */
-@WebServlet(name = "cadastrarUsuarioSistemaServlet", urlPatterns = {"/cadastrarUsuarioSistemaServlet"})
-public class cadastrarUsuarioSistemaServlet extends HttpServlet {
+@WebServlet(name = "editarUsuarioClienteServlet", urlPatterns = {"/editarUsuarioClienteServlet"})
+public class editarUsuarioClienteServlet extends HttpServlet {
 
 
 
@@ -35,22 +37,24 @@ public class cadastrarUsuarioSistemaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String Nome = request.getParameter("nome");
-        String Status = "A";
-        String Email = request.getParameter("email");
-        String DataNasc = request.getParameter("dataNascimento");
-        String Usuario = request.getParameter("usuario");
-        String Senha = request.getParameter("senha");
-        String Tipo = request.getParameter("cargo");
-        String Celular = request.getParameter("celular");
-        String CPF = request.getParameter("CPF");
+        int ID = Integer.parseInt(request.getParameter("IDUpdate"));
+        String Nome = request.getParameter("nomeUpdate");
+        String Email = request.getParameter("EMAILUpdate");
+        String DataNasc = request.getParameter("DATAUpdate");
+        String Usuario = request.getParameter("usuarioUpdate");
+        String Senha = request.getParameter("senha1Update");
+        String Celular = request.getParameter("CELULARUpdate");
+        String CPF = request.getParameter("CPFUpdate");
         Senha crypto = new Senha();
-        Usuario user = new Usuario(Status,Nome, Usuario, crypto.hashSenha(Senha), Email, Tipo, DataNasc, Celular, CPF);
-
+        
+        Usuario user = new Usuario(ID, Nome, Usuario, crypto.hashSenha(Senha), Email, DataNasc, Celular, CPF);
+        Usuario usuario = null;
         try {
-            if (UsuarioDAO.inserir(user)) {
-                request.setAttribute("alertaResposta", "sucesso");
-                
+            if (UsuarioDAO.atualizarCliente(user)) {
+                 request.setAttribute("alertaResposta", "sucesso");
+                 /* Loga o usuario novamente com as informações atualizados */
+                 usuario = LoginDAO.Logar(user.getUsuario());
+                 request.setAttribute("usuario", usuario);
             } else {
                 request.setAttribute("alertaResposta", "falha");
                 
@@ -59,9 +63,9 @@ public class cadastrarUsuarioSistemaServlet extends HttpServlet {
             e.getLocalizedMessage();
             System.out.println(e);
         }
-        request.getRequestDispatcher("JSP-PAGES/cadastrarUsuario.jsp").forward(request, response);
+        request.getRequestDispatcher("homeServlet").forward(request, response);
+
     }
-    
 
     /**
      * Returns a short description of the servlet.

@@ -43,7 +43,7 @@
                     <div class="form-group col-6">
                         <h2>Usuário</h2>
                     </div>
-                    <input type="hidden" value="${usuario.getID()}" name="ID">
+                    <input type="hidden" value="${usuario.getID()}" name="IDUpdate">
                 </div>
                 <div id="erro" class="alert alert-danger" role="alert" style='display:none'>
                     <span id='mensagemVal'></span> invalido!

@@ -110,12 +110,12 @@
                                             <form  method="post" action="${pageContext.request.contextPath}/deletarProdutoServlet">
                                                 <input type="hidden" value="${produto.getID()}" name="ID">
                                                 <!-- Button trigger modal -->
-                                                <button type="button" class="btn btn-excluir" data-toggle="modal" data-target="#modalExclusao" id="btn-form-search"> 
+                                                <button type="button" class="btn btn-excluir" data-toggle="modal" data-target="#modalExclusao${produto.getID()}" id="btn-form-search"> 
                                                     <i class="fa fa-times"></i>
                                                 </button>
 
                                                 <!-- MODAL CONFIRMAR EXCLUSÃO-->
-                                                <div class="modal fade" id="modalExclusao" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                <div class="modal fade" id="modalExclusao${produto.getID()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document" style="color: black;">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -123,6 +123,10 @@
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
+                                                            </div>
+                                                            <div>
+                                                                <input style="max-height: 150px; margin-top:20px;" type="image" src="${produto.getImagem()}" value="submit">
+                                                                <input name="ID" type="hidden" value="${produto.getID()}"/>
                                                             </div>
                                                             <div class="modal-body">
                                                                 Tem certeza que deseja deletar o Produto?
