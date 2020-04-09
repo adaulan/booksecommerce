@@ -11,6 +11,7 @@ package MODELS;
  */
 public class Usuario {
     private int ID;
+    private String status;
     private String nome;
     private String usuario;
     private String senha;
@@ -18,7 +19,44 @@ public class Usuario {
     private String tipo;
     private String dataNascimento;
     private String celular;
+    private String CPF;
 
+    public Usuario(int ID, String status, String nome, String usuario, String senha, String email, String tipo, String dataNascimento, String celular, String CPF) {
+        this.ID = ID;
+        this.status = status;
+        this.nome = nome;
+        this.usuario = usuario;
+        this.senha = senha;
+        this.email = email;
+        this.tipo = tipo;
+        this.dataNascimento = dataNascimento;
+        this.celular = celular;
+        this.CPF = CPF;
+    }
+    
+    public Usuario(String nome, String usuario, String senha, String email, String tipo, String dataNascimento, String celular, String CPF) {
+        this.nome = nome;
+        this.usuario = usuario;
+        this.senha = senha;
+        this.email = email;
+        this.tipo = tipo;
+        this.dataNascimento = dataNascimento;
+        this.celular = celular;
+        this.CPF = CPF;
+    }
+
+    public Usuario(String status, String nome, String usuario, String senha, String email, String tipo, String dataNascimento, String celular, String CPF) {
+        this.status = status;
+        this.nome = nome;
+        this.usuario = usuario;
+        this.senha = senha;
+        this.email = email;
+        this.tipo = tipo;
+        this.dataNascimento = dataNascimento;
+        this.celular = celular;
+        this.CPF = CPF;
+    }
+    
     public Usuario(int ID, String nome, String usuario, String senha, String email, String tipo, String dataNascimento, String celular) {
         this.ID = ID;
         this.nome = nome;
@@ -60,6 +98,14 @@ public class Usuario {
 
     public void setID(int ID) {
         this.ID = ID;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getNome() {
@@ -124,6 +170,14 @@ public class Usuario {
         } else {
             return false;
         }
+    }
+
+    public String getCPF() {
+        return CPF;
+    }
+
+    public void setCPF(String CPF) {
+        this.CPF = CPF;
     }
     
     

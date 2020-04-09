@@ -14,7 +14,7 @@ import java.util.Locale;
  * @author Adaulan
  */
 public class Livro implements Serializable {
-
+    
     private Integer ID;
     private String status;
     private String titulo;

@@ -7,11 +7,18 @@ and open the template in the editor.
     Created on : 26/03/2020, 19:52:41
     Author     : Adaulan 
 */
+/* FONTE DO SITE */
+@font-face {
+     font-family: HomepageBaukasten-Book;
+     src: url('../FONTES/HomepageBaukasten-Book.otf');
+}
+
+
 /* SLIDER HOME PAGE CSS */
 body {
     margin-top: 200px;
     padding:0px;
-    font-family:sans-serif;
+    font-family:HomepageBaukasten-Book, sans-serif;
     background-color: #F4F4F4 !important;
 }
 .swiper-slide{
@@ -114,13 +121,14 @@ body {
     margin:30px 0px 0px 50px;
     padding:0px 0px;
     text-align: left;
-    color: #000000;
+    color: #050D1A;
+    font-family: HomepageBaukasten-Book;
 
 }
 .heading-bar {
     margin: 0px auto;
     height: 60px;
-    background-color: #F8F8F8 !important;
+    background-color:  #0E9092 !important;
     border: 1px solid rgba(187,187,187,0.40);
 }
 
@@ -136,12 +144,13 @@ body {
 footer {
     height: 360px;
     padding: 15px;
+    background-color:#0E9092;
 }
 
 .footerBox{
     height: 200px;
     width: 400px;
-    color: black;
+    color: #FD7F66;
     float:right;
 
 }
@@ -155,12 +164,12 @@ footer {
 }
 
 footer ul a, h3{
-    color:#585858;
+    color:#FD7F66;
 }
 
 footer ul a:hover{
     text-decoration: none;
-    color:#848484;
+    color:#DFE5E1;
 }
 
 
@@ -195,6 +204,7 @@ footer hr{
     opacity: 0;
     animation: fadeIn 1.3s forwards;
     opacity: 0.9;
+    font-family: HomepageBaukasten-Book !important;
 
 }
 @keyframes fadeIn {
@@ -216,10 +226,11 @@ footer hr{
     padding: 15px;
     margin: auto;
     color: white;
-    background-color: rgba(55, 55, 55, 0.8);
+    background-color: rgba(18, 27, 42, 0.8);
     padding: 1%;
     border-radius: 5px;
     box-shadow: 1px 1px 1px 1px rgba(132, 132, 132, 0.5); 
+    font-family: HomepageBaukasten-Book;
 }
 
 #btn-form{
@@ -323,6 +334,17 @@ footer hr{
     color: black; 
     width: 100%;
     max-width: 330px;
+    padding-top: 2em;
+    background-color: rgba(250, 250, 250, 1);
+    padding: 2%;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px 3px rgba(0, 0, 0, 0.3);    
+}
+
+.form-singin-cad{
+    color: black; 
+    width: 100%;
+    max-width: 600px;
     padding-top: 2em;
     margin: auto;
     background-color: rgba(250, 250, 250, 1);

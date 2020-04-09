@@ -51,20 +51,30 @@ public class homeServlet extends HttpServlet {
             sessao.setAttribute("listaNovos", listaNovos);
             sessao.setAttribute("listaMenorPreco", listaMenorPreco);
 
-            if (request.getAttribute("loginText") == null) {
+            if (sessao.getAttribute("loginText") == null) {
                 request.setAttribute("loginText", "Login/Inscrever-se");
                 sessao.setAttribute("loginText", "Login/Inscrever-se");
             } else {
 
             }
 
-            if (request.getAttribute("tipo") == null) {
+            if (sessao.getAttribute("tipo") == null) {
                 request.setAttribute("tipo", "cliente");
                 sessao.setAttribute("tipo", "cliente");
+                sessao.setAttribute("datatarget", "#exampleModalCenter");//MUDA O MODAL AO CLICAR NO NOME DA PESSOA NO HEADER
             } else {
-                if (request.getAttribute("tipo").equals("administrador")) {
+                if (sessao.getAttribute("tipo").equals("administrador")) {
                     request.setAttribute("tipo", "administrador");
                     sessao.setAttribute("tipo", "administrador");
+                    sessao.setAttribute("datatarget", "#exampleModalCenter3");
+                } else if (sessao.getAttribute("tipo").equals("estoquista")) {
+                    request.setAttribute("tipo", "estoquista");
+                    sessao.setAttribute("tipo", "estoquista");
+                    sessao.setAttribute("datatarget", "#exampleModalCenter3");
+                } else if (sessao.getAttribute("tipo").equals("cliente")) {
+                    request.setAttribute("tipo", "cliente");
+                    sessao.setAttribute("tipo", "cliente");
+                    sessao.setAttribute("datatarget", "#exampleModalCenter3");
                 } else {
                     request.setAttribute("tipo", "cliente");
                     sessao.setAttribute("tipo", "cliente");
@@ -74,9 +84,9 @@ public class homeServlet extends HttpServlet {
         } catch (Exception e) {
             System.out.println(e);
         }
-        //RequestDispatcher dispatcher
+
         request.getRequestDispatcher("JSP-PAGES/home.jsp").forward(request, response);
-        //dispatcher;
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -8,7 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    
+
     <head>
         <link rel="icon" href="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/LANDING-PAGE/booksicon.ico" type="image/ico" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -18,6 +18,13 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <style type="text/css">
+        #body-details {
+            margin:20px;
+            max-height: 650px;
+            max-width: 1280px;
+            width:100%;
+            font-family: HomepageBaukasten-Book;
+        }
     </style>
 
     <jsp:include page="navbar.jsp"/>
@@ -26,12 +33,11 @@
         <div class="heading-bar"></div>
 
         <!-- INICIO DO BODY -->
-        <div id="body-changes" class="text-center container" style="margin:20px;
-             max-height: 650px; max-width: 1280px; width:100%;">
+        <div id="body-details" class="text-center container">
             <!-- INICIO FORM -->
 
-            <form action="" method = "post" accept-charset="UTF-8"                  >
-
+            <form action="" method = "post" accept-charset="UTF-8">
+                
                 <div class="form-type col" id="FadeForm" style="margin: 1%; background-color:white; width:100%;">
 
                     <div class="row align-items-center" style="padding:3%;">
@@ -72,11 +78,45 @@
                         <!-- FIM DIV COMPRA -->
                     </div> 
                 </div>
-
-
-
                 <!-- FIM AREA DE COMPRA -->
-                
+                <!-- INICIO DO SWIPER DE PRODUTOS DO MESMO AUTOR -->
+                <div class="heading" style="width: 250px;">
+                    <h4><c:out value="${textoHeader}"/></h4>
+                </div>
+                <div class="swiper-container" >
+                    <div class="swiper-wrapper">
+                        <!-- FORM PARA CONSERTO DE BUG NA PÁGINA -->
+                        <form class="clear"></form>
+                        <!-- FIM DE FORM PARA CONSERTO DE BUG NA PÁGINA -->
+                        <c:forEach items ="${listaAutor}" var="produto">
+                            <div class="swiper-slide">
+                                <div class="slider-box">
+                                    <p class="time"><c:out value="${produto.getTag()}"/></p>
+
+
+                                    <form method="post" action="${pageContext.request.contextPath}/detalhesProdutoServlet">
+                                        <div class="img-box">
+                                            <input style="max-height: 170px;" type="image" src="${produto.getImagem()}" value="submit">
+                                            <input name="ID" type="hidden" value="${produto.getID()}"/>
+                                            <input name="autor" type="hidden" value="${produto.getAutor()}"/>
+                                        </div>
+                                    </form>
+
+
+                                    <p class="detail" id="productTitle"><c:out value="${produto.getTitulo()}"/>
+                                        <span id="autor" class="detail"><c:out value="${produto.getAutor()}"/></span>
+                                        <a href="#" class="price"><span id="valorUnitario" onload=""><c:out value="${produto.formatarValor(produto.getValorVenda())}"/></span></a>
+                                    </p>
+                                    <div class="cart">
+                                        <a href="#">COMPRAR</a>  
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+
+                    </div>
+                </div>
+                <!-- FIM DO SWIPER DE PRODUTOS DO MESMO AUTOR -->
                 <!-- DETALHES -->
                 <div id="FadeForm" class="form-type container" style="margin-left:10px; background-color:white;
                      height:auto; max-width: 1300px; width:100%; padding:2%">

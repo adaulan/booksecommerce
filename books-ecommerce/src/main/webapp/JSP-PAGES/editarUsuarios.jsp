@@ -1,6 +1,6 @@
 <%-- 
-    Document   : cadastrarUsuario
-    Created on : 05/04/2020, 00:57:51
+    Document   : editarUsuarios
+    Created on : 08/04/2020, 22:23:49
     Author     : Adaulan 
 --%>
 
@@ -10,7 +10,7 @@
     <head>
         <link rel="icon" href="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/LANDING-PAGE/booksicon.ico" type="image/ico" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Cadastro de Usuário</title>
+        <title>Edição de Usuário</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/JSP-STYLES/CSS/style.css"/>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/JSP-STYLES/CSS/swiper.min.css"/>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/JSP-STYLES/CSS/jquery-ui.css"/>
@@ -27,7 +27,7 @@
         <div id="body-changes" class="text-center">
 
             <form id="fadeForm" class="form-type needs-validation" 
-                  method="post" action="${pageContext.request.contextPath}/cadastrarUsuarioSistemaServlet" 
+                  method="post" action="${pageContext.request.contextPath}/editarUsuarioSistemaServlet" 
                   accept-charset="UTF-8" name="usuarioForm">
 
                 <div class="alert alert-success" role="alert" style="display:none;" id='RespostaSucesso'>
@@ -43,6 +43,7 @@
                     <div class="form-group col-6">
                         <h2>Usuário</h2>
                     </div>
+                    <input type="hidden" value="${usuario.getID()}" name="ID">
                 </div>
                 <div id="erro" class="alert alert-danger" role="alert" style='display:none'>
                     <span id='mensagemVal'></span> invalido!
@@ -51,35 +52,36 @@
                     <div class="form-group col-4">
                         <label> Nome Completo: </label>
                         <input type="text" class="form-control" placeholder="Nome" required name="nome" id="nome"
-                               minlength="5">
+                               minlength="5" value="${usuario.getNome()}">
                     </div>
                     <div class="form-group col-4 ">
                         <label> CPF: </label>
                         <input type="text" class="form-control" placeholder="###.###.###-##" required name="CPF" id="cpf"
-                               minlength="" onfocus="validaCPF()">
+                               minlength="" onfocus="validaCPF()" value="${usuario.getCPF()}">
                     </div>
                     <div class="form-group col-4">
                         <label> Data de Nascimento: </label>
                         <input type="text" class="form-control" placeholder="00/00/0000" required name="dataNascimento"
-                               id="data" maxlength="10" onfocus="">
+                               id="data" maxlength="10" onfocus="" value="${usuario.getDataNascimento()}">
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="form-group col-4 ">
                         <label> Celular: </label>
                         <input type="text" class="form-control" placeholder="(00)0000-0000" required
-                               id="celular" name="celular" id="celular" maxlength="15">
+                               id="celular" name="celular" id="celular" maxlength="15" value="${usuario.getCelular()}">
                     </div>
                     <div class="form-group col-4 ">
                         <label> Email: </label>
                         <input id="email" type="text" class="form-control" placeholder="exemplo@email.com" name="email"
-                               onblur="checarEmail('usuarioForm', 'email')" required >
+                               onblur="checarEmail('usuarioForm', 'email')" value="${usuario.getEmail()}" required >
                     </div>
                     <div class=" form-group col-4 ">
                         <label> Cargo: </label>
                         <select class="form-control" name="cargo" id="cargo" required >
                             <option selected>Escolha...</option>
                             <c:forEach  var="cargo" begin="0">
+                                <option selected  value="${usuario.getTipo()}">${usuario.getTipo()}</option>
                                 <option  value="administrador">Administrador</option>
                                 <option  value="estoquista">Estoquista</option>
                                 <option  value="cliente">Cliente</option>
@@ -90,16 +92,18 @@
                 <div class="row justify-content-center">
                     <div class="form-group col-4 ">
                         <label> Usuário: </label>
-                        <input type="text" class="form-control" placeholder="Username/Login" required name="usuario" id="usuario">
+                        <input type="text" class="form-control" placeholder="Username/Login" required name="usuario" id="usuario"
+                               value="${usuario.getUsuario()}">
                     </div>
                     <div class="form-group col-4 ">
                         <label> Senha: </label>
-                        <input type="password" class=" form-control" placeholder="*********" required name="senha" id="senha">
+                        <input type="password" class=" form-control" placeholder="*********" required name="senha" id="senha"
+                               value="${usuario.getSenha()}">
                     </div>
                     <div class="form-group col-4 ">
                         <label> Confirmar Senha: </label>
                         <input type="password" class=" form-control" placeholder="*********" required name="confirmaSenha" 
-                               id="confirmaSenha" onblur="checarSenha('usuarioForm', 'senha', 'confirmaSenha')">
+                               id="confirmaSenha" onblur="checarSenha('usuarioForm', 'senha', 'confirmaSenha')" value="${usuario.getSenha()}">
                     </div>
 
                 </div>    

@@ -60,17 +60,18 @@ public class loginServlet extends HttpServlet {
             sessao.setAttribute("usuario", user);
             sessao.setAttribute("loginText", user.getUsuario());
             sessao.setAttribute("tipo", user.getTipo());
+
             
             request.setAttribute("usuario", user);
             request.setAttribute("loginText", user.getUsuario());
             request.setAttribute("tipo", user.getTipo());
             
-            request.getRequestDispatcher("/JSP-PAGES/home.jsp")
+            request.getRequestDispatcher("homeServlet")
                      .forward(request, response);
         } else {
              // Se erro, reapresenta tela de login com msg de erro
              request.setAttribute("msgErro", "Usuário ou senha inválidos");
-             request.getRequestDispatcher("/JSP-PAGES/home.jsp")
+             request.getRequestDispatcher("home.jsp")
                      .forward(request, response);
         }
     }

@@ -5,8 +5,8 @@
  */
 package SERVLETS;
 
-import DAO.LivroDAO;
-import MODELS.Livro;
+import DAO.UsuarioDAO;
+import MODELS.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -16,65 +16,49 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Adaulan
  */
-@WebServlet(name = "detalhesProdutoServlet", urlPatterns = {"/detalhesProdutoServlet"})
-public class detalhesProdutoServlet extends HttpServlet {
+@WebServlet(name = "deletarUsuarioServlet", urlPatterns = {"/deletarUsuarioServlet"})
+public class deletarUsuarioServlet extends HttpServlet {
+
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        HttpSession sessao = request.getSession();
-        /* INSTANCIA O ID */
         int ID = Integer.parseInt(request.getParameter("ID"));
-        /* INSTANCIA OS OBJETOS */
-        Livro L = null;
-        List<Livro> listaAutor = null;
-        List<Livro> listaTag = null;
+        Usuario U = null;
 
         try {
-            L = LivroDAO.getByID(ID);
-            listaAutor = LivroDAO.buscarPorAutor(request.getParameter("autor"), ID);
+            U = UsuarioDAO.getByID(ID);
+            U.setStatus("I");
+            UsuarioDAO.atualizar(U);
+            List<Usuario> listaUsuario = UsuarioDAO.listar();
 
-            request.setAttribute("listaAutor", listaAutor);
-            request.setAttribute("textoHeader", "Do Mesmo Autor:");
-
-            sessao.setAttribute("listaAutor", listaAutor);
-
-            if (listaAutor == null) {
-                listaTag = LivroDAO.buscarPorTag(request.getParameter("tag"));
-                request.setAttribute("textoHeader", "Semelhantes:");
-                request.setAttribute("listaAutor", listaTag);
-
-                sessao.setAttribute("listaAutor", listaTag);
-
-            } 
-
+            request.setAttribute("listaUsuario", listaUsuario);
         } catch (Exception e) {
             e.printStackTrace();
             e.getLocalizedMessage();
             System.out.println("erro DAO produto: " + e);
         }
-        request.setAttribute("ID", ID);
-        request.setAttribute("detalheLivro", L);
-
-        sessao.setAttribute("listaAutor", listaAutor);
 
         RequestDispatcher dispatcher
-                = request.getRequestDispatcher("JSP-PAGES/detalhesProduto.jsp");
+                = request.getRequestDispatcher("JSP-PAGES/consultaUsuario.jsp");
         dispatcher.forward(request, response);
+
     }
+    
+
 
     @Override
     public String getServletInfo() {

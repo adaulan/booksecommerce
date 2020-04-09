@@ -35,6 +35,7 @@
                     Ocorreu uma falha ao cadastrar produto!
                 </div>
                 <input id="alertaR" type="hidden" value="${alertaResposta}">
+                
                 <div class="row justify-content-center">
                     <div class="form-group col-6">
                         <h2>Livro</h2>

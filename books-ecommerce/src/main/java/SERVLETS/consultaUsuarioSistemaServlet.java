@@ -5,8 +5,8 @@
  */
 package SERVLETS;
 
-import DAO.LivroDAO;
-import MODELS.Livro;
+import DAO.UsuarioDAO;
+import MODELS.Usuario;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -20,42 +20,43 @@ import javax.servlet.http.HttpSession;
  *
  * @author Adaulan
  */
-@WebServlet(name = "consultaProdutoServlet", urlPatterns = {"/consultaProdutoServlet"})
-public class consultaProdutoServlet extends HttpServlet {
+@WebServlet(name = "consultaUsuarioSistemaServlet", urlPatterns = {"/consultaUsuarioSistemaServlet"})
+public class consultaUsuarioSistemaServlet extends HttpServlet {
 
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession sessao = request.getSession();
+                HttpSession sessao = request.getSession();
         request.setCharacterEncoding("UTF-8");
-
+        
         try {
-            List<Livro> listaProduto = LivroDAO.buscar(request.getParameter("Busca"));
-            String tipo = (String) sessao.getAttribute("tipo");
-            request.setAttribute("listaProduto", listaProduto);
-            sessao.setAttribute("listaProduto", listaProduto);
+            List<Usuario> listaUsuario = UsuarioDAO.buscar(request.getParameter("Busca"));
+            
+            request.setAttribute("listaUsuario", listaUsuario);
+            sessao.setAttribute("listaUsuario", listaUsuario);
         } catch (Exception e) {
             System.out.println(e);
         }
         
-
-        request.getRequestDispatcher("JSP-PAGES/consultaProdutos.jsp").forward(request, response);
-
+        request.getRequestDispatcher("JSP-PAGES/consultaUsuario.jsp").forward(request, response);
     }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 
 }

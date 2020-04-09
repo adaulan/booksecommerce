@@ -19,8 +19,8 @@
 
     <jsp:include page="navbar.jsp"/>
 
-    <body>
-        <div class="heading-bar"></div>
+    <body >
+        <div class="heading-bar" style="background-color:  #0E9092 !important;"></div>
 
         <!-- INICIO DO BODY -->
 
@@ -54,9 +54,9 @@
         <div class="heading-bar"></div>
 
         <div class="heading">
-            <h4>Mais Populares</h4>
+            <h4 >Mais Populares</h4>
         </div>
-        <div class="swiper-container">
+        <div class="swiper-container" >
             <div class="swiper-wrapper">
 
                 <c:forEach items ="${listaMaisVendidos}" var="produto">
@@ -64,14 +64,14 @@
                         <div class="slider-box">
                             <p class="time"><c:out value="${produto.getTag()}"/></p>
 
-
                             <form method="post" action="${pageContext.request.contextPath}/detalhesProdutoServlet">
                                 <div class="img-box">
                                     <input style="max-height: 170px;" type="image" src="${produto.getImagem()}" value="submit">
                                     <input name="ID" type="hidden" value="${produto.getID()}"/>
+                                    <input name="autor" type="hidden" value="${produto.getAutor()}"/>
+                                    <input name="tag" type="hidden" value="${produto.getTag()}"/>
                                 </div>
                             </form>
-
 
                             <p class="detail" id="productTitle"><c:out value="${produto.getTitulo()}"/>
                                 <span id="autor" class="detail"><c:out value="${produto.getAutor()}"/></span>
@@ -104,6 +104,8 @@
                                 <div class="img-box">
                                     <input style="max-height: 170px;" type="image" src="${produto1.getImagem()}" value="submit">
                                     <input name="ID" type="hidden" value="${produto1.getID()}"/>
+                                    <input name="autor" type="hidden" value="${produto1.getAutor()}"/>
+                                    <input name="tag" type="hidden" value="${produto1.getTag()}"/>
                                 </div>
                             </form>
 
@@ -138,6 +140,8 @@
                                 <div class="img-box">
                                     <input style="max-height: 170px;" type="image" src="${produto2.getImagem()}" value="submit">
                                     <input name="ID" type="hidden" value="${produto2.getID()}"/>
+                                    <input name="autor" type="hidden" value="${produto2.getAutor()}"/>
+                                    <input name="tag" type="hidden" value="${produto2.getTag()}"/>
                                 </div>
                             </form>
 
@@ -225,7 +229,15 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/JSP-STYLES/JS/swiper.min.js"></script>
         <script src="${pageContext.request.contextPath}/JSP-STYLES/JS/script.js"></script>
         <script type="text/javascript">
-
+            $(document).ready(function () {
+                var campoCPF = $("#cpf");
+                campoCPF.mask('000.000.000-00', {reverse: true});
+                var campoData = $("#data");
+                campoData.mask('99/99/9999');
+                var campoCelular = $("#celular");
+                campoCelular.mask('(99)999999999');
+            });
+            
 
         </script>
     </body>

@@ -35,7 +35,6 @@ public class deletarProdutoServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         int ID = Integer.parseInt(request.getParameter("ID"));
-        System.out.println(ID + " <= ID encontrado!");
         Livro L = null;
 
         try {
