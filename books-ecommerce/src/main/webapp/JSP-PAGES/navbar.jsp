@@ -315,7 +315,7 @@
                                                 <div class="form-group col-6 ">
                                                     <label> Senha: </label>
                                                     <input type="password" class=" form-control" placeholder="*********" required name="senha1Update" id="Senha"
-                                                           value="${usuario.getSenha()}">
+                                                           value="">
                                                 </div>
                                                 <div class="form-group col-6 ">
                                                     <label> Confirmar Senha: </label>
