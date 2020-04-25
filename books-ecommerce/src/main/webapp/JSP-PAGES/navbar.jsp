@@ -282,7 +282,7 @@
                                                 <div class="form-group col-6 ">
                                                     <label> Email: </label>
                                                     <input type="text" class="form-control" placeholder="exemplo@email.com" required 
-                                                           name="EMAILUpdate" id="email" onblur="checarEmailUpdate('formCadUpdate', 'EMAIL')"
+                                                           name="EMAILUpdate" id="emailUpdate" onblur="checarEmailUpdate('formCadUpdate', 'EMAIL')"
                                                            value="${usuario.getEmail()}">
                                                 </div>
                                             </div>
@@ -314,12 +314,12 @@
                                             <div class="row justify-content-center">
                                                 <div class="form-group col-6 ">
                                                     <label> Senha: </label>
-                                                    <input type="password" class=" form-control" placeholder="*********" required name="senha1Update" id="Senha"
+                                                    <input type="password" class=" form-control" placeholder="*********" name="senha1Update" id="Senha"
                                                            value="">
                                                 </div>
                                                 <div class="form-group col-6 ">
                                                     <label> Confirmar Senha: </label>
-                                                    <input type="password" class=" form-control" placeholder="*********" required name="senha2" id="Senha"
+                                                    <input type="password" class=" form-control" placeholder="*********" name="senha2" id="Senha"
                                                            onblur="checarSenhaUpdate('formCadUpdate', 'senha1', 'senha2')">
                                                 </div>
                                             </div>
@@ -362,6 +362,17 @@
                                                                        $('#produtos').css('display', 'none');
                                                                        $('#clientes').css('display', 'none');
                                                                        $('#usuarios').css('display', 'none');
+
+                                                                       /* CPF DISABLE*/
+                                                                       $('#CPFUpdate').css("background", '#eee');
+                                                                       $('#CPFUpdate').css("pointer-events", 'none');
+                                                                       $('#CPFUpdate').css("touch-action", 'none');
+
+                                                                       /* EMAIL DISABLE*/
+                                                                       $('#emailUpdate').css("background", '#eee');
+                                                                       $('#emailUpdate').css("pointer-events", 'none');
+                                                                       $('#emailUpdate').css("touch-action", 'none');
+
                                                                    } else if ($('#loginInput').val() === 'administrador') {
                                                                        $('#produtos').css('display', 'block');
                                                                        $('#clientes').css('display', 'block');
@@ -370,6 +381,15 @@
                                                                        $('#produtos').css('display', 'block');
                                                                        $('#clientes').css('display', 'none');
                                                                        $('#usuarios').css('display', 'none');
+                                                                                                                                              /* CPF DISABLE*/
+                                                                       $('#CPFUpdate').css("background", '#eee');
+                                                                       $('#CPFUpdate').css("pointer-events", 'none');
+                                                                       $('#CPFUpdate').css("touch-action", 'none');
+
+                                                                       /* EMAIL DISABLE*/
+                                                                       $('#emailUpdate').css("background", '#eee');
+                                                                       $('#emailUpdate').css("pointer-events", 'none');
+                                                                       $('#emailUpdate').css("touch-action", 'none');
                                                                    }
                                                                }
 

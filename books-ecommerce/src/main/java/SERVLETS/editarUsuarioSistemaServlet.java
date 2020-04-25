@@ -9,6 +9,8 @@ import DAO.UsuarioDAO;
 import MODELS.Senha;
 import MODELS.Usuario;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -65,15 +67,32 @@ public class editarUsuarioSistemaServlet extends HttpServlet {
         String Celular = request.getParameter("celular");
         String CPF = request.getParameter("CPF");
         Senha crypto = new Senha();
-        Usuario user = new Usuario(ID,Status, Nome, Usuario, crypto.hashSenha(Senha), Email, Tipo, DataNasc, Celular, CPF);
+        Usuario U;
+        System.out.println(Senha);
+        if (Senha.equals("")) {
+            System.out.println("SENHA NULL");
+            try {
+                U = UsuarioDAO.getByID(ID);
+                Senha = U.getSenha();
+            } catch (Exception ex) {
+                Logger.getLogger(editarUsuarioSistemaServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else {
+            Senha = crypto.hashSenha(Senha);
+        }
+        /*String Tipo = request.getParameter("cargo");
+        String Celular = request.getParameter("celular");
+        String CPF = request.getParameter("CPF");*/
         
+        Usuario user = new Usuario(ID, Status, Nome, Usuario, Senha, Email, Tipo, DataNasc, Celular, CPF);
+
         try {
             if (UsuarioDAO.atualizar(user)) {
-                 request.setAttribute("alertaResposta", "sucesso");
-                
+                request.setAttribute("alertaResposta", "sucesso");
+
             } else {
                 request.setAttribute("alertaResposta", "falha");
-                
             }
         } catch (Exception e) {
             e.getLocalizedMessage();

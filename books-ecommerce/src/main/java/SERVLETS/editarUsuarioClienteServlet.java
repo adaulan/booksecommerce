@@ -10,6 +10,8 @@ import DAO.UsuarioDAO;
 import MODELS.Senha;
 import MODELS.Usuario;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -45,8 +47,23 @@ public class editarUsuarioClienteServlet extends HttpServlet {
         String Celular = request.getParameter("CELULARUpdate");
         String CPF = request.getParameter("CPFUpdate");
         Senha crypto = new Senha();
+        Usuario U;
         
-        Usuario user = new Usuario(ID, Nome, Usuario, crypto.hashSenha(Senha), Email, DataNasc, Celular, CPF);
+        if (Senha.equals("")) {
+            System.out.println("SENHA NULL");
+            try {
+                U = UsuarioDAO.getByID(ID);
+                Senha = U.getSenha();
+            } catch (Exception ex) {
+                Logger.getLogger(editarUsuarioSistemaServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else {
+            Senha = crypto.hashSenha(Senha);
+        }
+        
+        Usuario user = new Usuario(ID, Nome, Usuario, Senha, Email, DataNasc, Celular, CPF);
+        
         Usuario usuario = null;
         try {
             if (UsuarioDAO.atualizarCliente(user)) {
