@@ -88,7 +88,244 @@ public class LivroDAO {
             throws SQLException, Exception {
         //Monta a string de listagem de clientes no banco, considerando
         //apenas a coluna de ativação de clientes ("enabled")
-        String sql = "SELECT * FROM ECOMMERCE_PROJECT.PRODUTOS";
+        String sql = "SELECT * FROM ECOMMERCE_PROJECT.PRODUTOS WHERE STATUS != 'I'";
+        //Lista de clientes de resultado
+        List<Livro> listaProduto = null;
+        //Conexão para abertura e fechamento
+        Connection connection = null;
+        //Statement para obtenção através da conexão, execução de
+        //comandos SQL e fechamentos
+        PreparedStatement preparedStatement = null;
+        //Armazenará os resultados do banco de dados
+        ResultSet result = null;
+        try {
+            //Abre uma conexão com o banco de dados
+            connection = connectionDB.getConnection();
+            //Cria um statement para execução de instruções SQL
+            preparedStatement = connection.prepareStatement(sql);
+
+            //Executa a consulta SQL no banco de dados
+            result = preparedStatement.executeQuery();
+
+            //Itera por cada item do resultado
+            while (result.next()) {
+                //Se a lista não foi inicializada, a inicializa
+                if (listaProduto == null) {
+                    listaProduto = new ArrayList<Livro>();
+                }
+                //Cria uma instância de Cliente e popula com os valores do BD
+
+                int ID = result.getInt("ID");
+                String Status = result.getString("STATUS");
+                String Titulo = result.getString("TITULO");
+                String Autor = result.getString("AUTOR");
+                String Editora = result.getString("EDITORA");
+                String Descricao = result.getString("DESCRICAO");
+                String Imagem = result.getString("IMAGEM");
+                String Imagem1 = result.getString("IMAGEM1");
+                String Imagem2 = result.getString("IMAGEM2");
+                float ValorVenda = result.getFloat("VALORVENDA");
+                float ValorCusto = result.getFloat("VALORCUSTO");
+                String Categoria = result.getString("CATEGORIA");
+                int Quantidade = Integer.parseInt(result.getString("QUANTIDADE"));
+                String Data = result.getString("DATACADASTRO");
+                int Paginas = result.getInt("NUMEROPAGINA");
+                String Acabamento = result.getString("ACABAMENTO");
+                String Idioma = result.getString("IDIOMA");
+                String Altura = result.getString("ALTURA");
+                String Largura = result.getString("LARGURA");
+                float Peso = result.getFloat("PESO");
+                String ISBN = result.getString("ISBN");
+                String Tag = result.getString("TAG");
+                Livro L = new Livro(ID, Status, Titulo, Autor, Editora, Descricao, Imagem, Imagem1, Imagem2, ValorVenda, ValorCusto, Categoria, Quantidade,
+                        Data, Paginas, Acabamento, Idioma, Altura, Largura, Peso, ISBN, Tag);
+                //Adiciona a instância na lista
+                listaProduto.add(L);
+            }
+        } catch (Exception e) {
+            e.getLocalizedMessage();
+            System.out.println(e);
+        } finally {
+            //Se o result ainda estiver aberto, realiza seu fechamento
+            if (result != null && !result.isClosed()) {
+                result.close();
+            }
+            //Se o statement ainda estiver aberto, realiza seu fechamento
+            if (preparedStatement != null && !preparedStatement.isClosed()) {
+                preparedStatement.close();
+            }
+            //Se a conexão ainda estiver aberta, realiza seu fechamento
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        }
+        //Retorna a lista de clientes do banco de dados
+        return listaProduto;
+    }
+
+    public static List<Livro> listarMaisVendidos()
+            throws SQLException, Exception {
+        //Monta a string de listagem de clientes no banco, considerando
+        //apenas a coluna de ativação de clientes ("enabled")
+        String sql = "SELECT * FROM ECOMMERCE_PROJECT.PRODUTOS WHERE STATUS != 'I' AND TAG = 'Mais Vendidos' LIMIT 20";
+        //Lista de clientes de resultado
+        List<Livro> listaProduto = null;
+        //Conexão para abertura e fechamento
+        Connection connection = null;
+        //Statement para obtenção através da conexão, execução de
+        //comandos SQL e fechamentos
+        PreparedStatement preparedStatement = null;
+        //Armazenará os resultados do banco de dados
+        ResultSet result = null;
+        try {
+            //Abre uma conexão com o banco de dados
+            connection = connectionDB.getConnection();
+            //Cria um statement para execução de instruções SQL
+            preparedStatement = connection.prepareStatement(sql);
+
+            //Executa a consulta SQL no banco de dados
+            result = preparedStatement.executeQuery();
+
+            //Itera por cada item do resultado
+            while (result.next()) {
+                //Se a lista não foi inicializada, a inicializa
+                if (listaProduto == null) {
+                    listaProduto = new ArrayList<Livro>();
+                }
+                //Cria uma instância de Cliente e popula com os valores do BD
+
+                int ID = result.getInt("ID");
+                String Status = result.getString("STATUS");
+                String Titulo = result.getString("TITULO");
+                String Autor = result.getString("AUTOR");
+                String Editora = result.getString("EDITORA");
+                String Descricao = result.getString("DESCRICAO");
+                String Imagem = result.getString("IMAGEM");
+                String Imagem1 = result.getString("IMAGEM1");
+                String Imagem2 = result.getString("IMAGEM2");
+                float ValorVenda = result.getFloat("VALORVENDA");
+                float ValorCusto = result.getFloat("VALORCUSTO");
+                String Categoria = result.getString("CATEGORIA");
+                int Quantidade = Integer.parseInt(result.getString("QUANTIDADE"));
+                String Data = result.getString("DATACADASTRO");
+                int Paginas = result.getInt("NUMEROPAGINA");
+                String Acabamento = result.getString("ACABAMENTO");
+                String Idioma = result.getString("IDIOMA");
+                String Altura = result.getString("ALTURA");
+                String Largura = result.getString("LARGURA");
+                float Peso = result.getFloat("PESO");
+                String ISBN = result.getString("ISBN");
+                String Tag = result.getString("TAG");
+                Livro L = new Livro(ID, Status, Titulo, Autor, Editora, Descricao, Imagem, Imagem1, Imagem2, ValorVenda, ValorCusto, Categoria, Quantidade,
+                        Data, Paginas, Acabamento, Idioma, Altura, Largura, Peso, ISBN, Tag);
+                //Adiciona a instância na lista
+                listaProduto.add(L);
+            }
+        } catch (Exception e) {
+            e.getLocalizedMessage();
+            System.out.println(e);
+        } finally {
+            //Se o result ainda estiver aberto, realiza seu fechamento
+            if (result != null && !result.isClosed()) {
+                result.close();
+            }
+            //Se o statement ainda estiver aberto, realiza seu fechamento
+            if (preparedStatement != null && !preparedStatement.isClosed()) {
+                preparedStatement.close();
+            }
+            //Se a conexão ainda estiver aberta, realiza seu fechamento
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        }
+        //Retorna a lista de clientes do banco de dados
+        return listaProduto;
+    }
+    
+    public static List<Livro> listarNovos()
+            throws SQLException, Exception {
+        //Monta a string de listagem de clientes no banco, considerando
+        //apenas a coluna de ativação de clientes ("enabled")
+        String sql = "SELECT * FROM ECOMMERCE_PROJECT.PRODUTOS WHERE STATUS != 'I' AND TAG = 'Lançamento' LIMIT 20";
+        //Lista de clientes de resultado
+        List<Livro> listaProduto = null;
+        //Conexão para abertura e fechamento
+        Connection connection = null;
+        //Statement para obtenção através da conexão, execução de
+        //comandos SQL e fechamentos
+        PreparedStatement preparedStatement = null;
+        //Armazenará os resultados do banco de dados
+        ResultSet result = null;
+        try {
+            //Abre uma conexão com o banco de dados
+            connection = connectionDB.getConnection();
+            //Cria um statement para execução de instruções SQL
+            preparedStatement = connection.prepareStatement(sql);
+
+            //Executa a consulta SQL no banco de dados
+            result = preparedStatement.executeQuery();
+
+            //Itera por cada item do resultado
+            while (result.next()) {
+                //Se a lista não foi inicializada, a inicializa
+                if (listaProduto == null) {
+                    listaProduto = new ArrayList<Livro>();
+                }
+                //Cria uma instância de Cliente e popula com os valores do BD
+
+                int ID = result.getInt("ID");
+                String Status = result.getString("STATUS");
+                String Titulo = result.getString("TITULO");
+                String Autor = result.getString("AUTOR");
+                String Editora = result.getString("EDITORA");
+                String Descricao = result.getString("DESCRICAO");
+                String Imagem = result.getString("IMAGEM");
+                String Imagem1 = result.getString("IMAGEM1");
+                String Imagem2 = result.getString("IMAGEM2");
+                float ValorVenda = result.getFloat("VALORVENDA");
+                float ValorCusto = result.getFloat("VALORCUSTO");
+                String Categoria = result.getString("CATEGORIA");
+                int Quantidade = Integer.parseInt(result.getString("QUANTIDADE"));
+                String Data = result.getString("DATACADASTRO");
+                int Paginas = result.getInt("NUMEROPAGINA");
+                String Acabamento = result.getString("ACABAMENTO");
+                String Idioma = result.getString("IDIOMA");
+                String Altura = result.getString("ALTURA");
+                String Largura = result.getString("LARGURA");
+                float Peso = result.getFloat("PESO");
+                String ISBN = result.getString("ISBN");
+                String Tag = result.getString("TAG");
+                Livro L = new Livro(ID, Status, Titulo, Autor, Editora, Descricao, Imagem, Imagem1, Imagem2, ValorVenda, ValorCusto, Categoria, Quantidade,
+                        Data, Paginas, Acabamento, Idioma, Altura, Largura, Peso, ISBN, Tag);
+                //Adiciona a instância na lista
+                listaProduto.add(L);
+            }
+        } catch (Exception e) {
+            e.getLocalizedMessage();
+            System.out.println(e);
+        } finally {
+            //Se o result ainda estiver aberto, realiza seu fechamento
+            if (result != null && !result.isClosed()) {
+                result.close();
+            }
+            //Se o statement ainda estiver aberto, realiza seu fechamento
+            if (preparedStatement != null && !preparedStatement.isClosed()) {
+                preparedStatement.close();
+            }
+            //Se a conexão ainda estiver aberta, realiza seu fechamento
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        }
+        //Retorna a lista de clientes do banco de dados
+        return listaProduto;
+    }
+    
+    public static List<Livro> listarMenorPreco()
+            throws SQLException, Exception {
+        //Monta a string de listagem de clientes no banco, considerando
+        //apenas a coluna de ativação de clientes ("enabled")
+        String sql = "SELECT * FROM ECOMMERCE_PROJECT.PRODUTOS WHERE STATUS != 'I' ORDER BY VALORVENDA LIMIT 20";
         //Lista de clientes de resultado
         List<Livro> listaProduto = null;
         //Conexão para abertura e fechamento
@@ -165,14 +402,13 @@ public class LivroDAO {
 
     public static List<Livro> buscar(String busca)
             throws SQLException, Exception {
-        //Monta a string de listagem de clientes no banco, considerando
-        //apenas a coluna de ativação de clientes ("enabled")
-
-        String sql = "SELECT * FROM PRODUTOS WHERE TITULO  LIKE  ? or STATUS LIKE ? or AUTOR LIKE ?\n"
-                + "or VALORVENDA  LIKE  ? or CATEGORIA LIKE ? or DATACADASTRO LIKE ? or IDIOMA LIKE ?\n"
-                + "or ISBN LIKE ? or TAG LIKE ? or EDITORA LIKE ?";
-        busca = '%' +busca+'%';
-        //Lista de clientes de resultado
+        //Monta a string de listagem de produtos no banco
+        String sql = "SELECT * FROM PRODUTOS WHERE (STATUS != 'I' AND TITULO  LIKE  ?) or (STATUS != 'I' AND STATUS LIKE ?)"
+                + " or (STATUS != 'I' AND AUTOR LIKE ?)or (STATUS != 'I' AND VALORVENDA  LIKE  ?) or (STATUS != 'I' AND CATEGORIA LIKE ?)"
+                + " or (STATUS != 'I' AND DATACADASTRO LIKE ?) or (STATUS != 'I' AND IDIOMA LIKE ?) or (STATUS != 'I' AND ISBN LIKE ?)"
+                + " or (STATUS != 'I' AND TAG LIKE ?) or (STATUS != 'I' AND EDITORA LIKE ?)";
+        busca = '%' + busca + '%';
+        //Lista de livros de resultado
         List<Livro> listaProduto = null;
         //Conexão para abertura e fechamento
         Connection connection = null;
@@ -205,7 +441,7 @@ public class LivroDAO {
                 if (listaProduto == null) {
                     listaProduto = new ArrayList<Livro>();
                 }
-                //Cria uma instância de Cliente e popula com os valores do BD
+                //Cria uma instância de Livros e popula com os valores do BD
 
                 int ID = result.getInt("ID");
                 String Status = result.getString("STATUS");
@@ -252,14 +488,14 @@ public class LivroDAO {
                 connection.close();
             }
         }
-        //Retorna a lista de clientes do banco de dados
+        //Retorna a lista de livros do banco de dados
         return listaProduto;
     }
 
     public static Livro getByID(int ID)
             throws SQLException, Exception {
-        //Monta a string de listagem de clientes no banco, considerando
-        //apenas a coluna de ativação de clientes ("enabled")
+        //Monta a string de listagem de livros no banco, considerando
+        //apenas a coluna de ativação de livros ("enabled")
         String sql = "SELECT * FROM ECOMMERCE_PROJECT.PRODUTOS WHERE ID =? ";
         //Lista de clientes de resultado
         Livro livro = null;
@@ -337,6 +573,170 @@ public class LivroDAO {
         //Retorna a lista de clientes do banco de dados
         return livro;
     }
+    
+    public static List<Livro> buscarPorAutor(String autor, int ID)
+            throws SQLException, Exception {
+        //Monta a string de listagem de produtos no banco
+        String sql = "SELECT * FROM PRODUTOS WHERE (STATUS != 'I' AND AUTOR LIKE ? AND ID != ?)";
+        autor = '%' + autor + '%';
+        
+        //Lista de produtos de resultado
+        List<Livro> listaProduto = null;
+        //Conexão para abertura e fechamento
+        Connection connection = null;
+        //Statement para obtenção através da conexão, execução de
+        //comandos SQL e fechamentos
+        PreparedStatement preparedStatement = null;
+        //Armazenará os resultados do banco de dados
+        ResultSet result = null;
+        try {
+            //Abre uma conexão com o banco de dados
+            connection = connectionDB.getConnection();
+            //Cria um statement para execução de instruções SQL
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, autor);
+            preparedStatement.setInt(2, ID);
+            //Executa a consulta SQL no banco de dados
+            result = preparedStatement.executeQuery();
+
+            //Itera por cada item do resultado
+            while (result.next()) {
+                //Se a lista não foi inicializada, a inicializa
+                if (listaProduto == null) {
+                    listaProduto = new ArrayList<Livro>();
+                }
+                //Cria uma instância de Produtos e popula com os valores do BD
+
+                int IDs = result.getInt("ID");
+                String Status = result.getString("STATUS");
+                String Titulo = result.getString("TITULO");
+                String Autor = result.getString("AUTOR");
+                String Editora = result.getString("EDITORA");
+                String Descricao = result.getString("DESCRICAO");
+                String Imagem = result.getString("IMAGEM");
+                String Imagem1 = result.getString("IMAGEM1");
+                String Imagem2 = result.getString("IMAGEM2");
+                float ValorVenda = result.getFloat("VALORVENDA");
+                float ValorCusto = result.getFloat("VALORCUSTO");
+                String Categoria = result.getString("CATEGORIA");
+                int Quantidade = Integer.parseInt(result.getString("QUANTIDADE"));
+                String Data = result.getString("DATACADASTRO");
+                int Paginas = result.getInt("NUMEROPAGINA");
+                String Acabamento = result.getString("ACABAMENTO");
+                String Idioma = result.getString("IDIOMA");
+                String Altura = result.getString("ALTURA");
+                String Largura = result.getString("LARGURA");
+                float Peso = result.getFloat("PESO");
+                String ISBN = result.getString("ISBN");
+                String Tag = result.getString("TAG");
+                //Crio o Objeto livro com os valores
+                Livro L = new Livro(IDs, Status, Titulo, Autor, Editora, Descricao, Imagem, Imagem1, Imagem2, ValorVenda, ValorCusto, Categoria, Quantidade,
+                        Data, Paginas, Acabamento, Idioma, Altura, Largura, Peso, ISBN, Tag);
+                //Adiciona a instância na lista
+                listaProduto.add(L);
+            }
+        } catch (Exception e) {
+            e.getLocalizedMessage();
+            System.out.println(e);
+        } finally {
+            //Se o result ainda estiver aberto, realiza seu fechamento
+            if (result != null && !result.isClosed()) {
+                result.close();
+            }
+            //Se o statement ainda estiver aberto, realiza seu fechamento
+            if (preparedStatement != null && !preparedStatement.isClosed()) {
+                preparedStatement.close();
+            }
+            //Se a conexão ainda estiver aberta, realiza seu fechamento
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        }
+        //Retorna a lista de clientes do banco de dados
+        return listaProduto;
+    }
+    
+    public static List<Livro> buscarPorTag(String tag)
+            throws SQLException, Exception {
+        //Monta a string de listagem de produtos no banco
+        String sql = "SELECT * FROM PRODUTOS WHERE (STATUS != 'I' AND TAG LIKE ?)";
+        tag = '%' + tag + '%';
+        //Lista de produtos de resultado
+        List<Livro> listaProduto = null;
+        //Conexão para abertura e fechamento
+        Connection connection = null;
+        //Statement para obtenção através da conexão, execução de
+        //comandos SQL e fechamentos
+        PreparedStatement preparedStatement = null;
+        //Armazenará os resultados do banco de dados
+        ResultSet result = null;
+        try {
+            //Abre uma conexão com o banco de dados
+            connection = connectionDB.getConnection();
+            //Cria um statement para execução de instruções SQL
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, tag);
+            //Executa a consulta SQL no banco de dados
+            result = preparedStatement.executeQuery();
+
+            //Itera por cada item do resultado
+            while (result.next()) {
+                //Se a lista não foi inicializada, a inicializa
+                if (listaProduto == null) {
+                    listaProduto = new ArrayList<Livro>();
+                }
+                //Cria uma instância de Produtos e popula com os valores do BD
+
+                int ID = result.getInt("ID");
+                String Status = result.getString("STATUS");
+                String Titulo = result.getString("TITULO");
+                String Autor = result.getString("AUTOR");
+                String Editora = result.getString("EDITORA");
+                String Descricao = result.getString("DESCRICAO");
+                String Imagem = result.getString("IMAGEM");
+                String Imagem1 = result.getString("IMAGEM1");
+                String Imagem2 = result.getString("IMAGEM2");
+                float ValorVenda = result.getFloat("VALORVENDA");
+                float ValorCusto = result.getFloat("VALORCUSTO");
+                String Categoria = result.getString("CATEGORIA");
+                int Quantidade = Integer.parseInt(result.getString("QUANTIDADE"));
+                String Data = result.getString("DATACADASTRO");
+                int Paginas = result.getInt("NUMEROPAGINA");
+                String Acabamento = result.getString("ACABAMENTO");
+                String Idioma = result.getString("IDIOMA");
+                String Altura = result.getString("ALTURA");
+                String Largura = result.getString("LARGURA");
+                float Peso = result.getFloat("PESO");
+                String ISBN = result.getString("ISBN");
+                String Tag = result.getString("TAG");
+                //Crio o Objeto livro com os valores
+                Livro L = new Livro(ID, Status, Titulo, Autor, Editora, Descricao, Imagem, Imagem1, Imagem2, ValorVenda, ValorCusto, Categoria, Quantidade,
+                        Data, Paginas, Acabamento, Idioma, Altura, Largura, Peso, ISBN, Tag);
+                //Adiciona a instância na lista
+                listaProduto.add(L);
+            }
+        } catch (Exception e) {
+            e.getLocalizedMessage();
+            System.out.println(e);
+        } finally {
+            //Se o result ainda estiver aberto, realiza seu fechamento
+            if (result != null && !result.isClosed()) {
+                result.close();
+            }
+            //Se o statement ainda estiver aberto, realiza seu fechamento
+            if (preparedStatement != null && !preparedStatement.isClosed()) {
+                preparedStatement.close();
+            }
+            //Se a conexão ainda estiver aberta, realiza seu fechamento
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        }
+        //Retorna a lista de clientes do banco de dados
+        return listaProduto;
+    }
+    
+    
 
     public static boolean atualizar(Livro livro)
             throws SQLException, Exception {
@@ -396,4 +796,43 @@ public class LivroDAO {
         }
         return true;
     }
+
+    public static boolean atualizarStatus(Livro livro)
+            throws SQLException, Exception {
+        /*Monta a string de inserção de um cliente no BD,
+        utilizando os dados do clientes passados como parâmetro*/
+        String sql = "UPDATE PRODUTOS SET STATUS = ? WHERE ID=?";
+        //Conexão para abertura e fechamento
+        Connection connection = null;
+        //Statement para obtenção através da conexão, execução de
+        //comandos SQL e fechamentos
+        PreparedStatement preparedStatement = null;
+        try {
+            //Abre uma conexão com o banco de dados
+            connection = connectionDB.getConnection();
+            //Cria um statement para execução de instruções SQL
+            preparedStatement = connection.prepareStatement(sql);
+            //Configura os parâmetros do "PreparedStatement"
+            preparedStatement.setString(1, livro.getStatus());
+            preparedStatement.setInt(2, livro.getID());
+            //Executa o comando no banco de dados
+            preparedStatement.execute();
+        } catch (Exception e) {
+            e.getLocalizedMessage();
+            System.out.println(e);
+            return false;
+        } finally {
+            //Se o statement ainda estiver aberto, realiza seu fechamento
+            if (preparedStatement != null && !preparedStatement.isClosed()) {
+                preparedStatement.close();
+            }
+            //Se a conexão ainda estiver aberta, realiza seu fechamento
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        }
+        return true;
+    }
+    
+    
 }

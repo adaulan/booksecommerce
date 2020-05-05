@@ -10,8 +10,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="icon" href="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/LANDING-PAGE/booksicon.ico" type="image/ico" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Home</title>
+        <title>Editar Produtos</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/JSP-STYLES/CSS/style.css"/>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/JSP-STYLES/CSS/swiper.min.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -21,7 +22,7 @@
 
     <jsp:include page="navbar.jsp"/>
 
-    <body>
+    <body onload="testaTipo()">
         <div class="heading-bar"></div>
         <!-- INICIO DO BODY -->
 
@@ -33,7 +34,8 @@
                 <div class="row justify-content-center">
                     <div class="form-group col-6">
                         <h2>Livro</h2>
-                         <input type="hidden" value="${livro.getID()}" name="ID">
+                        <input type="hidden" value="${livro.getID()}" name="ID">
+                        <input type="hidden" value="${tipo}" id="tipoUsuario">
                     </div>
                 </div>
                 <div class="row justify-content-center">
@@ -44,7 +46,7 @@
                     </div>
                     <div class="form-group col-6">
                         <label> Quantidade: </label>
-                        <input type="number" class="form-control" placeholder="10" id="ProdutoName" name="Quantidade"
+                        <input type="number" class="form-control" placeholder="10" id="quantidade" name="Quantidade"
                                value="${livro.getQuantidade()}" required>
                     </div>
                 </div>
@@ -87,7 +89,7 @@
                     </div>
                     <div class="form-group col-3">
                         <label> Categoria: </label>
-                        <select class="form-control" name="Categoria" required>  
+                        <select class="form-control" name="Categoria" id="categoria" required>  
                             <option selected  value="${livro.getCategoria()}">${livro.getCategoria()}</option>
                             <option  value="Administração">Administração</option>
                             <option  value="Autoajuda">Autoajuda</option>
@@ -119,15 +121,15 @@
                     </div>
                     <div class="form-group col-3">
                         <label> Acabamento: </label>
-                        <select class="form-control" name="Acabamento" required>  
+                        <select class="form-control" name="Acabamento" id="acabamento" required>  
                             <option selected value="${livro.getAcabamento()}" required>${livro.getAcabamento()}</option>
-                            <option  value="Capa Mole">Brochura</option>
+                            <option  value="Brochura">Brochura</option>
                             <option  value="Capa Dura">Capa Dura</option>
                         </select>
                     </div>
                     <div class="form-group col-3">
                         <label> Idioma: </label>
-                        <select class="form-control" name="Idioma" required>  
+                        <select class="form-control" name="Idioma" id="idioma" required>  
                             <option  selected value="${livro.getIdioma()}">${livro.getIdioma()}</option>
                             <option  value="Português" required>Português</option>
                             <option  value="Inglês">Inglês</option>
@@ -156,7 +158,7 @@
                     </div>
                     <div class="form-group col-3">
                         <label> Tag: </label>
-                        <select class="form-control" name="Tag" required>  
+                        <select class="form-control" name="Tag" id="tag" required>  
                             <option  selected value="${livro.getTag()}">${livro.getTag()}</option>
                             <option  value="Mais Vendidos" required>Mais Vendidos</option>
                             <option  value="Lançamento">Lançamento</option>
@@ -184,7 +186,7 @@
                 <div class="row ">
                     <div class ="form group col-9 ">
                     </div>
-                    <div class ="form group   col-sm-3 ">
+                    <div class ="form group col-sm-3 ">
                         <button type="reset" class="btn btn-primary" id="btn-form"> Cancelar </button>
                         <button type="submit" class="btn btn-primary" id="btn-form"> Confirmar </button>
                     </div>
@@ -195,7 +197,7 @@
         </div>
 
         <!-- FIM DO BODY -->
-        <div class="heading-bar"></div>
+        <div class="footer-bar"></div>
 
         <!--FOOTER -->
         <footer>
@@ -264,5 +266,35 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/JSP-STYLES/JS/swiper.min.js"></script>
         <script src="${pageContext.request.contextPath}/JSP-STYLES/JS/script.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/JSP-STYLES/JS/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript">
+                          $(document).ready(function testaTipo(){ 
+                               
+                                if ($('#tipoUsuario').val() === 'estoquista') {
+                                $('.form-control').prop("readonly", true);
+                                $('#quantidade').prop("readonly", false);
+                                 $('form input[type="file"]').prop("disabled", true);
+                                /* CATEGORIA DISABLE*/
+                                $('#categoria').css("background", '#eee');
+                                $('#categoria').css("pointer-events", 'none');
+                                $('#categoria').css("touch-action", 'none');
+
+                                /* ACABAMENTO DISABLE*/
+                                $('#acabamento').css("background", '#eee');
+                                $('#acabamento').css("pointer-events", 'none');
+                                $('#acabamento').css("touch-action", 'none');
+
+                                /* IDIOMA DISABLE*/
+                                $('#idioma').css("background", '#eee');
+                                $('#idioma').css("pointer-events", 'none');
+                                $('#idioma').css("touch-action", 'none');
+
+                                /* TAG DISABLE*/
+                                $('#tag').css("background", '#eee');
+                                $('#tag').css("pointer-events", 'none');
+                                $('#tag').css("touch-action", 'none');
+                            }
+                        });
+                        
+        </script>
     </body>
 </html>

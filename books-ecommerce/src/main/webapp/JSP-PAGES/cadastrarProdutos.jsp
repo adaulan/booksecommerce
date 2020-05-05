@@ -9,17 +9,16 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="icon" href="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/LANDING-PAGE/booksicon.ico" type="image/ico" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Cadastro de Produtos</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/JSP-STYLES/CSS/style.css"/>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/JSP-STYLES/CSS/swiper.min.css"/>
-    </head>
-    <style type="text/css">
-    </style>
 
+    </head>
     <jsp:include page="navbar.jsp"/>
 
-    <body>
+    <body onload="mensagemCadastro()">
 
         <div class="heading-bar"></div>
 
@@ -29,6 +28,14 @@
 
             <form  id="fadeForm" class="form-type needs-validation" method="post" 
                    action="${pageContext.request.contextPath}/cadastroProdutoServlet" >
+                <div class="alert alert-success" role="alert" style="display:none;" id='RespostaSucesso'>
+                    Cadastrado com Sucesso!!
+                </div>
+                <div class="alert alert-danger" role="alert" style="display:none;" id='RespostaFalha'>
+                    Ocorreu uma falha ao cadastrar produto!
+                </div>
+                <input id="alertaR" type="hidden" value="${alertaResposta}">
+                
                 <div class="row justify-content-center">
                     <div class="form-group col-6">
                         <h2>Livro</h2>
@@ -262,7 +269,6 @@
         <script src="${pageContext.request.contextPath}/JSP-STYLES/JS/script.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/JSP-STYLES/JS/jquery-3.4.1.min.js"></script>
         <script type="text/javascript">
-
         </script>
     </body>
 </html>

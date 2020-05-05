@@ -1,6 +1,6 @@
 <%-- 
-    Document   : consultaProdutos
-    Created on : 31/03/2020, 14:23:14
+    Document   : consultaUsuario
+    Created on : 08/04/2020, 21:09:31
     Author     : Adaulan 
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -11,7 +11,7 @@
     <head>
         <link rel="icon" href="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/LANDING-PAGE/booksicon.ico" type="image/ico" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Consulta de Produtos</title>
+        <title>Consulta de Usuários</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/JSP-STYLES/CSS/style.css"/>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/JSP-STYLES/CSS/swiper.min.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -29,7 +29,7 @@
         <!-- INICIO DO BODY -->
         <div id="" class="text-center" style="margin-top: 20px;">
             <form id="FadeForm" class="form-type" 
-                  action="${pageContext.request.contextPath}/consultaProdutoServlet" method = "post" accept-charset="UTF-8"
+                  action="${pageContext.request.contextPath}/consultaUsuarioSistemaServlet" method = "post" accept-charset="UTF-8"
                   style="max-width: 1300px; height:auto; max-height: 800px;">
                 <!-- ALERTA DE SUCESSO OU FALHA -->
                 <div class="alert alert-success" role="alert" style="display:none;" id='RespostaSucesso'>
@@ -39,9 +39,8 @@
                     Ocorreu uma falha ao atualizar produto!
                 </div>
                 <input id="alertaR" type="hidden" value="${alertaResposta}">
-
-                <input name="tipo" type="hidden" value="${tipo}" id="tipoUsuario"/>
-
+                
+                <!-- TABELA DE CONSULTA -->
                 <div class="row justify-content-center">
                     <h2>Consulta</h2>
                 </div>
@@ -61,14 +60,12 @@
                             <table class="table" style="color: white;">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Capa</th>
-                                        <th scope="col">Título</th>
-                                        <th scope="col">Autor</th>
-                                        <th scope="col">Editora</th>
-                                        <th scope="col">Ano</th>
-                                        <th scope="col">Categoria</th>
-                                        <th scope="col">Valor</th>
-                                        <th scope="col">Quantidade</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Usuario</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Tipo</th>
+                                        <th scope="col">Data de Nascimento</th>
+                                        <th scope="col">Celular</th>
                                         <th scope="col">Opções</th>
                                     </tr>
                                 </thead>
@@ -76,60 +73,49 @@
                                     <%-- ESSE FORM É UM FORM QUE QUEBRA PARA RESOLVER UM BUG! --%>
                                 <form></form>
                                 <%-- FIM --%>
-                                <c:forEach items ="${listaProduto}" var="produto">
+                                <c:forEach items ="${listaUsuario}" var="usuario">
                                     <tr>
+                                        
+                                        <td style="max-width:250px;"><c:out value="${usuario.getNome()}"/></td>
+                                        <td><c:out value="${usuario.getUsuario()}"/></td>
+                                        <td><c:out value="${usuario.getEmail()}"/></td>
+                                        <td><c:out value="${usuario.getTipo()}"/></td>
+                                        <td><c:out value="${usuario.getDataNascimento()}"/></td>
+                                        <td><c:out value="${usuario.getCelular()}"/></td>
+
+
+                                        <!-- TD DE EDIÇÃO DE USUARIO -->
                                         <td>
-                                            <form method="post" action="${pageContext.request.contextPath}/detalhesProdutoServlet">
-                                                <div>
-                                                    <input style="max-height: 80px;" type="image" src="${produto.getImagem()}" value="submit">
-                                                    <input name="ID" type="hidden" value="${produto.getID()}"/>
-                                                </div>
-                                            </form>
-                                        </td>
-                                        <td style="max-width:250px;"><c:out value="${produto.getTitulo()}"/></td>
-                                        <td><c:out value="${produto.getAutor()}"/></td>
-                                        <td><c:out value="${produto.getEditora()}"/></td>
-                                        <td><c:out value="${produto.getData()}"/></td>
-                                        <td><c:out value="${produto.getCategoria()}"/></td>
-                                        <td><c:out value="${produto.formatarValor(produto.getValorVenda())}"/></td>
-                                        <td><c:out value="${produto.getQuantidade()}"/></td>
-
-
-                                        <!-- TD DE EDIÇÃO DE PRODUTO -->
-                                        <td>
-                                            <form method="get" action="${pageContext.request.contextPath}/editarProdutoServlet">
-                                                <input type="hidden" value="${produto.getID()}" name="ID">
-
+                                            <form method="get" action="${pageContext.request.contextPath}/editarUsuarioSistemaServlet">
+                                                <input type="hidden" value="${usuario.getID()}" name="ID">
+                                                <input name="tipo" type="hidden" value="${tipo}" id="tipoUsuario"/>
                                                 <!-- BOTÃO DE ADMIN -->
                                                 <button class="btn-form-button edit-button" id="btn-form-search"  type="submit" alt="Editar Produto"><i class="fa fa-edit"></i></button>
                                             </form>
                                         </td>
 
-                                        <!-- TD DE EXCLUSÃO DE PRODUTO -->
-                                        <td>
-                                            <form  method="post" action="${pageContext.request.contextPath}/deletarProdutoServlet">
-                                                <input type="hidden" value="${produto.getID()}" name="ID">
+                                        <!-- TD DE EXCLUSÃO DE USUARIO -->
+                                        <td><input type="hidden" value="${usuario.getID()}" name="ID">
+                                            <form  method="post" action="${pageContext.request.contextPath}/deletarUsuarioServlet">
+                                                
                                                 <!-- Button trigger modal -->
-                                                <button type="button" class="btn btn-excluir" data-toggle="modal" data-target="#modalExclusao${produto.getID()}" id="btn-form-search"> 
+                                                <button type="button" class="btn" data-toggle="modal" data-target="#modalExclusao${usuario.getID()}" id="btn-form-search"> 
                                                     <i class="fa fa-times"></i>
                                                 </button>
 
                                                 <!-- MODAL CONFIRMAR EXCLUSÃO-->
-                                                <div class="modal fade" id="modalExclusao${produto.getID()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                <div class="modal fade" id="modalExclusao${usuario.getID()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document" style="color: black;">
                                                         <div class="modal-content">
+                                                            <input type="hidden" value="${usuario.getID()}" name="ID">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLongTitle">Deletar Produto</h5>
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Deletar Usuario</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
-                                                            <div>
-                                                                <input style="max-height: 150px; margin-top:20px;" type="image" src="${produto.getImagem()}" value="submit">
-                                                                <input name="ID" type="hidden" value="${produto.getID()}"/>
-                                                            </div>
                                                             <div class="modal-body">
-                                                                Tem certeza que deseja deletar o Produto?
+                                                                Tem certeza que deseja deletar o Usuario ${usuario.getNome()}?
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -222,14 +208,7 @@
         <script src="${pageContext.request.contextPath}/JSP-STYLES/JS/script.js"></script>   
         <script type="text/javascript" src="${pageContext.request.contextPath}/JSP-STYLES/JS/jquery-3.4.1.min.js"></script>
         <script type="text/javascript">
-        $(document).ready(function desativa() {
 
-            if ($('#tipoUsuario').val() === 'estoquista') {
-                /*desativa o botão de exclusão para estoquista */
-                $('.btn-excluir').css("display", 'none');
-
-            }
-        });
         </script>
     </body>
 </html>

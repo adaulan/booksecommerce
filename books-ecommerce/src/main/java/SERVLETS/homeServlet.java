@@ -38,18 +38,55 @@ public class homeServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession sessao = request.getSession();
         request.setCharacterEncoding("UTF-8");
-        System.out.println("ENTROU NO SERVLET");
         try {
-            List<Livro> listaProduto = LivroDAO.listar();
+            List<Livro> listaMaisVendidos = LivroDAO.listarMaisVendidos();
+            List<Livro> listaNovos = LivroDAO.listarNovos();
+            List<Livro> listaMenorPreco = LivroDAO.listarMenorPreco();
 
-            request.setAttribute("listaProduto", listaProduto);
-            sessao.setAttribute("listaProduto", listaProduto);
+            request.setAttribute("listaMaisVendidos", listaMaisVendidos);
+            request.setAttribute("listaNovos", listaNovos);
+            request.setAttribute("listaMenorPreco", listaMenorPreco);
+
+            sessao.setAttribute("listaMaisVendidos", listaMaisVendidos);
+            sessao.setAttribute("listaNovos", listaNovos);
+            sessao.setAttribute("listaMenorPreco", listaMenorPreco);
+
+            if (sessao.getAttribute("loginText") == null) {
+                request.setAttribute("loginText", "Login/Inscrever-se");
+                sessao.setAttribute("loginText", "Login/Inscrever-se");
+            } else {
+
+            }
+
+            if (sessao.getAttribute("tipo") == null) {
+                request.setAttribute("tipo", "cliente");
+                sessao.setAttribute("tipo", "cliente");
+                sessao.setAttribute("datatarget", "#exampleModalCenter");//MUDA O MODAL AO CLICAR NO NOME DA PESSOA NO HEADER
+            } else {
+                if (sessao.getAttribute("tipo").equals("administrador")) {
+                    request.setAttribute("tipo", "administrador");
+                    sessao.setAttribute("tipo", "administrador");
+                    sessao.setAttribute("datatarget", "#exampleModalCenter3");
+                } else if (sessao.getAttribute("tipo").equals("estoquista")) {
+                    request.setAttribute("tipo", "estoquista");
+                    sessao.setAttribute("tipo", "estoquista");
+                    sessao.setAttribute("datatarget", "#exampleModalCenter3");
+                } else if (sessao.getAttribute("tipo").equals("cliente")) {
+                    request.setAttribute("tipo", "cliente");
+                    sessao.setAttribute("tipo", "cliente");
+                    sessao.setAttribute("datatarget", "#exampleModalCenter3");
+                } else {
+                    request.setAttribute("tipo", "cliente");
+                    sessao.setAttribute("tipo", "cliente");
+                }
+            }
+
         } catch (Exception e) {
             System.out.println(e);
         }
-        //RequestDispatcher dispatcher
+
         request.getRequestDispatcher("JSP-PAGES/home.jsp").forward(request, response);
-        //dispatcher;
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
