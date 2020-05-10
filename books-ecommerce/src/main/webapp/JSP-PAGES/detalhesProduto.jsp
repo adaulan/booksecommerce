@@ -56,7 +56,7 @@
                         <!-- DIV COMPRA -->
                         <div id="div-box-compra" class="form-group col align-items-center" >
                             <div class="row">
-                                <div class="col" >
+                                <div class="col">
                                     <h2><c:out value="${detalheLivro.getTitulo()}"/></h2>
                                     <p>Autor: <span><c:out value="${detalheLivro.getAutor()}"/></span> | 
                                         <span>Editora: <c:out value="${detalheLivro.getEditora()}"/> </span><p>

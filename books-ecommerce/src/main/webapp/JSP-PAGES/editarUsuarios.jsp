@@ -97,13 +97,13 @@
                     </div>
                     <div class="form-group col-4 ">
                         <label> Senha: </label>
-                        <input type="password" class=" form-control" placeholder="*********" required name="senha" id="senha"
-                               value="${usuario.getSenha()}">
+                        <input type="password" class=" form-control" placeholder="*********" name="senha" id="senha"
+                               >
                     </div>
                     <div class="form-group col-4 ">
                         <label> Confirmar Senha: </label>
-                        <input type="password" class=" form-control" placeholder="*********" required name="confirmaSenha" 
-                               id="confirmaSenha" onblur="checarSenha('usuarioForm', 'senha', 'confirmaSenha')" value="${usuario.getSenha()}">
+                        <input type="password" class=" form-control" placeholder="*********" name="confirmaSenha" 
+                               id="confirmaSenha" onblur="checarSenha('usuarioForm', 'senha', 'confirmaSenha')">
                     </div>
 
                 </div>    

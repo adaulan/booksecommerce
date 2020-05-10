@@ -28,7 +28,6 @@ public class cadastroProdutoServlet extends HttpServlet {
             throws ServletException, IOException {
         
         request.setCharacterEncoding("UTF-8");
-        System.out.println("ENTROU NO SERVLET");
         
         String Status = "A";
         String Titulo = request.getParameter("NomeLivro");

@@ -526,7 +526,6 @@ public class LivroDAO {
                 //Cria uma instância de Cliente e popula com os valores do BD
 
                 int IDLivro = result.getInt("ID");
-                System.out.println("ID LIVRO NO SQL " + IDLivro);
                 String Status = result.getString("STATUS");
                 String Titulo = result.getString("TITULO");
                 String Autor = result.getString("AUTOR");

@@ -23,7 +23,7 @@ public class UsuarioDAO {
             throws SQLException, Exception {
         /*Monta a string de inserção de um usuario no BD,
         utilizando os dados do usuario passados como parâmetro*/
-        String sql = "INSERT INTO USUARIOS (ID, STATUS,NOME,USUARIO,SENHA,EMAIL,TIPO,DATANASC,CELULAR,CPF) "
+        String sql = "INSERT INTO USUARIO (ID, STATUS,NOME,USUARIO,SENHA,EMAIL,TIPO,DATANASC,CELULAR,CPF) "
                 + "VALUES (?,?,?,?,?,?,?,?,?,?)";
         //Conexão para abertura e fechamento
         Connection connection = null;
@@ -39,12 +39,13 @@ public class UsuarioDAO {
             preparedStatement.setInt(1, usuario.getID());
             preparedStatement.setString(2, usuario.getStatus());
             preparedStatement.setString(3, usuario.getNome());
-            preparedStatement.setString(4, usuario.getSenha());
-            preparedStatement.setString(5, usuario.getEmail());
-            preparedStatement.setString(6, usuario.getTipo());
-            preparedStatement.setString(7, usuario.getDataNascimento());
-            preparedStatement.setString(8, usuario.getCelular());
-            preparedStatement.setString(9, usuario.getCPF());
+            preparedStatement.setString(4, usuario.getUsuario());
+            preparedStatement.setString(5, usuario.getSenha());
+            preparedStatement.setString(6, usuario.getEmail());
+            preparedStatement.setString(7, usuario.getTipo());
+            preparedStatement.setString(8, usuario.getDataNascimento());
+            preparedStatement.setString(9, usuario.getCelular());
+            preparedStatement.setString(10, usuario.getCPF());
             //Executa o comando no banco de dados
             preparedStatement.execute();
         } catch (Exception e) {

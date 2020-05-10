@@ -271,7 +271,6 @@ public class Livro implements Serializable {
     public String formatarValor(float valor) {
         Locale ptBr = new Locale("pt", "BR");
         String valorString = NumberFormat.getCurrencyInstance(ptBr).format(valor);
-        System.out.println(valorString);
         return valorString;
     }
 

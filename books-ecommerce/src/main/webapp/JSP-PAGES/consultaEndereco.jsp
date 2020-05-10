@@ -1,4 +1,10 @@
 <%-- 
+    Document   : consultaEndereco
+    Created on : 09/05/2020, 22:22:46
+    Author     : Adaulan 
+--%>
+
+<%-- 
     Document   : consultaUsuario
     Created on : 08/04/2020, 21:09:31
     Author     : Adaulan 
@@ -11,7 +17,7 @@
     <head>
         <link rel="icon" href="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/LANDING-PAGE/booksicon.ico" type="image/ico" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Consulta de Usuários</title>
+        <title>Consulta de Enderecos</title>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/JSP-STYLES/CSS/style.css"/>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/JSP-STYLES/CSS/swiper.min.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -60,12 +66,11 @@
                             <table class="table" style="color: white;">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Nome</th>
-                                        <th scope="col">Usuario</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Tipo</th>
-                                        <th scope="col">Data de Nascimento</th>
-                                        <th scope="col">Celular</th>
+                                        <th scope="col">CEP</th>
+                                        <th scope="col">Endereço</th>
+                                        <th scope="col">Cidade</th>
+                                        <th scope="col">Estado</th>
+                                        <th scope="col">Complemento</th>
                                         <th scope="col">Opções</th>
                                     </tr>
                                 </thead>
@@ -73,99 +78,45 @@
                                     <%-- ESSE FORM É UM FORM QUE QUEBRA PARA RESOLVER UM BUG! --%>
                                 <form></form>
                                 <%-- FIM --%>
-                                <c:forEach items ="${listaUsuario}" var="usuario">
+                                <c:forEach items ="${listaEndereco}" var="endereco">
                                     <tr>
+                                        <td><c:out value="${endereco.getCEP()}"/></td>
+                                        <td style="max-width:250px;"><c:out value="${endereco.getEndereco()}"/></td>
+                                        <td><c:out value="${endereco.getCidade()}"/></td>
+                                        <td><c:out value="${endereco.getEstado()}"/></td>
+                                        <td><c:out value="${endereco.getComplemento()}"/></td>
 
-                                        <td style="max-width:250px;"><c:out value="${usuario.getNome()}"/></td>
-                                        <td><c:out value="${usuario.getUsuario()}"/></td>
-                                        <td><c:out value="${usuario.getEmail()}"/></td>
-                                        <td><c:out value="${usuario.getTipo()}"/></td>
-                                        <td><c:out value="${usuario.getDataNascimento()}"/></td>
-                                        <td><c:out value="${usuario.getCelular()}"/></td>
-
-
-                                        <!-- TD DE EDIÇÃO DE USUARIO -->
-                                        <td>
-                                            <form method="get" action="${pageContext.request.contextPath}/editarUsuarioSistemaServlet">
-                                                <input type="hidden" value="${usuario.getID()}" name="ID">
+                                        <!-- TD DE EDIÇÃO DE ENDERECO -->
+                                        <td style="max-width:50px">
+                                            <form method="get" action="${pageContext.request.contextPath}/editarEnderecoServlet">
+                                                <input type="hidden" value="${endereco.getID()}" name="ID">
                                                 <input name="tipo" type="hidden" value="${tipo}" id="tipoUsuario"/>
                                                 <!-- BOTÃO DE ADMIN -->
                                                 <button class="btn-form-button edit-button" id="btn-form-search"  type="submit" alt="Editar Produto"><i class="fa fa-edit"></i></button>
                                             </form>
-                                        </td>
-
-                                        <!-- TD DE ENDEREÇO DO USUARIO -->
-                                        <td><input type="hidden" value="${usuario.getID()}" name="ID">
-
-                                            <input name="tipo" type="hidden" value="${tipo}" id="tipoUsuario"/>
-                                            <!-- BOTÃO DE ENDEREÇO -->
-                                            <button type="button" class="btn" data-toggle="modal" data-target="#modalEndereco${usuario.getID()}" id="btn-form-search"> 
-                                                <i class="fas fa-address-card"></i>
-                                            </button>
-
-                                            <!-- MODAL OPÇÕES DE ENDEREÇO-->
-                                            <div class="modal fade" id="modalEndereco${usuario.getID()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered" role="document" style="color: black;">
-                                                    <div class="modal-content" style="border:none; max-width:330px; max-height: 380px;margin-left:100px;">
-                                                        <input type="hidden" value="${usuario.getID()}" name="ID">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLongTitle">Opções de Endereço</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="row justify-content-center">
-                                                            <div class="form-group col-12">
-                                                                <form method="get" action="${pageContext.request.contextPath}/cadastrarEnderecoServlet">
-                                                                    <input type="hidden" value="${usuario.getID()}" name="ID">
-                                                                    <div>
-                                                                        <button type="submit" class="btn btn-md btn-warning btn-block">Cadastrar Novo</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row justify-content-center">
-                                                            <div class="form-group col-12">
-                                                                <form method="get" action="${pageContext.request.contextPath}/consultaEnderecoServlet">
-                                                                    <input type="hidden" value="${usuario.getID()}" name="ID">
-                                                                    <div>
-                                                                        <button type="submit" class="btn btn-md btn-warning btn-block">Visualizar Endereços</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- FIM MODAL -->   
-
-                                        </td>
-                                        <!-- FIM TD -->   
-                                        <!-- TD DE EXCLUSÃO DE USUARIO -->
-                                        <td><input type="hidden" value="${usuario.getID()}" name="ID">
-                                            <form  method="post" action="${pageContext.request.contextPath}/deletarUsuarioServlet">
+                                        </td> 
+                                        <!-- TD DE EXCLUSAO DE ENDERECO -->
+                                        <td style="max-width:50px"><input type="hidden" value="${endereco.getID()}" name="ID">
+                                            <form  method="post" action="${pageContext.request.contextPath}/deletarEnderecoServlet">
 
                                                 <!-- Button trigger modal -->
-                                                <button type="button" class="btn" data-toggle="modal" data-target="#modalExclusao${usuario.getID()}" id="btn-form-search"> 
+                                                <button type="button" class="btn" data-toggle="modal" data-target="#modalExclusao${endereco.getID()}" id="btn-form-search"> 
                                                     <i class="fa fa-times"></i>
                                                 </button>
 
                                                 <!-- MODAL CONFIRMAR EXCLUSÃO-->
-                                                <div class="modal fade" id="modalExclusao${usuario.getID()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                <div class="modal fade" id="modalExclusao${endereco.getID()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document" style="color: black;">
                                                         <div class="modal-content">
-                                                            <input type="hidden" value="${usuario.getID()}" name="ID">
+                                                            <input type="hidden" value="${endereco.getID()}" name="ID">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLongTitle">Deletar Usuario</h5>
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Deletar Endereço</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                Tem certeza que deseja deletar o Usuario ${usuario.getNome()}?
+                                                                Tem certeza que deseja deletar o Endereço: ${endereco.getEndereco()}?
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
