@@ -25,7 +25,7 @@
         <!-- INICIO DO BODY -->
 
         <div id="body-changes" class="text-center">
-
+            
             <form id="fadeForm" class="form-type needs-validation" 
                   method="post" action="${pageContext.request.contextPath}/cadastrarEnderecoServlet" 
                   accept-charset="UTF-8" name="usuarioForm">
