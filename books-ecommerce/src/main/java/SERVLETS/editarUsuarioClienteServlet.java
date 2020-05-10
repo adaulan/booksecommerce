@@ -50,7 +50,6 @@ public class editarUsuarioClienteServlet extends HttpServlet {
         Usuario U;
         
         if (Senha.equals("")) {
-            System.out.println("SENHA NULL");
             try {
                 U = UsuarioDAO.getByID(ID);
                 Senha = U.getSenha();

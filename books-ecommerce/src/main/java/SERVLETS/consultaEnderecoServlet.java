@@ -5,8 +5,8 @@
  */
 package SERVLETS;
 
-import DAO.UsuarioDAO;
-import MODELS.Usuario;
+import DAO.EnderecoDAO;
+import MODELS.Endereco;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -20,48 +20,35 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Adaulan
  */
-@WebServlet(name = "deletarUsuarioServlet", urlPatterns = {"/deletarUsuarioServlet"})
-public class deletarUsuarioServlet extends HttpServlet {
-
+@WebServlet(name = "consultaEnderecoServlet", urlPatterns = {"/consultaEnderecoServlet"})
+public class consultaEnderecoServlet extends HttpServlet {
 
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        int ID = Integer.parseInt(request.getParameter("ID"));
         
+        try {
+        /* Pega os Dados no Banco */
+            List<Endereco> listaEndereco = EnderecoDAO.listByID(ID);
+            request.setAttribute("listaEndereco", listaEndereco);
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getLocalizedMessage();
+            System.out.println("erro DAO endereco: " + e);
+        }
+        /* RETORNA PRA PÁGINA DE CONSULTAR ENDERECOS */
+        RequestDispatcher dispatcher
+                = request.getRequestDispatcher("JSP-PAGES/consultaEndereco.jsp");
+        dispatcher.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        int ID = Integer.parseInt(request.getParameter("ID"));
-        Usuario U = null;
-
-        try {
-            U = UsuarioDAO.getByID(ID);
-            U.setStatus("I");
-            UsuarioDAO.atualizar(U);
-            List<Usuario> listaUsuario = UsuarioDAO.listar();
-
-            request.setAttribute("listaUsuario", listaUsuario);
-        } catch (Exception e) {
-            e.printStackTrace();
-            e.getLocalizedMessage();
-            System.out.println("erro DAO produto: " + e);
-        }
-
-        RequestDispatcher dispatcher
-                = request.getRequestDispatcher("JSP-PAGES/consultaUsuario.jsp");
-        dispatcher.forward(request, response);
-
+       
     }
     
-
-
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

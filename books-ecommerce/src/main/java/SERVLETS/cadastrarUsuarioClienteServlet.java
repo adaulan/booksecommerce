@@ -39,7 +39,6 @@ public class cadastrarUsuarioClienteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("ENTROU NO SERVLET");
         request.setCharacterEncoding("UTF-8");
         String Nome = request.getParameter("nome");
         String Status = "A";

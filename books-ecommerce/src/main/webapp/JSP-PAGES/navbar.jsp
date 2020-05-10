@@ -153,7 +153,6 @@
                                 <c:out value="${msgErro}"/>
                                 <br>
                                 <button class="btn btn-lg btn-primary btn-block" type="submit" id="btn-singin"> Entrar <i class="fas fa-sign-in-alt"></i> </button>
-
                             </form>
                             <br/>
                             <button data-toggle="modal" data-target="#exampleModalCenter2" class="btn btn-lg btn-primary btn-block" id="btn-singin"> Inscrever-se <i class="fas fa-user-plus"></i> </button>
@@ -381,7 +380,7 @@
                                                                        $('#produtos').css('display', 'block');
                                                                        $('#clientes').css('display', 'none');
                                                                        $('#usuarios').css('display', 'none');
-                                                                                                                                              /* CPF DISABLE*/
+                                                                       /* CPF DISABLE*/
                                                                        $('#CPFUpdate').css("background", '#eee');
                                                                        $('#CPFUpdate').css("pointer-events", 'none');
                                                                        $('#CPFUpdate').css("touch-action", 'none');

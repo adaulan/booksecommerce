@@ -35,7 +35,7 @@ public class editarUsuarioSistemaServlet extends HttpServlet {
         Usuario U = null;
 
         try {
-            /* Pega os Dados no Banco */
+        /* Pega os Dados no Banco */
             U = UsuarioDAO.getByID(ID);
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,9 +68,7 @@ public class editarUsuarioSistemaServlet extends HttpServlet {
         String CPF = request.getParameter("CPF");
         Senha crypto = new Senha();
         Usuario U;
-        System.out.println(Senha);
         if (Senha.equals("")) {
-            System.out.println("SENHA NULL");
             try {
                 U = UsuarioDAO.getByID(ID);
                 Senha = U.getSenha();
