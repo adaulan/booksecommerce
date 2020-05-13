@@ -25,8 +25,14 @@ public class homeServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         HttpSession sessao = request.getSession();
+        
+        if (sessao.getAttribute("loginStatus") == null){
+            sessao.setAttribute("loginStatus", "deslogado");
+        }
+        
         request.setCharacterEncoding("UTF-8");
         try {
             List<Livro> listaMaisVendidos = LivroDAO.listarMaisVendidos();

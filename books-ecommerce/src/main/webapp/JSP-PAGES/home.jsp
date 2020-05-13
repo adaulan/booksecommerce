@@ -78,7 +78,10 @@
                                 <a href="#" class="price"><span id="valorUnitario" onload=""><c:out value="${produto.formatarValor(produto.getValorVenda())}"/></span></a>
                             </p>
                             <div class="cart">
-                                <a href="#">COMPRAR</a>  
+                                <form method="post" action="${pageContext.request.contextPath}/adicionarNoCarrinhoServlet">
+                                    <input type="hidden" value="${produto.getID()}" name="ID">
+                                    <input class="addtocart" type="submit" value="COMPRAR" style="background-color:transparent; border:none;">
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -115,7 +118,10 @@
                                 <a href="#" class="price"><span id="valorUnitario" onload=""><c:out value="${produto1.formatarValor(produto1.getValorVenda())}"/></span></a>
                             </p>
                             <div class="cart">
-                                <a href="#">COMPRAR</a>  
+                                <form method="post" action="${pageContext.request.contextPath}/adicionarNoCarrinhoServlet">
+                                    <input type="hidden" value="${produto.getID()}" name="ID">
+                                    <input class="addtocart" type="submit" value="COMPRAR" style="background-color:transparent; border:none;">
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -151,7 +157,10 @@
                                 <a href="#" class="price"><span id="valorUnitario" onload=""><c:out value="${produto2.formatarValor(produto2.getValorVenda())}"/></span></a>
                             </p>
                             <div class="cart">
-                                <a href="#">COMPRAR</a>  
+                                <form method="post" action="${pageContext.request.contextPath}/adicionarNoCarrinhoServlet">
+                                    <input type="hidden" value="${produto.getID()}" name="ID">
+                                    <input class="addtocart" type="submit" value="COMPRAR" style="background-color:transparent; border:none;">
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -237,7 +246,7 @@
                 var campoCelular = $("#celular");
                 campoCelular.mask('(99)999999999');
             });
-            
+
 
         </script>
     </body>

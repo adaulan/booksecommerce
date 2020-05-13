@@ -54,6 +54,8 @@ public class loginServlet extends HttpServlet {
             sessao.setAttribute("usuario", user);
             sessao.setAttribute("loginText", user.getUsuario());
             sessao.setAttribute("tipo", user.getTipo());
+            sessao.setAttribute("IDUsuario", user.getID());
+            sessao.setAttribute("loginStatus", "logado");
                 
               
             request.setAttribute("usuario", user);

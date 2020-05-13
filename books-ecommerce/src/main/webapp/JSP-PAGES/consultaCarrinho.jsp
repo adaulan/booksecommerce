@@ -33,27 +33,82 @@
         <div class="heading-bar"></div>
         <!-- INICIO DO BODY DA PÁGINA -->
         <div>
-        <div class="form-type col" id="FadeForm" style="margin: 1%; background-color:white; width:98%;">
+            <div class="form-type col" id="FadeForm" style="margin: 1%; background-color:white; width:98%;">
 
-            <div class="row align-items-center" style="padding:3%;">
-                <div class="col-8" style="background-color:purple;">
+                <div class="row align-items-center" style="padding:3%;">
+                    <div class="col-8" style="">
 
-                    <h3>IDPEDIDO</h3></p>
-                    <p style="color:black;">Data: 20/04/2020| Itens: 3| Valor: R$ 100,00</p>
-                    <image src="../JSP-STYLES/IMAGES/DETALHESTEST/boxhplovecraft.jpg" style="max-width:80px;margin:5px;"/>
-                    <image src="../JSP-STYLES/IMAGES/DETALHESTEST/boxnordicos.jpg" style="max-width:80px;"/>
-                    <image src="../JSP-STYLES/IMAGES/DETALHESTEST/gameofthrones.jpg" style="max-width:80px;"/>
+                        <h3>Itens no Carrinho</h3>
+                        <p style="color:black;">Data: 20/04/2020| Itens: 3| Valor: R$ 100,00</p>
+                        <table class="table">
+                            <tbody>
+                                <c:forEach items ="${listaCarrinho}" var="produto">
+                                    <tr>
+                                        <td>
+                                            <form method="post" action="${pageContext.request.contextPath}/detalhesProdutoServlet">
+                                                <div>
+                                                    <input style="max-width:80px;margin:5px;" type="image" src="${produto.getImagem()}" value="submit">
+                                                    <input name="ID" type="hidden" value="${produto.getID()}"/>
+                                                </div>
+                                            </form>
+                                        </td>
+                                        <td style="max-width:250px;"><p><c:out value="${produto.getTitulo()}"/></p>
+                                            <p><c:out value="${produto.getAutor()}"/></p></td>
+                                        <td><c:out value="${produto.formatarValor(produto.getValorVenda())}"/></td>
+                                        <!-- TD DE EXCLUSÃO DE PRODUTO -->
+                                        <td>
+                                            <form  method="post" action="${pageContext.request.contextPath}/deletarProdutoServlet">
+                                                <input type="hidden" value="${produto.getID()}" name="ID">
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-excluir" data-toggle="modal" data-target="#modalExclusao${produto.getID()}" id="btn-form-search"> 
+                                                    <i class="fa fa-times"></i>
+                                                </button>
 
+                                                <!-- MODAL CONFIRMAR EXCLUSÃO-->
+                                                <div class="modal fade" id="modalExclusao${produto.getID()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document" style="color: black;">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Deletar Produto</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div>
+                                                                <input style="max-height: 150px; margin-top:20px;" type="image" src="${produto.getImagem()}" value="submit">
+                                                                <input name="ID" type="hidden" value="${produto.getID()}"/>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Tem certeza que deseja deletar o Produto?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                                <button type="submit" class="btn btn-warning">Confirmar</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- FIM MODAL -->
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody> 
+                        </table>
+                        <!--<c:forEach items ="${listaCarrinho}" var="produto">
+                            <image src="${produto.getImagem()}" style="max-width:80px;margin:5px;"/>
+                        </c:forEach>
+                        <image src="../JSP-STYLES/IMAGES/DETALHESTEST/boxnordicos.jpg" style="max-width:80px;"/>
+                        <image src="../JSP-STYLES/IMAGES/DETALHESTEST/gameofthrones.jpg" style="max-width:80px;"/>-->
+                    </div>
 
-                </div>
-                <div class="col-4" style="background-color:red;" >
-                    <a href="#" class="btn btn-block btn-lg btn-primary" style="border-radius:0px;width:100%; ">
-                        <i class="fa fa-shopping-cart"></i>
-                        Adicionar ao Carrinho</a>
+                    <div class="col-4" style="background-color:red;" >
+                        <a href="#" class="btn btn-block btn-lg btn-primary" style="border-radius:0px;width:100%; ">
+                            <i class="fa fa-shopping-cart"></i>
+                            Adicionar ao Carrinho</a>
+                    </div>
                 </div>
             </div>
-        </div>
-
 
             <!-- FIM DO BODY DA PÁGINA -->
             <!--FOOTER -->

@@ -63,17 +63,15 @@
         <!-- TOP BAR -->
         <div id="top-bar">
             <div id="signin-div" class="top-bar-section">
-
-                <button type="text" class="btn" data-toggle="modal" data-target="${datatarget}" id="loginButton"> 
+                <button type="text" class="btn" data-toggle="modal" data-target="${datatarget}" id="loginButton" style="margin-top:-23px;"> 
                     <c:forEach items ="${loginText}" var="loginText">
                         <a href="#" ><span id="signin-text"><c:out value="${loginText}"/></span></a>
                         <input type="hidden" value="${tipo}" id="loginInput" class="tipo"/>
                     </c:forEach>
                 </button>
-
-
-                <a href="#"><img src="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/LANDING-PAGE/cart.png"></a>
-
+                <form method="post" style="display:inline-block;" action="${pageContext.request.contextPath}/consultaCarrinhoServlet">
+                    <input type="image" value="submit" src="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/LANDING-PAGE/cart.png"/>
+                </form>
             </div>
         </div>
         <!-- NAVBAR -->
