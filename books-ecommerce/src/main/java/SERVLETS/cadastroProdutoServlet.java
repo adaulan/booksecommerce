@@ -63,7 +63,7 @@ public class cadastroProdutoServlet extends HttpServlet {
         } catch (Exception ex) {
             Logger.getLogger(cadastroProdutoServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        request.getRequestDispatcher("JSP-PAGES/cadastrarProdutos.jsp").forward(request, response);
+        request.getRequestDispatcher("JSP-PAGES/CRUD-PRODUTOS/cadastrarProdutos.jsp").forward(request, response);
     }
 
 }

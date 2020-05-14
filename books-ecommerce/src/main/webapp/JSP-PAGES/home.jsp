@@ -79,6 +79,7 @@
                             </p>
                             <div class="cart">
                                 <form method="post" action="${pageContext.request.contextPath}/adicionarNoCarrinhoServlet">
+                                    <input type="number" name="quantidade" value="1" style="display:none;">
                                     <input type="hidden" value="${produto.getID()}" name="ID">
                                     <input class="addtocart" type="submit" value="COMPRAR" style="background-color:transparent; border:none;">
                                 </form>
@@ -119,6 +120,7 @@
                             </p>
                             <div class="cart">
                                 <form method="post" action="${pageContext.request.contextPath}/adicionarNoCarrinhoServlet">
+                                    <input type="number" name="quantidade" value="1" style="display:none;">
                                     <input type="hidden" value="${produto.getID()}" name="ID">
                                     <input class="addtocart" type="submit" value="COMPRAR" style="background-color:transparent; border:none;">
                                 </form>
@@ -158,6 +160,7 @@
                             </p>
                             <div class="cart">
                                 <form method="post" action="${pageContext.request.contextPath}/adicionarNoCarrinhoServlet">
+                                    <input type="number" name="quantidade" value="1" style="display:none;">
                                     <input type="hidden" value="${produto.getID()}" name="ID">
                                     <input class="addtocart" type="submit" value="COMPRAR" style="background-color:transparent; border:none;">
                                 </form>

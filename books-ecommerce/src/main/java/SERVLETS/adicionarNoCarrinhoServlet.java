@@ -44,9 +44,10 @@ public class adicionarNoCarrinhoServlet extends HttpServlet {
         } else {
             int IDProduto = Integer.parseInt(request.getParameter("ID"));
             String status = "A";
+            int quantidade = Integer.parseInt(request.getParameter("quantidade"));
             int IDCarrinho = (int) sessao.getAttribute("IDUsuario");
             
-            Carrinho carrinho = new Carrinho(IDCarrinho,IDProduto,status);
+            Carrinho carrinho = new Carrinho(IDCarrinho,IDProduto,quantidade,status);
             
              try {
             if (CarrinhoDAO.inserir(carrinho)) {

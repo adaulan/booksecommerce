@@ -42,7 +42,7 @@ public class editarEnderecoServlet extends HttpServlet {
         request.setAttribute("endereco", E);
         /* RETORNA PRA PÁGINA DE EDITAR ENDERECO */
         RequestDispatcher dispatcher
-                = request.getRequestDispatcher("JSP-PAGES/editarEndereco.jsp");
+                = request.getRequestDispatcher("JSP-PAGES/CRUD-ENDERECO/editarEndereco.jsp");
         dispatcher.forward(request, response);
     }
 

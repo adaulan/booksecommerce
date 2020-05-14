@@ -57,7 +57,6 @@ public class loginServlet extends HttpServlet {
             sessao.setAttribute("IDUsuario", user.getID());
             sessao.setAttribute("loginStatus", "logado");
                 
-              
             request.setAttribute("usuario", user);
             request.setAttribute("loginText", user.getUsuario());
             request.setAttribute("tipo", user.getTipo());
@@ -67,8 +66,7 @@ public class loginServlet extends HttpServlet {
         } else {
              // Se erro, reapresenta tela de login com msg de erro
              request.setAttribute("msgErro", "Usuário ou senha inválidos");
-             request.getRequestDispatcher("homeServlet")
-                     .forward(request, response);
+             request.getRequestDispatcher("homeServlet").forward(request, response);
         }
     }
 

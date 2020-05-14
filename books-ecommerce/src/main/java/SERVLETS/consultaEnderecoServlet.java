@@ -41,7 +41,7 @@ public class consultaEnderecoServlet extends HttpServlet {
         }
         /* RETORNA PRA PÁGINA DE CONSULTAR ENDERECOS */
         RequestDispatcher dispatcher
-                = request.getRequestDispatcher("JSP-PAGES/consultaEndereco.jsp");
+                = request.getRequestDispatcher("JSP-PAGES/CRUD-ENDERECO/consultaEndereco.jsp");
         dispatcher.forward(request, response);
     }
 

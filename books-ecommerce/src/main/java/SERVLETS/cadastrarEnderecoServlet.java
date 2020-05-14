@@ -33,7 +33,7 @@ public class cadastrarEnderecoServlet extends HttpServlet {
         request.setAttribute("IDEndereco", ID);
         /* RETORNA PRA PÁGINA DE EDITAR PRODUTOS */
         RequestDispatcher dispatcher
-                = request.getRequestDispatcher("JSP-PAGES/cadastrarEndereco.jsp");
+                = request.getRequestDispatcher("JSP-PAGES/CRUD-ENDERECO/cadastrarEndereco.jsp");
         dispatcher.forward(request, response);
     }
 

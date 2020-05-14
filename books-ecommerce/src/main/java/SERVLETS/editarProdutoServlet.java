@@ -45,7 +45,7 @@ public class editarProdutoServlet extends HttpServlet {
         request.setAttribute("livro", L);
         /* RETORNA PRA PÁGINA DE EDITAR PRODUTOS */
         RequestDispatcher dispatcher
-                = request.getRequestDispatcher("JSP-PAGES/editarProdutos.jsp");
+                = request.getRequestDispatcher("JSP-PAGES/CRUD-PRODUTOS/editarProdutos.jsp");
         dispatcher.forward(request, response);
 
     }
