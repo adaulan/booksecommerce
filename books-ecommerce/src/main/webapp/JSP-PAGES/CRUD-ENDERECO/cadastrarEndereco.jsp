@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/JSP-STYLES/CSS/jquery-ui.css"/>
 
     </head>
-    <jsp:include page="navbar.jsp"/>
+    <jsp:include page="../navbar.jsp"/>
 
     <body onload="mensagemCadastro()">
 
@@ -40,7 +40,7 @@
                 <!-- INICIO CADASTRO DE USUARIO -->
                 <div class="row justify-content-center">
                     <div class="form-group col-6">
-                        <input type="text" value="${IDEndereco}" name="ID">
+                        <input type="hidden" value="${IDEndereco}" name="ID">
                         <h2>Endereço</h2>
                     </div>
                 </div>

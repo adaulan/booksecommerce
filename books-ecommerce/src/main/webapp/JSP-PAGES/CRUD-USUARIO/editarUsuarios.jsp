@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/JSP-STYLES/CSS/jquery-ui.css"/>
 
     </head>
-    <jsp:include page="navbar.jsp"/>
+    <jsp:include page="../navbar.jsp"/>
 
     <body onload="mensagemCadastro()">
 

@@ -46,7 +46,7 @@ public class consultaUsuarioSistemaServlet extends HttpServlet {
             System.out.println(e);
         }
         
-        request.getRequestDispatcher("JSP-PAGES/consultaUsuario.jsp").forward(request, response);
+        request.getRequestDispatcher("JSP-PAGES/CRUD-USUARIO/consultaUsuario.jsp").forward(request, response);
     }
 
     /**

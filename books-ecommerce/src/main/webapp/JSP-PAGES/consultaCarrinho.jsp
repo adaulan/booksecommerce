@@ -40,6 +40,17 @@
 
                         <h3>Itens no Carrinho</h3>
                         <p style="color:black;">Data: ${dataAtual}| Itens: ${quantidadeDeItens}| Valor: ${valorTotalNoCarrinho}</p>
+
+                        <!-- ------------ALERTA----------- -->
+                        <div class="alert alert-success" role="alert" style="display:none;" id='RespostaSucesso'>
+                            Produto Removido
+                        </div>
+                        <div class="alert alert-danger" role="alert" style="display:none;" id='RespostaFalha'>
+                            Ocorreu uma falha ao remover produto!
+                        </div>
+                        <input id="alertaR" type="hidden" value="${alertaResposta}">
+                        <!-- ------------ FIM ALERTA----------- -->
+
                         <div class="table-wrapper-scroll-y my-custom-scrollbar" id="style-1" style="min-height:700px ;max-height:800px;">
                             <table class="table">
                                 <tbody>
@@ -72,12 +83,12 @@
                                                 </form>
                                             </td>
                                             <td>
-                                                <button onclick="document.getElementById('primaryButton${produto.getID()}').click()" class="btn-form-button edit-button" id="btn-form-search"  type="button" alt="Editar Produto"><i class="fas fa-plus-circle"></i></button>
+                                                <button onclick="document.getElementById('primaryButton${produto.getID()}').click()" class="btn-form-button edit-button" id="btn-form-search"  type="button" alt="Editar Produto"><i class="fas fa-sync"></i></button>
                                             </td>   
                                             <!-- FIM TD DE ACRESCIMO DE PRODUTO -->
                                             <!-- TD DE EXCLUSÃO DE PRODUTO -->
                                             <td>
-                                                <form  method="post" action="${pageContext.request.contextPath}/deletarProdutoServlet">
+                                                <form  method="post" action="${pageContext.request.contextPath}/deletarNoCarrinhoServlet">
                                                     <input type="hidden" value="${produto.getID()}" name="ID">
                                                     <!-- Button trigger modal -->
                                                     <button type="button" class="btn btn-excluir" data-toggle="modal" data-target="#modalExclusao${produto.getID()}" id="btn-form-search"> 
@@ -87,7 +98,7 @@
                                                     <!-- MODAL CONFIRMAR EXCLUSÃO-->
                                                     <div class="modal fade" id="modalExclusao${produto.getID()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered" role="document" style="color: black;">
-                                                            <div class="modal-content">
+                                                            <div class="modal-content align-items-center" >
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title" id="exampleModalLongTitle">Deletar Produto</h5>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -99,7 +110,7 @@
                                                                     <input name="ID" type="hidden" value="${produto.getID()}"/>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    Tem certeza que deseja deletar o Produto?
+                                                                    Tem certeza que deseja deletar o Produto do Carrinho?
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -116,14 +127,19 @@
                                 </tbody> 
                             </table>
                         </div>
-                        
-                    </div>
 
-                    <div class="col-4" style="background-color:red;" >
-                        <a href="#" class="btn btn-block btn-lg btn-primary" style="border-radius:0px;width:100%; ">
-                            <i class="fa fa-shopping-cart"></i>
-                            Adicionar ao Carrinho</a>
                     </div>
+                    
+                        <div class="col-4" style="background-color:red;" >
+                            <form method="get" action="${pageContext.request.contextPath}/consultaEnderecoServlet">
+                                <input type="hidden" value="${IDUsuario}" name="ID">
+                                <input type="hidden" value="redirectToFinalizarCompra" name="finalizarCompra">
+                            <button type="submit" class="btn btn-block btn-lg btn-primary" style="border-radius:0px;width:100%; ">
+                                <i class="fa fa-shopping-cart"></i>
+                                Finalizar Compra</button>
+                            </form>
+                        </div>
+                    
                 </div>
             </div>
 
@@ -195,6 +211,29 @@
             </footer>
         </div>
         <script type="text/javascript" src="${pageContext.request.contextPath}/JSP-STYLES/JS/swiper.min.js"></script>
-        <script src="${pageContext.request.contextPath}/JSP-STYLES/JS/script.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/JSP-STYLES/JS/script.js"></script>
+        <script type="text/javascript">
+                                                    $(document).ready(function () {
+
+                                                        if ($('#alertaR').val() === "sucesso") {
+                                                            $('#RespostaSucesso').css("display", "block");
+                                                            setTimeout(function () {
+                                                                $('#RespostaSucesso').css("display", "none");
+                                                            }, 5000);
+                                                        } else if ($('#alertaR').val() === "falha") {
+                                                            if ($('#alertaR').val() === "sucesso") {
+                                                                $('#RespostaFalha').css("display", "block");
+                                                                setTimeout(function () {
+                                                                    $('#RespostaFalha').css("display", "none");
+                                                                }, 5000);
+                                                            } else {
+                                                            }
+                                                            ;
+                                                        }
+                                                        ;
+                                                    });
+
+
+        </script>
     </body>
 </html>

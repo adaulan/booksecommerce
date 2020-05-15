@@ -54,7 +54,26 @@
             .clear {
                 clear:both;
             }
+            .badge {
+                padding-left: 9px;
+                padding-right: 9px;
+                -webkit-border-radius: 9px;
+                -moz-border-radius: 9px;
+                border-radius: 9px;
+            }
 
+            .label-warning[href],
+            .badge-warning[href] {
+                background-color: #c67605;
+            }
+            #lblCartCount {
+                font-size: 12px;
+                background: #ff0000;
+                color: #fff;
+                padding: 0 5px;
+                vertical-align: top;
+                margin-left: -10px; 
+            }
 
         </style>
         <title>Navbar</title>
@@ -70,7 +89,7 @@
                     </c:forEach>
                 </button>
                 <form method="post" style="display:inline-block;" action="${pageContext.request.contextPath}/consultaCarrinhoServlet">
-                    <input type="image" value="submit" src="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/LANDING-PAGE/cart.png"/>
+                    <input type="image" value="submit" src="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/LANDING-PAGE/cart.png"/><span class='badge badge-warning' id='lblCartCount'> ${quantidadeDeItens} </span>
                 </form>
             </div>
         </div>
@@ -236,6 +255,9 @@
             </div>
         </div>
 
+
+
+
         <!-- Modal LOGOUT-->
         <div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document" style="color: black;">
@@ -245,14 +267,14 @@
                         <div class="" id="" >
                             <form  action = "${pageContext.request.contextPath}/logoutServlet" method = "post" style="text-align: center;">
                                 <i class="fa fa-journal-whills"></i>
-                                <h1 class="h3 mb-3 font-weight-normal">Deseja sair?</h1>
+                                <h1 class="h3 mb-3 font-weight-normal">Opções</h1>
                                 <br>
                                 <button class="btn btn-lg btn-primary btn-block" type="submit" id="btn-singin"> Logout <i class="fas fa-sign-in-alt"></i> </button>
                             </form>
-                            <br/>
+                            
 
                             <!-- ATUALIZAR CADASTRO FORM -->
-                            <button data-toggle="modal" data-target="#exampleModalCenter4" class="btn btn-lg btn-primary btn-block" id="btn-singin"> Atualizar Cadastro <i class="fas fa-edit"></i> </button>
+                            <button data-toggle="modal" data-target="#exampleModalCenter4" class="btn btn-lg btn-primary btn-block" id="btn-singin" style="margin-top:5px;"> Atualizar Cadastro <i class="fas fa-edit"></i> </button>
 
                             <div class="modal fade" id="exampleModalCenter4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"
                                  onload="">
@@ -335,7 +357,23 @@
 
                             </div>
                         </div>
-
+                        <!-- ENDEREÇOS -->
+                        <!-- BOTÃO DE CADASTRAR ENDEREÇO -->
+                        <form method="get" action="${pageContext.request.contextPath}/cadastrarEnderecoServlet" style="margin-top:5px;">
+                            <input type="hidden" value="${IDUsuario}" name="ID">
+                            <input type="hidden" value="frontEnd" name="frontEnd">
+                            <div>
+                                <button type="submit" class="btn btn-lg btn-primary btn-block" id="btn-singin">Cadastrar Novo  <i class="fas fa-address-card"></i></button>
+                            </div>
+                        </form>
+                        <!-- BOTAO DE VISUALIZAR ENDEREÇOS-->
+                        <form method="post" action="${pageContext.request.contextPath}/consultaEnderecoServlet" style="margin-top:5px;">
+                            <input type="hidden" value="${IDUsuario}" name="ID">
+                            <input type="hidden" value="frontEnd" name="finalizarCompra">
+                            <div>
+                                <button type="submit" class="btn btn-lg btn-primary btn-block" id="btn-singin">Visualizar Endereços</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

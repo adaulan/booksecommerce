@@ -5,7 +5,8 @@
  */
 package SERVLETS;
 
-import DAO.LivroDAO;
+import DAO.CarrinhoDAO;
+import MODELS.Carrinho;
 import MODELS.Livro;
 import java.io.IOException;
 import java.util.List;
@@ -21,8 +22,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Adaulan
  */
-@WebServlet(name = "deletarProdutoServlet", urlPatterns = {"/deletarProdutoServlet"})
-public class deletarProdutoServlet extends HttpServlet {
+@WebServlet(name = "deletarNoCarrinhoServlet", urlPatterns = {"/deletarNoCarrinhoServlet"})
+public class deletarNoCarrinhoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -34,17 +35,28 @@ public class deletarProdutoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        int ID = Integer.parseInt(request.getParameter("ID"));
         HttpSession sessao = request.getSession();
-        Livro L = null;
-
+        int IDProduto = Integer.parseInt(request.getParameter("ID"));
+        int IDCarrinho = (int) sessao.getAttribute("IDUsuario");
+        Carrinho C = null;
         try {
-            L = LivroDAO.getByID(ID);
-            L.setStatus("I");
-            LivroDAO.atualizarStatus(L);
-            List<Livro> listaProduto = LivroDAO.listar();
+            C = CarrinhoDAO.getByID(IDCarrinho, IDProduto);
+            C.setStatus("I");
+            if (CarrinhoDAO.atualizarStatus(C)) {
+                request.setAttribute("alertaResposta", "sucesso");
+            } else {
+                request.setAttribute("alertaResposta", "falha");
+            }
+            List<Livro> listaProduto = CarrinhoDAO.listarProdutos(IDCarrinho);
+            int quantidadeDeItens = 0;
+            if (listaProduto != null) {
+                for (Livro L : listaProduto) {
+                    quantidadeDeItens = quantidadeDeItens + L.getQuantidade();
+                }
+            }
+            sessao.setAttribute("quantidadeDeItens", quantidadeDeItens);
 
-            request.setAttribute("listaProduto", listaProduto);
+            request.setAttribute("listaCarrinho", listaProduto);
         } catch (Exception e) {
             e.printStackTrace();
             e.getLocalizedMessage();
@@ -52,14 +64,8 @@ public class deletarProdutoServlet extends HttpServlet {
         }
 
         RequestDispatcher dispatcher
-                = request.getRequestDispatcher("JSP-PAGES/CRUD-PRODUTOS/consultaProdutos.jsp");
+                = request.getRequestDispatcher("JSP-PAGES/consultaCarrinho.jsp");
         dispatcher.forward(request, response);
-
-    }
-
-    @Override
-    public String getServletInfo() {
-        return "Short description";
     }
 
 }

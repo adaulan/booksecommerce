@@ -7,8 +7,11 @@ package SERVLETS;
 
 import DAO.CarrinhoDAO;
 import MODELS.Carrinho;
+import MODELS.Livro;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,21 +49,45 @@ public class adicionarNoCarrinhoServlet extends HttpServlet {
             String status = "A";
             int quantidade = Integer.parseInt(request.getParameter("quantidade"));
             int IDCarrinho = (int) sessao.getAttribute("IDUsuario");
-            
-            Carrinho carrinho = new Carrinho(IDCarrinho,IDProduto,quantidade,status);
-            
-             try {
-            if (CarrinhoDAO.inserir(carrinho)) {
-                request.setAttribute("msgResposta", "Adicionado com sucesso!");
-            } else {
-                request.setAttribute("msgResposta", "Não Foi possível adicionar!");    
+
+            Carrinho carrinho = new Carrinho(IDCarrinho, IDProduto, quantidade, status);
+            try {
+                Carrinho itemNoCarrinho = CarrinhoDAO.getByID(IDCarrinho, IDProduto);
+                if (itemNoCarrinho == null) {
+                    if (CarrinhoDAO.inserir(carrinho)) {
+                        request.setAttribute("msgResposta", "Adicionado com sucesso!");
+                    } else {
+                        request.setAttribute("msgResposta", "Não Foi possível adicionar!");
+                    }
+                } else {
+                    itemNoCarrinho.setQuantidade(itemNoCarrinho.getQuantidade() + 1);
+                    if (CarrinhoDAO.atualizarQuantidade(itemNoCarrinho)) {
+                        request.setAttribute("msgResposta", "Adicionado com sucesso!");
+                    } else {
+                        request.setAttribute("msgResposta", "Não Foi possível adicionar!");
+                    }
+                }
+            } catch (Exception e) {
+                e.getLocalizedMessage();
+                System.out.println(e);
             }
-        } catch (Exception e) {
-            e.getLocalizedMessage();
-            System.out.println(e);
-        }
-        request.getRequestDispatcher("JSP-PAGES/home.jsp").forward(request, response);
-            
+            /* -------------DISPLAY DE ITENS DO CARRINHO-------------------- */
+            List<Livro> listaLivroCarrinho = null;
+            try {
+                listaLivroCarrinho = CarrinhoDAO.listarProdutos((int) sessao.getAttribute("IDUsuario"));
+            } catch (Exception ex) {
+                Logger.getLogger(consultaCarrinhoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            int quantidadeDeItens = 0;
+            if (listaLivroCarrinho != null) {
+                for (Livro L : listaLivroCarrinho) {
+                    quantidadeDeItens = quantidadeDeItens + L.getQuantidade();
+                }
+            }
+            sessao.setAttribute("quantidadeDeItens", quantidadeDeItens);
+            /* -------------FIM DISPLAY DE ITENS DO CARRINHO-------------------- */
+            request.getRequestDispatcher("JSP-PAGES/home.jsp").forward(request, response);
+
         }
 
     }

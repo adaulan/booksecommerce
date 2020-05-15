@@ -28,13 +28,23 @@ public class cadastrarEnderecoServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         /* Pega o ID na Página */
         int ID = Integer.parseInt(request.getParameter("ID"));
-        
+
         /* CRIA OS ATRIBUTOS NO REQUEST*/
         request.setAttribute("IDEndereco", ID);
-        /* RETORNA PRA PÁGINA DE EDITAR PRODUTOS */
-        RequestDispatcher dispatcher
-                = request.getRequestDispatcher("JSP-PAGES/CRUD-ENDERECO/cadastrarEndereco.jsp");
-        dispatcher.forward(request, response);
+
+        String frontEnd = request.getParameter("frontEnd");
+
+        if (frontEnd == null) {
+            /* RETORNA PRA PÁGINA DE CADASTRAR ENDEREÇO */
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher("JSP-PAGES/CRUD-ENDERECO/cadastrarEndereco.jsp");
+            dispatcher.forward(request, response);
+
+        } else {
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher("JSP-PAGES/CRUD-ENDERECO/cadastrarEnderecoCliente.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 
     @Override

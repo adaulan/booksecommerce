@@ -20,7 +20,7 @@
     <style type="text/css">
     </style>
 
-    <jsp:include page="navbar.jsp"/>
+    <jsp:include page="../navbar.jsp"/>
 
     <body onload="testaTipo()">
         <div class="heading-bar"></div>

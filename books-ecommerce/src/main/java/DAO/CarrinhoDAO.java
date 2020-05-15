@@ -184,6 +184,47 @@ public class CarrinhoDAO {
         }
         return true;
     }
+    
+    public static boolean atualizarStatus(Carrinho carrinho)
+            throws SQLException, Exception {
+        /*Monta a string de atualizacao de um carrinho no BD,
+        utilizando os dados do carrinho passados como parâmetro*/
+        String sql = "UPDATE CARRINHO SET ID =?, IDPRODUTO =?, QUANTIDADE =?,STATUS =? WHERE ID =? AND IDPRODUTO =? AND STATUS ='A'";
+        //Conexão para abertura e fechamento
+        Connection connection = null;
+        //Statement para obtenção através da conexão, execução de
+        //comandos SQL e fechamentos
+        PreparedStatement preparedStatement = null;
+        try {
+            //Abre uma conexão com o banco de dados
+            connection = connectionDB.getConnection();
+            //Cria um statement para execução de instruções SQL
+            preparedStatement = connection.prepareStatement(sql);
+            //Configura os parâmetros do "PreparedStatement"
+            preparedStatement.setInt(1, carrinho.getID());
+            preparedStatement.setInt(2, carrinho.getIDProduto());
+            preparedStatement.setInt(3, carrinho.getQuantidade());
+            preparedStatement.setString(4, carrinho.getStatus());
+            preparedStatement.setInt(5, carrinho.getID());
+            preparedStatement.setInt(6, carrinho.getIDProduto());
+            //Executa o comando no banco de dados
+            preparedStatement.execute();
+        } catch (Exception e) {
+            e.getLocalizedMessage();
+            System.out.println(e);
+            return false;
+        } finally {
+            //Se o statement ainda estiver aberto, realiza seu fechamento
+            if (preparedStatement != null && !preparedStatement.isClosed()) {
+                preparedStatement.close();
+            }
+            //Se a conexão ainda estiver aberta, realiza seu fechamento
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        }
+        return true;
+    }
 
     public static Carrinho getByID(int IDUsuario,int IDProduto)
             throws SQLException, Exception {

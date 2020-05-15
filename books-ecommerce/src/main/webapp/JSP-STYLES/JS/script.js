@@ -15,7 +15,7 @@ var swiper = new Swiper('.swiper-container', {
 //Redirecionar para Home
 function redirectToPage(jspAddress) {
     window.location.href = jspAddress;
-}
+};
 
 //Mudar o nome do input ao escolher imagem
 $('#customFile').on('change', function () {
@@ -84,12 +84,13 @@ function moeda(a, e, r, t) {
 ;
 
 function mensagemCadastro() {
+    
     if ($('#alertaR').val() === "sucesso") {
         $('#RespostaSucesso').css("display", "block");
         setTimeout(function () {
             $('#RespostaSucesso').css("display", "none");
         }, 5000);
-    } else if ($('#alertaR').val() == "falha") {
+    } else if ($('#alertaR').val() === "falha") {
         if ($('#alertaR').val() === "sucesso") {
             $('#RespostaFalha').css("display", "block");
             setTimeout(function () {
@@ -100,7 +101,7 @@ function mensagemCadastro() {
         ;
     }
     ;
-}
+};
 
 function ativaDivLogin() {
     $("#loginButton").trigger('click');
@@ -297,7 +298,7 @@ function checarEmail(form, email) {
         $('#erro').fadeOut();
         $('.btn-confirmar').prop('disabled', false);
     }
-}
+};
 
 function checarEmailCliente(form, email) {
     if (document.forms[form][email].value === ""
@@ -312,7 +313,7 @@ function checarEmailCliente(form, email) {
         $('#erroCliente').fadeOut();
         $('.btn-confirmar-cliente').prop('disabled', false);
     }
-}
+};
 
 function checarEmailUpdate(form, email) {
     if (document.forms[form][email].value === ""
@@ -327,7 +328,7 @@ function checarEmailUpdate(form, email) {
         $('#erroUpdate').fadeOut();
         $('.btn-confirmar-update').prop('disabled', false);
     }
-}
+};
 
 function checarSenha(form, senha, confirmaSenha) {
     if (document.forms[form][senha].value !== document.forms[form][confirmaSenha].value)
@@ -341,7 +342,7 @@ function checarSenha(form, senha, confirmaSenha) {
         $('#erro').fadeOut();
         $('.btn-confirmar').prop('disabled', false);
     }
-}
+};
 
 
 function checarSenhaCliente(form, senha, confirmaSenha) {
@@ -356,7 +357,7 @@ function checarSenhaCliente(form, senha, confirmaSenha) {
         $('#erroCliente').fadeOut();
         $('.btn-confirmar-cliente').prop('disabled', false);
     }
-}
+};
 
 function checarSenhaUpdate(form, senha, confirmaSenha) {
     if (document.forms[form][senha].value !== document.forms[form][confirmaSenha].value)
@@ -370,5 +371,5 @@ function checarSenhaUpdate(form, senha, confirmaSenha) {
         $('#erroUpdate').fadeOut();
         $('.btn-confirmar-update').prop('disabled', false);
     }
-}
+};
 
