@@ -40,9 +40,9 @@
         <div class="clear"></div>
         <!-- INICIO DO BODY -->
         <div id="" class="text-center" style="margin-top: 20px;">
-            <form id="FadeForm" class="form-type" 
-                  action="${pageContext.request.contextPath}/consultaEnderecoServlet" method = "post" accept-charset="UTF-8"
-                  style="max-width: 1300px; height:auto; max-height: 800px; background-color:white; color:black;">
+            <div id="FadeForm" class="form-type" 
+                 action="${pageContext.request.contextPath}/consultaEnderecoServlet" method = "post" accept-charset="UTF-8"
+                 style="max-width: 1300px; height:auto; max-height: 800px; background-color:white; color:black;">
                 <input type="hidden" value="${endereco.getID()}" name="ID">
                 <!-- ALERTA DE SUCESSO OU FALHA -->
                 <div class="alert alert-success" role="alert" style="display:none;" id='RespostaSucesso'>
@@ -57,28 +57,119 @@
                 <div class="row justify-content-center">
                     <h3>Meus Endereços</h3>
                 </div>
-                <!--<div class="row justify-content-center">
-                    <div class="input-group col-12">
-                        <input type="text" class="form-control" placeholder="O que você busca?" 
-                               aria-label="Recipient's username" aria-describedby="button-addon2" name="Busca">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Pesquisar <i class="fa fa-search"></i></button>
-                        </div>
-                    </div>
-                </div> -->
                 <br>
                 <div class="row justify-content-center">
                     <div class="form-group col-12">
-                        <div class="table-wrapper-scroll-y my-custom-scrollbar" id="style-1" style="height:500px;">
-                            <table class="table" style="color: black;">
+                        <div class="table-wrapper-scroll-y my-custom-scrollbar" id="style-1" style="min-height:200px ;max-height:800px;">
+                            <table class="table">
                                 <thead>
                                     <tr>
+                                        
                                         <th scope="col">CEP</th>
                                         <th scope="col">Endereço</th>
                                         <th scope="col">Cidade</th>
                                         <th scope="col">Estado</th>
                                         <th scope="col">Complemento</th>
                                         <th scope="col">Opções</th>
+                                        <!-- MODAL DE CADASTRO DE ENDEREÇO -->
+                                        <th>
+                                            <button style="width:50px; height:40px;" class="btn-form-button"  data-toggle="modal" data-target="#modalAdicionar" id="btn-form-search" alt="Adicionar Produto"><i class="fas fa-plus-circle"></i> </button>
+                                            <div class="modal fade" id="modalAdicionar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"
+                                                 onload="masks()">
+                                                <div class="modal-dialog modal-dialog-centered-lg" role="document" style="color: black;">
+                                                    <div class="modal-content" style="background: transparent; border:none; width:600px; height:450px; margin-top:120px;">
+
+                                                        <form id="fadeForm" class="form-type needs-validation col" 
+                                                              method="post" action="${pageContext.request.contextPath}/cadastrarEnderecoServlet" 
+                                                              accept-charset="UTF-8" name="usuarioForm" style="margin: 1%; background-color:white; width:98%;color:black;">
+
+                                                            <div class="alert alert-success" role="alert" style="display:none;" id='RespostaSucesso'>
+                                                                Cadastrado com Sucesso!!
+                                                            </div>
+                                                            <div class="alert alert-danger" role="alert" style="display:none;" id='RespostaFalha'>
+                                                                Ocorreu uma falha ao cadastrar usuario!
+                                                            </div>
+                                                            <input id="alertaR" type="hidden" value="${alertaResposta}">
+                                                            <!-- INICIO CADASTRO DE USUARIO -->
+                                                            <div class="row justify-content-center">
+                                                                <div class="form-group col-4">
+                                                                    <input type="hidden" value="${IDUsuario}" name="ID"> 
+                                                                    <input type="hidden" value="visualizarEnderecos" name="frontEnd"> 
+                                                                    <h3>Endereço</h3>
+                                                                </div>
+                                                            </div>
+                                                            <div id="erro" class="alert alert-danger" role="alert" style='display:none'>
+                                                                <span id='mensagemVal'></span> invalido!
+                                                            </div>
+                                                            <div class="row justify-content-center">
+                                                                <div class="form-group col-4 ">
+                                                                    <label> CEP: </label>
+                                                                    <input type="text" class="form-control" placeholder="00000-000" required name="cep" id="cep" maxlength="10" onkeypress="return onlynumber();" onkeyup="mascara('#####-###', this, event)">
+                                                                </div>
+                                                                <div class="form-group col-4 ">
+                                                                    <label> Cidade: </label>
+                                                                    <input type="text" class="form-control" placeholder="São Paulo" required name="cidade" id="cidade" maxlength="255">
+                                                                </div>
+                                                                <div class="form-group col-4">
+                                                                    <label> Estado: </label>
+                                                                    <select class="form-control" name="estado" id="estado" required >
+                                                                        <option selected>Escolha...</option>
+                                                                        <option value="AC">Acre</option>
+                                                                        <option value="AL">Alagoas</option>
+                                                                        <option value="AP">Amapá</option>
+                                                                        <option value="AM">Amazonas</option>
+                                                                        <option value="BA">Bahia</option>
+                                                                        <option value="CE">Ceará</option>
+                                                                        <option value="DF">Distrito Federal</option>
+                                                                        <option value="ES">Espírito Santo</option>
+                                                                        <option value="GO">Goiás</option>
+                                                                        <option value="MA">Maranhão</option>
+                                                                        <option value="MT">Mato Grosso</option>
+                                                                        <option value="MS">Mato Grosso do Sul</option>
+                                                                        <option value="MG">Minas Gerais</option>
+                                                                        <option value="PA">Pará</option>
+                                                                        <option value="PB">Paraíba</option>
+                                                                        <option value="PR">Paraná</option>
+                                                                        <option value="PE">Pernambuco</option>
+                                                                        <option value="PI">Piauí</option>
+                                                                        <option value="RJ">Rio de Janeiro</option>
+                                                                        <option value="RN">Rio Grande do Norte</option>
+                                                                        <option value="RS">Rio Grande do Sul</option>
+                                                                        <option value="RO">Rondônia</option>
+                                                                        <option value="RR">Roraima</option>
+                                                                        <option value="SC">Santa Catarina</option>
+                                                                        <option value="SP">São Paulo</option>
+                                                                        <option value="SE">Sergipe</option>
+                                                                        <option value="TO">Tocantins</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row justify-content-center">
+                                                                <div class="form-group col-12 ">
+                                                                    <label> Endereço: </label>
+                                                                    <input type="text" class="form-control" placeholder="1234 Main St" name="endereco" id="endereco" required maxlength="255">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row justify-content-center">
+                                                                <div class="form-group col-12">
+                                                                    <label> Complemento: </label>
+                                                                    <input type="text" class="form-control" placeholder="Apartament" name="complemento" id="complemento"  maxlength="20">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row justify-content-center">
+                                                                <div class ="form group col-3 ">
+                                                                    <button type="reset" class="btn btn-primary" id="btn-form" data-dismiss="modal"> Cancelar </button>
+                                                                </div>
+                                                                <div class ="form group   col-3">
+                                                                    <button type="submit" class="btn btn-primary btn-confirmar-cliente" id="btn-form" > Confirmar </button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <!-- FIM MODAL DE CADASTRO DE ENDEREÇO -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -87,27 +178,129 @@
                                 <%-- FIM --%>
                                 <c:forEach items ="${listaEndereco}" var="endereco">
                                     <tr>
+                                        
                                         <td><c:out value="${endereco.getCEP()}"/></td>
                                         <td style="max-width:250px;"><c:out value="${endereco.getEndereco()}"/></td>
                                         <td><c:out value="${endereco.getCidade()}"/></td>
                                         <td><c:out value="${endereco.getEstado()}"/></td>
                                         <td><c:out value="${endereco.getComplemento()}"/></td>
 
+
                                         <!-- TD DE EDIÇÃO DE ENDERECO -->
-                                        <td style="max-width:50px">
-                                            <form method="get" action="${pageContext.request.contextPath}/editarEnderecoServlet">
-                                                <input type="hidden" value="${endereco.getID()}" name="ID">
-                                                <input name="tipo" type="hidden" value="${tipo}" id="tipoUsuario"/>
-                                                <!-- BOTÃO DE ADMIN -->
-                                                <button class="btn-form-button edit-button" id="btn-form-search"  type="submit" alt="Editar Produto"><i class="fa fa-edit"></i></button>
-                                            </form>
+                                        <td>
+                                            <button style="width:50px; height:40px;" class="btn-form-button"  data-toggle="modal" data-target="#modalEditar${endereco.getID()}" id="btn-form-search" alt="Editar Endereço"><i class="fa fa-edit"></i> </button>
+                                            <div class="modal fade" id="modalEditar${endereco.getID()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"
+                                                 onload="masks()">
+                                                <div class="modal-dialog modal-dialog-centered-lg" role="document" style="color: black;">
+                                                    <div class="modal-content" style="background: transparent; border:none; width:600px; height:450px; margin-top:120px;">
+
+                                                        <form id="fadeForm" class="form-type needs-validation" 
+                                                              method="post" action="${pageContext.request.contextPath}/editarEnderecoServlet" 
+                                                              accept-charset="UTF-8" name="usuarioForm" style="margin: 1%; background-color:white; width:98%;color:black;">
+
+                                                            <div class="alert alert-success" role="alert" style="display:none;" id='RespostaSucesso'>
+                                                                Cadastrado com Sucesso!!
+                                                            </div>
+                                                            <div class="alert alert-danger" role="alert" style="display:none;" id='RespostaFalha'>
+                                                                Ocorreu uma falha ao cadastrar usuario!
+                                                            </div>
+                                                            <input id="alertaR" type="hidden" value="${alertaResposta}">
+                                                            <!-- INICIO EDIÇÃO DE ENDEREÇO -->
+                                                            <div class="row justify-content-center">
+                                                                <div class="form-group col-4">
+                                                                    <input type="hidden" value="${endereco.getID()}" name="ID">  
+                                                                    <input type="hidden" value="visualizarEnderecos" name="frontEnd"> 
+                                                                    <h3>Endereço</h3>
+                                                                </div>
+                                                            </div>
+                                                            <div id="erro" class="alert alert-danger" role="alert" style='display:none'>
+                                                                <span id='mensagemVal'></span> invalido!
+                                                            </div>
+                                                            <div class="row justify-content-center">
+                                                                <div class="form-group col-4 ">
+                                                                    <label> CEP: </label>
+                                                                    <input type="text" class="form-control" placeholder="00000-000" required name="cep" id="cep" 
+                                                                           maxlength="10" onkeypress="return onlynumber();" onkeyup="mascara('#####-###', this, event)"
+                                                                           value="${endereco.getCEP()}">
+                                                                </div>
+                                                                <div class="form-group col-4 ">
+                                                                    <label> Cidade: </label>
+                                                                    <input type="text" class="form-control" placeholder="Chicago" required name="cidade" 
+                                                                           id="cidade" maxlength="255" value="${endereco.getCidade()}">
+                                                                </div>
+                                                                <div class="form-group col-4">
+                                                                    <label> Estado: </label>
+                                                                    <select class="form-control" name="estado" id="estado" required >
+                                                                        <option selected>Escolha...</option>
+                                                                        <option selected  value="${endereco.getEstado()}">${endereco.getEstado()}</option>
+                                                                        <option value="AC">Acre</option>
+                                                                        <option value="AL">Alagoas</option>
+                                                                        <option value="AP">Amapá</option>
+                                                                        <option value="AM">Amazonas</option>
+                                                                        <option value="BA">Bahia</option>
+                                                                        <option value="CE">Ceará</option>
+                                                                        <option value="DF">Distrito Federal</option>
+                                                                        <option value="ES">Espírito Santo</option>
+                                                                        <option value="GO">Goiás</option>
+                                                                        <option value="MA">Maranhão</option>
+                                                                        <option value="MT">Mato Grosso</option>
+                                                                        <option value="MS">Mato Grosso do Sul</option>
+                                                                        <option value="MG">Minas Gerais</option>
+                                                                        <option value="PA">Pará</option>
+                                                                        <option value="PB">Paraíba</option>
+                                                                        <option value="PR">Paraná</option>
+                                                                        <option value="PE">Pernambuco</option>
+                                                                        <option value="PI">Piauí</option>
+                                                                        <option value="RJ">Rio de Janeiro</option>
+                                                                        <option value="RN">Rio Grande do Norte</option>
+                                                                        <option value="RS">Rio Grande do Sul</option>
+                                                                        <option value="RO">Rondônia</option>
+                                                                        <option value="RR">Roraima</option>
+                                                                        <option value="SC">Santa Catarina</option>
+                                                                        <option value="SP">São Paulo</option>
+                                                                        <option value="SE">Sergipe</option>
+                                                                        <option value="TO">Tocantins</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row justify-content-center">
+                                                                <div class="form-group col-12 ">
+                                                                    <label> Endereço: </label>
+                                                                    <input type="text" class="form-control" placeholder="1234 Main St" name="endereco" 
+                                                                           id="endereco" required maxlength="255" value="${endereco.getEndereco()}">
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row justify-content-center">
+                                                                <div class="form-group col-12">
+                                                                    <label> Complemento: </label>
+                                                                    <input type="text" class="form-control" placeholder="Apartament" name="complemento" 
+                                                                           id="complemento" required maxlength="20" value="${endereco.getComplemento()}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row justify-content-center">
+                                                                <div class ="form group col-3 ">
+                                                                    <button type="reset" class="btn btn-primary" id="btn-form" data-dismiss="modal"> Cancelar </button>
+                                                                </div>
+                                                                <div class ="form group   col-3">
+                                                                    <button type="submit" class="btn btn-primary btn-confirmar-cliente" id="btn-form" > Confirmar </button>
+                                                                </div>
+                                                            </div>
+
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </td> 
                                         <!-- TD DE EXCLUSAO DE ENDERECO -->
-                                        <td style="max-width:50px"><input type="hidden" value="${endereco.getID()}" name="ID">
+                                        <td >
                                             <form  method="post" action="${pageContext.request.contextPath}/deletarEnderecoServlet">
-
+                                                <input type="hidden" value="${endereco.getID()}" name="ID">
+                                                <input type="hidden" value="visualizarEnderecos" name="frontEnd">
+                                                <input type="hidden" value="visualizarEnderecos" name="finalizarCompra">
                                                 <!-- Button trigger modal -->
-                                                <button type="button" class="btn" data-toggle="modal" data-target="#modalExclusao${endereco.getID()}" id="btn-form-search"> 
+                                                <button style="width:50px; height:40px;" type="button" class="btn-form-button" data-toggle="modal" data-target="#modalExclusao${endereco.getID()}" id="btn-form-search"> 
                                                     <i class="fa fa-times"></i>
                                                 </button>
 
@@ -142,7 +335,7 @@
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
 
         <!-- FIM DO BODY -->

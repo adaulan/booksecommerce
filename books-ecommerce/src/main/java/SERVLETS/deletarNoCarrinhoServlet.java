@@ -9,6 +9,7 @@ import DAO.CarrinhoDAO;
 import MODELS.Carrinho;
 import MODELS.Livro;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,35 +38,57 @@ public class deletarNoCarrinhoServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         HttpSession sessao = request.getSession();
         int IDProduto = Integer.parseInt(request.getParameter("ID"));
-        int IDCarrinho = (int) sessao.getAttribute("IDUsuario");
-        Carrinho C = null;
-        try {
-            C = CarrinhoDAO.getByID(IDCarrinho, IDProduto);
-            C.setStatus("I");
-            if (CarrinhoDAO.atualizarStatus(C)) {
-                request.setAttribute("alertaResposta", "sucesso");
-            } else {
-                request.setAttribute("alertaResposta", "falha");
+
+        if (sessao.getAttribute("loginStatus").equals("deslogado")) {
+            List<Livro> listaLivroCarrinho = (ArrayList) sessao.getAttribute("listaCarrinho");
+            for (Livro forLivro : listaLivroCarrinho) {
+                if (forLivro.getID() == IDProduto) {
+                    listaLivroCarrinho.remove(forLivro);
+                    break;
+                }
             }
-            List<Livro> listaProduto = CarrinhoDAO.listarProdutos(IDCarrinho);
             int quantidadeDeItens = 0;
-            if (listaProduto != null) {
-                for (Livro L : listaProduto) {
+            if (listaLivroCarrinho != null) {
+                for (Livro L : listaLivroCarrinho) {
                     quantidadeDeItens = quantidadeDeItens + L.getQuantidade();
                 }
             }
             sessao.setAttribute("quantidadeDeItens", quantidadeDeItens);
+            sessao.setAttribute("listaCarrinho", listaLivroCarrinho);
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher("JSP-PAGES/consultaCarrinho.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            int IDCarrinho = (int) sessao.getAttribute("IDUsuario");
+            Carrinho C = null;
+            try {
+                C = CarrinhoDAO.getByID(IDCarrinho, IDProduto);
+                C.setStatus("I");
+                if (CarrinhoDAO.atualizarStatus(C)) {
+                    request.setAttribute("alertaResposta", "sucesso");
+                } else {
+                    request.setAttribute("alertaResposta", "falha");
+                }
+                List<Livro> listaProduto = CarrinhoDAO.listarProdutos(IDCarrinho);
+                int quantidadeDeItens = 0;
+                if (listaProduto != null) {
+                    for (Livro L : listaProduto) {
+                        quantidadeDeItens = quantidadeDeItens + L.getQuantidade();
+                    }
+                }
+                sessao.setAttribute("quantidadeDeItens", quantidadeDeItens);
 
-            request.setAttribute("listaCarrinho", listaProduto);
-        } catch (Exception e) {
-            e.printStackTrace();
-            e.getLocalizedMessage();
-            System.out.println("erro DAO produto: " + e);
+                request.setAttribute("listaCarrinho", listaProduto);
+            } catch (Exception e) {
+                e.printStackTrace();
+                e.getLocalizedMessage();
+                System.out.println("erro DAO produto: " + e);
+            }
+
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher("JSP-PAGES/consultaCarrinho.jsp");
+            dispatcher.forward(request, response);
         }
-
-        RequestDispatcher dispatcher
-                = request.getRequestDispatcher("JSP-PAGES/consultaCarrinho.jsp");
-        dispatcher.forward(request, response);
     }
 
 }

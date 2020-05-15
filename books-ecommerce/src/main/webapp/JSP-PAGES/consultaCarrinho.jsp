@@ -77,7 +77,7 @@
                                             <td>
                                                 <form method="post" action="${pageContext.request.contextPath}/editarNoCarrinhoServlet">
                                                     <input type="hidden" value="${produto.getID()}" name="ID">
-                                                    <input type="number" name="quantidade" min="1" max="100" value="${produto.getQuantidade()}">
+                                                    <input type="number" name="quantidade" min="0" max="100" value="${produto.getQuantidade()}">
                                                     <button type="submit" id="primaryButton${produto.getID()}" onclick="document.getElementById('primaryButton').click()"
                                                             style="display:none;"/>
                                                 </form>
@@ -130,13 +130,13 @@
 
                     </div>
                     
-                        <div class="col-4" style="background-color:red;" >
+                        <div class="col-4">
                             <form method="get" action="${pageContext.request.contextPath}/consultaEnderecoServlet">
                                 <input type="hidden" value="${IDUsuario}" name="ID">
                                 <input type="hidden" value="redirectToFinalizarCompra" name="finalizarCompra">
                             <button type="submit" class="btn btn-block btn-lg btn-primary" style="border-radius:0px;width:100%; ">
                                 <i class="fa fa-shopping-cart"></i>
-                                Finalizar Compra</button>
+                                Fechar Pedido</button>
                             </form>
                         </div>
                     

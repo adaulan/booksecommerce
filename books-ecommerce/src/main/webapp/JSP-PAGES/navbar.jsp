@@ -358,14 +358,6 @@
                             </div>
                         </div>
                         <!-- ENDEREÇOS -->
-                        <!-- BOTÃO DE CADASTRAR ENDEREÇO -->
-                        <form method="get" action="${pageContext.request.contextPath}/cadastrarEnderecoServlet" style="margin-top:5px;">
-                            <input type="hidden" value="${IDUsuario}" name="ID">
-                            <input type="hidden" value="frontEnd" name="frontEnd">
-                            <div>
-                                <button type="submit" class="btn btn-lg btn-primary btn-block" id="btn-singin">Cadastrar Novo  <i class="fas fa-address-card"></i></button>
-                            </div>
-                        </form>
                         <!-- BOTAO DE VISUALIZAR ENDEREÇOS-->
                         <form method="post" action="${pageContext.request.contextPath}/consultaEnderecoServlet" style="margin-top:5px;">
                             <input type="hidden" value="${IDUsuario}" name="ID">

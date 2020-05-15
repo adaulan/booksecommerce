@@ -7,8 +7,11 @@ package SERVLETS;
 
 import DAO.CarrinhoDAO;
 import MODELS.Carrinho;
+import MODELS.Livro;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -36,13 +39,46 @@ public class editarNoCarrinhoServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         HttpSession sessao = request.getSession();
-        if (sessao.getAttribute("loginStatus") == "deslogado") {
-            request.getRequestDispatcher("JSP-PAGES/home.jsp").forward(request, response);
-        } else {
+        /* ------------- USUARIO DESLOGADO ------------------- */
+        if (sessao.getAttribute("loginStatus").equals("deslogado")) {
+            int IDProduto = Integer.parseInt(request.getParameter("ID"));
+            int quantidade;
+            List<Livro> listaLivroCarrinho = (ArrayList) sessao.getAttribute("listaCarrinho");
+            if (request.getParameter("quantidade").equals("") || Integer.parseInt(request.getParameter("quantidade")) == 0) {
+                for (Livro forLivro : listaLivroCarrinho) {
+                    if (forLivro.getID() == IDProduto) {
+                        listaLivroCarrinho.remove(forLivro);
+                        break;
+                    }
+                }
+            } else {
+                quantidade = Integer.parseInt(request.getParameter("quantidade"));
+
+                for (Livro forLivro : listaLivroCarrinho) {
+                    if (forLivro.getID() == IDProduto) {
+                        listaLivroCarrinho.remove(forLivro);
+                        forLivro.setQuantidade(quantidade);
+                        listaLivroCarrinho.add(forLivro);
+                    }
+                }
+            }
+            sessao.setAttribute("listaCarrinho", listaLivroCarrinho);
+            request.getRequestDispatcher("consultaCarrinhoServlet").forward(request, response);
+            
+            
+        } /* ------------- USUARIO LOGADO ------------------- */ else {
             int IDProduto = Integer.parseInt(request.getParameter("ID"));
             String status = "A";
-            int quantidade = Integer.parseInt(request.getParameter("quantidade"));
+            int quantidade;
+
+            if (request.getParameter("quantidade").equals("") || Integer.parseInt(request.getParameter("quantidade")) == 0) {
+                quantidade = 0;
+                status = "I";
+            } else {
+                quantidade = Integer.parseInt(request.getParameter("quantidade"));
+            }
             int IDUsuario = (int) sessao.getAttribute("IDUsuario");
+
             // ----------------------TESTE DE CLICK--------------------------------------
             // Testa se o Usuario clicou apenas no Adicionar sem adicionar uma nova quantidade
             Carrinho itemNoCarrinho = null;

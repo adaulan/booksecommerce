@@ -6,9 +6,11 @@
 package SERVLETS;
 
 import DAO.CarrinhoDAO;
+import DAO.LivroDAO;
 import MODELS.Carrinho;
 import MODELS.Livro;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,8 +44,65 @@ public class adicionarNoCarrinhoServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         HttpSession sessao = request.getSession();
-        if (sessao.getAttribute("loginStatus") == "deslogado") {
+
+        /* ------------------- USUARIO DESLOGADO ---------------- */
+        if (sessao.getAttribute("loginStatus").equals("deslogado")) {
+            int IDProduto = Integer.parseInt(request.getParameter("ID"));
+            String status = "A";
+            int quantidade = Integer.parseInt(request.getParameter("quantidade"));
+            int IDCarrinho = 0;
+
+            Carrinho carrinho = new Carrinho(IDCarrinho, IDProduto, quantidade, status);
+            Livro L = null;
+            try {
+                L = LivroDAO.getByID(IDProduto);
+                L.setQuantidade(quantidade);
+            } catch (Exception ex) {
+                Logger.getLogger(adicionarNoCarrinhoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            if (sessao.getAttribute("listaCarrinho") == null) {
+                List<Livro> listaLivroCarrinho = new ArrayList<Livro>();
+                listaLivroCarrinho.add(L);
+                int quantidadeDeItens = 0;
+                if (listaLivroCarrinho != null) {
+                    for (Livro forLivro : listaLivroCarrinho) {
+                        quantidadeDeItens = quantidadeDeItens + L.getQuantidade();
+                    }
+                }
+
+                sessao.setAttribute("listaCarrinho", listaLivroCarrinho);
+                sessao.setAttribute("quantidadeDeItens", quantidadeDeItens);
+            } else {
+                List<Livro> listaLivroCarrinho = (ArrayList) sessao.getAttribute("listaCarrinho");
+                boolean exist = false;
+                for(Livro forLivro : listaLivroCarrinho){
+                    if(forLivro.getID() == IDProduto){
+                        listaLivroCarrinho.remove(forLivro);
+                        forLivro.setQuantidade(forLivro.getQuantidade() + quantidade);
+                        listaLivroCarrinho.add(forLivro);
+                        exist = true;
+                    }
+                }
+                
+                if(exist == false){
+                    listaLivroCarrinho.add(L);
+                } 
+                
+                int quantidadeDeItens = 0;
+                if (listaLivroCarrinho != null) {
+                    for (Livro forLivro : listaLivroCarrinho) {
+                        quantidadeDeItens = quantidadeDeItens + forLivro.getQuantidade();
+                    }
+                }
+                sessao.setAttribute("listaCarrinho", listaLivroCarrinho);
+                sessao.setAttribute("quantidadeDeItens", quantidadeDeItens);
+            }
+
             request.getRequestDispatcher("JSP-PAGES/home.jsp").forward(request, response);
+
+            /* ------------------- FIM USUARIO DESLOGADO ---------------- */
+            /* ------------------- USUARIO LOGADO ---------------- */
         } else {
             int IDProduto = Integer.parseInt(request.getParameter("ID"));
             String status = "A";
