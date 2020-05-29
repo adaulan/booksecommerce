@@ -140,6 +140,13 @@
                                 <a href="${pageContext.request.contextPath}/JSP-PAGES/CRUD-USUARIO/consultaUsuario.jsp" class="dropdown-item">Consulta</a>
                             </div>
                         </li>
+                        
+                        <li id="pedidos" class="nav-item dropdown" style="display:none">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pedidos</a>
+                            <div class="dropdown-menu">
+                                <a href="${pageContext.request.contextPath}/JSP-PAGES/consultaPedidos.jsp" class="dropdown-item">Consulta</a>
+                            </div>
+                        </li>
                     </ul>
 
                     <form class="form-inline ml-auto">
@@ -173,6 +180,7 @@
                             </form>
                             <br/>
                             <button data-toggle="modal" data-target="#exampleModalCenter2" class="btn btn-lg btn-primary btn-block" id="btn-singin"> Inscrever-se <i class="fas fa-user-plus"></i> </button>
+
                         </div>
                     </div>
 
@@ -271,7 +279,7 @@
                                 <br>
                                 <button class="btn btn-lg btn-primary btn-block" type="submit" id="btn-singin"> Logout <i class="fas fa-sign-in-alt"></i> </button>
                             </form>
-                            
+
 
                             <!-- ATUALIZAR CADASTRO FORM -->
                             <button data-toggle="modal" data-target="#exampleModalCenter4" class="btn btn-lg btn-primary btn-block" id="btn-singin" style="margin-top:5px;"> Atualizar Cadastro <i class="fas fa-edit"></i> </button>
@@ -354,8 +362,11 @@
                                         </form>
                                     </div>
                                 </div>
-
                             </div>
+                            <!-- MEUS PEDIDOS -->
+                            <form  action = "${pageContext.request.contextPath}/consultarPedidosServlet" method = "get" style="text-align: center; margin-top:5px;">
+                                <button class="btn btn-lg btn-primary btn-block" type="submit" id="btn-singin"> Meus Pedidos </button>
+                            </form>
                         </div>
                         <!-- ENDEREÇOS -->
                         <!-- BOTAO DE VISUALIZAR ENDEREÇOS-->
@@ -389,6 +400,7 @@
                                                                        $('#produtos').css('display', 'none');
                                                                        $('#clientes').css('display', 'none');
                                                                        $('#usuarios').css('display', 'none');
+                                                                       $('#pedidos').css('display', 'none');
 
                                                                        /* CPF DISABLE*/
                                                                        $('#CPFUpdate').css("background", '#eee');
@@ -404,10 +416,12 @@
                                                                        $('#produtos').css('display', 'block');
                                                                        $('#clientes').css('display', 'block');
                                                                        $('#usuarios').css('display', 'block');
+                                                                       $('#pedidos').css('display', 'block');
                                                                    } else if ($('#loginInput').val() === 'estoquista') {
                                                                        $('#produtos').css('display', 'block');
                                                                        $('#clientes').css('display', 'none');
                                                                        $('#usuarios').css('display', 'none');
+                                                                       $('#pedidos').css('display', 'block');
                                                                        /* CPF DISABLE*/
                                                                        $('#CPFUpdate').css("background", '#eee');
                                                                        $('#CPFUpdate').css("pointer-events", 'none');

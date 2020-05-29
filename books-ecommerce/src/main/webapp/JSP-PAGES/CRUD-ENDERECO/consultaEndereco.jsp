@@ -51,15 +51,6 @@
                 <div class="row justify-content-center">
                     <h2>Consulta</h2>
                 </div>
-                <!--<div class="row justify-content-center">
-                    <div class="input-group col-12">
-                        <input type="text" class="form-control" placeholder="O que você busca?" 
-                               aria-label="Recipient's username" aria-describedby="button-addon2" name="Busca">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Pesquisar <i class="fa fa-search"></i></button>
-                        </div>
-                    </div>
-                </div> -->
                 <br>
                 <div class="row justify-content-center">
                     <div class="form-group col-12">

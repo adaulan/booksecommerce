@@ -39,6 +39,7 @@ public class deletarNoCarrinhoServlet extends HttpServlet {
         HttpSession sessao = request.getSession();
         int IDProduto = Integer.parseInt(request.getParameter("ID"));
 
+        /*--------------- USUARIO DESLOGADO------------------- */
         if (sessao.getAttribute("loginStatus").equals("deslogado")) {
             List<Livro> listaLivroCarrinho = (ArrayList) sessao.getAttribute("listaCarrinho");
             for (Livro forLivro : listaLivroCarrinho) {
@@ -47,18 +48,22 @@ public class deletarNoCarrinhoServlet extends HttpServlet {
                     break;
                 }
             }
+            
             int quantidadeDeItens = 0;
             if (listaLivroCarrinho != null) {
                 for (Livro L : listaLivroCarrinho) {
                     quantidadeDeItens = quantidadeDeItens + L.getQuantidade();
                 }
             }
+            request.setAttribute("alertaResposta", "sucesso");
+            sessao.setAttribute("msgResposta", "Produto Removido");
             sessao.setAttribute("quantidadeDeItens", quantidadeDeItens);
             sessao.setAttribute("listaCarrinho", listaLivroCarrinho);
             RequestDispatcher dispatcher
                     = request.getRequestDispatcher("JSP-PAGES/consultaCarrinho.jsp");
             dispatcher.forward(request, response);
         } else {
+            /*--------------- USUARIO LOGADO------------------- */
             int IDCarrinho = (int) sessao.getAttribute("IDUsuario");
             Carrinho C = null;
             try {
@@ -66,8 +71,10 @@ public class deletarNoCarrinhoServlet extends HttpServlet {
                 C.setStatus("I");
                 if (CarrinhoDAO.atualizarStatus(C)) {
                     request.setAttribute("alertaResposta", "sucesso");
+                    sessao.setAttribute("msgResposta", "Produto Removido");
                 } else {
                     request.setAttribute("alertaResposta", "falha");
+                    sessao.setAttribute("msgResposta", "Ocorreu um erro ao remover o Produto");
                 }
                 List<Livro> listaProduto = CarrinhoDAO.listarProdutos(IDCarrinho);
                 int quantidadeDeItens = 0;
@@ -77,7 +84,7 @@ public class deletarNoCarrinhoServlet extends HttpServlet {
                     }
                 }
                 sessao.setAttribute("quantidadeDeItens", quantidadeDeItens);
-
+                sessao.setAttribute("listaCarrinho", listaProduto);
                 request.setAttribute("listaCarrinho", listaProduto);
             } catch (Exception e) {
                 e.printStackTrace();

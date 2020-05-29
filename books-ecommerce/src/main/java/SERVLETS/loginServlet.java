@@ -7,10 +7,12 @@ package SERVLETS;
 
 import DAO.CarrinhoDAO;
 import DAO.LoginDAO;
+import MODELS.Carrinho;
 import MODELS.Livro;
 import MODELS.Senha;
 import MODELS.Usuario;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -65,7 +67,30 @@ public class loginServlet extends HttpServlet {
             /* -------------DISPLAY DE ITENS DO CARRINHO-------------------- */
             List<Livro> listaLivroCarrinho = null;
             try {
+                if (sessao.getAttribute("listaCarrinho") != null) {
+
+                    List<Livro> listaLivroCarrinhoSessao = (ArrayList) sessao.getAttribute("listaCarrinho");
+                    for (Livro L : listaLivroCarrinhoSessao) {
+                        Carrinho carrinho = new Carrinho(user.getID(), L.getID(), L.getQuantidade(), "A");
+                        Carrinho itemNoCarrinho = CarrinhoDAO.getByID(user.getID(), L.getID());
+                        if (itemNoCarrinho == null) {
+                            if (CarrinhoDAO.inserir(carrinho)) {
+                                request.setAttribute("msgResposta", "Adicionado com sucesso!");
+                            } else {
+                                request.setAttribute("msgResposta", "Não Foi possível adicionar!");
+                            }
+                        } else {
+                            itemNoCarrinho.setQuantidade(itemNoCarrinho.getQuantidade() + L.getQuantidade());
+                            if (CarrinhoDAO.atualizarQuantidade(itemNoCarrinho)) {
+                                request.setAttribute("msgResposta", "Adicionado com sucesso!");
+                            } else {
+                                request.setAttribute("msgResposta", "Não Foi possível adicionar!");
+                            }
+                        }
+                    }
+                }
                 listaLivroCarrinho = CarrinhoDAO.listarProdutos(user.getID());
+
             } catch (Exception ex) {
                 Logger.getLogger(consultaCarrinhoServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -86,15 +111,5 @@ public class loginServlet extends HttpServlet {
             request.getRequestDispatcher("homeServlet").forward(request, response);
         }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

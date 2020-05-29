@@ -170,7 +170,7 @@
                                 <%-- FIM --%>
                                 <c:forEach items ="${listaEndereco}" var="endereco">
                                     <tr>
-                                        <td><input type="radio" name="ID" value="${endereco.getID()}"></td>
+                                        <td><input type="radio" name="ID" value="${endereco.getID()}" onclick="setIDEndereco(${endereco.getID()});"></td>
                                         <td><c:out value="${endereco.getCEP()}"/></td>
                                         <td style="max-width:250px;"><c:out value="${endereco.getEndereco()}"/></td>
                                         <td><c:out value="${endereco.getCidade()}"/></td>
@@ -285,7 +285,7 @@
 
                                         </td> 
                                         <!-- TD DE EXCLUSAO DE ENDERECO -->
-                                        <td >
+                                        <td>
                                             <form  method="post" action="${pageContext.request.contextPath}/deletarEnderecoServlet">
                                                 <input type="hidden" value="${endereco.getID()}" name="ID">
                                                 <input type="hidden" value="frontEnd" name="frontEnd">
@@ -326,12 +326,22 @@
                             </table>
                         </div>
                     </div>
-                    <div class="col">
-
+                    <!--<div class="col">
+                    
+                    </div>-->
+                    <!-- RADIO BUTTON -->
+                    <div class="btn-group btn-group-toggle col-12" data-toggle="buttons">
+                        <label class="btn btn-secondary active">
+                            <input type="radio" name="options" id="option1" autocomplete="off" checked onclick="displayPagamentoCartao();"> Cartão de Crédito
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="options" id="option2" autocomplete="off" onclick="displayPagamentoBoleto();"> Boleto
+                        </label>
                     </div>
-                    <div class="col" style="padding:1%;color:black;">
+
+                    <div  id="creditCard" class="col" style="padding:1%;color:black;">
                         <div class="col-12" style="">
-                            <h3>Forma de Pagamento</h3>
+                            <h3>Dados do Cartão</h3>
                         </div>
                         <p style="color:black;margin-top:20px;">Cartão de Crédito</p>
                         <div class="row justify-content-start">
@@ -358,6 +368,18 @@
                                        required>
                             </div>
                         </div>
+                    </div>
+
+
+                    <div class="col-12">
+                        <form method="post" id="fecharPedidoForm" action="${pageContext.request.contextPath}/fecharPedidoServlet">
+                            <input type="hidden" value="${IDUsuario}" name="ID">
+                            <input type="hidden" id="paymentMethod" name="formaPagamento">
+                            <input type="hidden"  id="addressID" name="IDEndereco">
+                            <button id="fecharPedidoButton" type="submit" class="btn btn-block btn-lg btn-primary" style="border-radius:0px;width:100%; ">
+                                <i class="fa fa-shopping-cart"></i>
+                                Fechar Pedido</button>
+                        </form>
                     </div>
 
                 </div>
@@ -433,25 +455,44 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/JSP-STYLES/JS/swiper.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/JSP-STYLES/JS/script.js"></script>
         <script type="text/javascript">
-                                                                               $(document).ready(function () {
+                                $(document).ready(function () {
 
-                                                                                   if ($('#alertaR').val() === "sucesso") {
-                                                                                       $('#RespostaSucesso').css("display", "block");
-                                                                                       setTimeout(function () {
-                                                                                           $('#RespostaSucesso').css("display", "none");
-                                                                                       }, 5000);
-                                                                                   } else if ($('#alertaR').val() === "falha") {
-                                                                                       if ($('#alertaR').val() === "sucesso") {
-                                                                                           $('#RespostaFalha').css("display", "block");
-                                                                                           setTimeout(function () {
-                                                                                               $('#RespostaFalha').css("display", "none");
-                                                                                           }, 5000);
-                                                                                       } else {
-                                                                                       }
-                                                                                       ;
-                                                                                   }
-                                                                                   ;
-                                                                               });
+                                    if ($('#alertaR').val() === "sucesso") {
+                                        $('#RespostaSucesso').css("display", "block");
+                                        setTimeout(function () {
+                                            $('#RespostaSucesso').css("display", "none");
+                                        }, 5000);
+                                    } else if ($('#alertaR').val() === "falha") {
+                                        if ($('#alertaR').val() === "sucesso") {
+                                            $('#RespostaFalha').css("display", "block");
+                                            setTimeout(function () {
+                                                $('#RespostaFalha').css("display", "none");
+                                            }, 5000);
+                                        } else {
+                                        }
+                                        ;
+                                    }
+                                    ;
+                                });
+
+                                function displayPagamentoCartao() {
+                                    $('#creditCard').css("display", "block");
+                                    $('#boleto').css("display", "none");
+                                    $('#paymentMethod').val("Cartão");
+                                }
+                                ;
+                                function displayPagamentoBoleto() {
+                                    $('#boleto').css("display", "block");
+                                    $('#creditCard').css("display", "none");
+                                    $('#paymentMethod').val("Boleto");
+                                }
+                                ;
+                                
+                                function setIDEndereco(ID) {
+                                    $('#addressID').val(ID);
+                                }
+                                ;
+
 
 
         </script>

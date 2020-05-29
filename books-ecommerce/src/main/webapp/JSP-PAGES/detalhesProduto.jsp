@@ -69,8 +69,9 @@
                                     <p style="font-size:14px;">Em até <strong>2x sem Juros</strong> no Cartão</p>
                                 </div>
                                 <div class="col-6" >
-                                    <form></form>
+                                    <form></form><!-- CORREÇÃO DE BUG -->
                                     <form method="post" action="${pageContext.request.contextPath}/adicionarNoCarrinhoServlet">
+                                        <input type="number" name="quantidade" value="1" style="display:none;">
                                         <input type="hidden" value="${detalheLivro.getID()}" name="ID">
                                         <input type="submit" class="btn btn-block btn-lg btn-primary" style="border-radius:0px;width:100%;" value="Adicionar ao Carrinho">
                                     </form>

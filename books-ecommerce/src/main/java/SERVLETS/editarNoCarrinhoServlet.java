@@ -9,7 +9,6 @@ import DAO.CarrinhoDAO;
 import MODELS.Carrinho;
 import MODELS.Livro;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -51,6 +50,8 @@ public class editarNoCarrinhoServlet extends HttpServlet {
                         break;
                     }
                 }
+                request.setAttribute("alertaResposta", "sucesso");
+                sessao.setAttribute("msgResposta", "Produto Removido");
             } else {
                 quantidade = Integer.parseInt(request.getParameter("quantidade"));
 
@@ -59,13 +60,16 @@ public class editarNoCarrinhoServlet extends HttpServlet {
                         listaLivroCarrinho.remove(forLivro);
                         forLivro.setQuantidade(quantidade);
                         listaLivroCarrinho.add(forLivro);
+                        break;
                     }
                 }
+                request.setAttribute("alertaResposta", "sucesso");
+                sessao.setAttribute("msgResposta", "Produto Atualizado");
             }
+
             sessao.setAttribute("listaCarrinho", listaLivroCarrinho);
             request.getRequestDispatcher("consultaCarrinhoServlet").forward(request, response);
-            
-            
+
         } /* ------------- USUARIO LOGADO ------------------- */ else {
             int IDProduto = Integer.parseInt(request.getParameter("ID"));
             String status = "A";
@@ -95,9 +99,13 @@ public class editarNoCarrinhoServlet extends HttpServlet {
 
             try {
                 if (CarrinhoDAO.atualizarQuantidade(carrinho)) {
-                    request.setAttribute("msgResposta", "Adicionado com sucesso!");
+                    if (carrinho.getStatus().equals("A")) {
+                        sessao.setAttribute("msgResposta", "Produto Atualizado");
+                    } else {
+                        sessao.setAttribute("msgResposta", "Não foi possível atualizar produto");
+                    }
                 } else {
-                    request.setAttribute("msgResposta", "Não Foi possível adicionar!");
+                    sessao.setAttribute("msgResposta", "Não foi possível atualizar produto");
                 }
             } catch (Exception e) {
                 e.getLocalizedMessage();

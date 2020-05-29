@@ -67,11 +67,12 @@ public class consultaCarrinhoServlet extends HttpServlet {
             request.setAttribute("dataAtual", formattedDate);
             request.setAttribute("valorTotalNoCarrinho", valorString);
             request.setAttribute("quantidadeDeItens", quantidadeDeItens);
+            sessao.setAttribute("quantidadeDeItens", quantidadeDeItens);
             request.setAttribute("listaCarrinho", listaLivroCarrinho);
 
             request.getRequestDispatcher("JSP-PAGES/consultaCarrinho.jsp").forward(request, response);
 
-        } else {
+        } /*************** USUARIO LOGADO ******************/ else {
 
         int IDUsuario = (int) sessao.getAttribute("IDUsuario");
 
@@ -100,9 +101,13 @@ public class consultaCarrinhoServlet extends HttpServlet {
         //----------------------VALOR/QUANTIDADE/DATA---------------------------
 
         request.setAttribute("dataAtual", formattedDate);
+        sessao.setAttribute("dataAtual", formattedDate);
         request.setAttribute("valorTotalNoCarrinho", valorString);
+        sessao.setAttribute("valorTotalNoCarrinho", valorString);
         request.setAttribute("quantidadeDeItens", quantidadeDeItens);
+        sessao.setAttribute("quantidadeDeItens", quantidadeDeItens);
         request.setAttribute("listaCarrinho", listaLivroCarrinho);
+        sessao.setAttribute("listaCarrinho", listaLivroCarrinho);
 
         request.getRequestDispatcher("JSP-PAGES/consultaCarrinho.jsp").forward(request, response);
         }

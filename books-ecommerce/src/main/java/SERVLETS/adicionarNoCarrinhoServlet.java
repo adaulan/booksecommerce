@@ -82,6 +82,7 @@ public class adicionarNoCarrinhoServlet extends HttpServlet {
                         forLivro.setQuantidade(forLivro.getQuantidade() + quantidade);
                         listaLivroCarrinho.add(forLivro);
                         exist = true;
+                        break;
                     }
                 }
                 
