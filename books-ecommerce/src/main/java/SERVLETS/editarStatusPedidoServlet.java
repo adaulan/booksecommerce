@@ -5,10 +5,12 @@
  */
 package SERVLETS;
 
-import DAO.LivroDAO;
-import MODELS.Livro;
+import DAO.CarrinhoDAO;
+import MODELS.Pedido;
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,42 +22,35 @@ import javax.servlet.http.HttpSession;
  *
  * @author Adaulan
  */
-@WebServlet(name = "consultaProdutoServlet", urlPatterns = {"/consultaProdutoServlet"})
-public class consultaProdutoServlet extends HttpServlet {
-
+@WebServlet(name = "editarStatusPedidoServlet", urlPatterns = {"/editarStatusPedidoServlet"})
+public class editarStatusPedidoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         HttpSession sessao = request.getSession();
         request.setCharacterEncoding("UTF-8");
-
+        
+        int IDPedido = Integer.parseInt(request.getParameter("ID"));
+        
+        Pedido P = null;
         try {
-            List<Livro> listaProduto = LivroDAO.buscar(request.getParameter("Busca"));
-            String tipo = (String) sessao.getAttribute("tipo");
-            request.setAttribute("listaProduto", listaProduto);
-            sessao.setAttribute("listaProduto", listaProduto);
-        } catch (Exception e) {
-            System.out.println(e);
+            P = CarrinhoDAO.getPedidoByID(IDPedido);
+            P.setStatus(request.getParameter("Status"));
+            CarrinhoDAO.atualizarStatusPedido(P.getStatus(), P.getID());
+        } catch (Exception ex) {
+            Logger.getLogger(detalhesPedidoServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-
-        request.getRequestDispatcher("JSP-PAGES/CRUD-PRODUTOS/consultaProdutos.jsp").forward(request, response);
-
+        request.getRequestDispatcher("consultaPedidosSistemaServlet").forward(request, response);
     }
 
 }

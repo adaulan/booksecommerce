@@ -26,7 +26,7 @@
 
     </style>
 
-    <jsp:include page="navbar.jsp"/>
+    <jsp:include page="../navbar.jsp"/>
 
     <body onload="mensagemCadastro()">
 
@@ -35,8 +35,9 @@
         <!-- INICIO DO BODY -->
         <div id="" class="text-center" style="margin-top: 20px;">
             <form id="FadeForm" class="form-type" 
-                  action="${pageContext.request.contextPath}/consultaUsuarioSistemaServlet" method = "post" accept-charset="UTF-8"
+                  action="${pageContext.request.contextPath}/consultaEnderecoServlet" method = "post" accept-charset="UTF-8"
                   style="max-width: 1300px; height:auto; max-height: 800px;">
+                <input type="hidden" value="${endereco.getID()}" name="ID">
                 <!-- ALERTA DE SUCESSO OU FALHA -->
                 <div class="alert alert-success" role="alert" style="display:none;" id='RespostaSucesso'>
                     Atualizado com Sucesso!!
@@ -49,15 +50,6 @@
                 <!-- TABELA DE CONSULTA -->
                 <div class="row justify-content-center">
                     <h2>Consulta</h2>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="input-group col-12">
-                        <input type="text" class="form-control" placeholder="O que você busca?" 
-                               aria-label="Recipient's username" aria-describedby="button-addon2" name="Busca">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Pesquisar <i class="fa fa-search"></i></button>
-                        </div>
-                    </div>
                 </div>
                 <br>
                 <div class="row justify-content-center">

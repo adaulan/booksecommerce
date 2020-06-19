@@ -37,7 +37,7 @@
             <!-- INICIO FORM -->
 
             <form action="" method = "post" accept-charset="UTF-8">
-                
+
                 <div class="form-type col" id="FadeForm" style="margin: 1%; background-color:white; width:100%;">
 
                     <div class="row align-items-center" style="padding:3%;">
@@ -69,9 +69,12 @@
                                     <p style="font-size:14px;">Em até <strong>2x sem Juros</strong> no Cartão</p>
                                 </div>
                                 <div class="col-6" >
-                                    <a href="#" class="btn btn-block btn-lg btn-primary" style="border-radius:0px;width:100%; ">
-                                        <i class="fa fa-shopping-cart"></i>
-                                        Adicionar ao Carrinho</a>
+                                    <form></form><!-- CORREÇÃO DE BUG -->
+                                    <form method="post" action="${pageContext.request.contextPath}/adicionarNoCarrinhoServlet">
+                                        <input type="number" name="quantidade" value="1" style="display:none;">
+                                        <input type="hidden" value="${detalheLivro.getID()}" name="ID">
+                                        <input type="submit" class="btn btn-block btn-lg btn-primary" style="border-radius:0px;width:100%;" value="Adicionar ao Carrinho">
+                                    </form>
                                 </div>
                             </div>
                         </div>

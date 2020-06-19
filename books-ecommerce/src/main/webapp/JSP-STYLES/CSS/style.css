@@ -9,8 +9,8 @@ and open the template in the editor.
 */
 /* FONTE DO SITE */
 @font-face {
-     font-family: HomepageBaukasten-Book;
-     src: url('../FONTES/HomepageBaukasten-Book.otf');
+    font-family: HomepageBaukasten-Book;
+    src: url('../FONTES/HomepageBaukasten-Book.otf');
 }
 
 
@@ -88,6 +88,12 @@ body {
 }
 .cart a{
     color: #FFFFFF;
+    width:100%;
+}
+.cart .addtocart{
+    color: #FFFFFF;
+    width: 248px;
+    height: 45px;
 }
 
 .cart:hover{

@@ -23,15 +23,14 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "consultaEnderecoServlet", urlPatterns = {"/consultaEnderecoServlet"})
 public class consultaEnderecoServlet extends HttpServlet {
 
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         int ID = Integer.parseInt(request.getParameter("ID"));
-        
+
         try {
-        /* Pega os Dados no Banco */
+            /* Pega os Dados no Banco */
             List<Endereco> listaEndereco = EnderecoDAO.listByID(ID);
             request.setAttribute("listaEndereco", listaEndereco);
         } catch (Exception e) {
@@ -39,16 +38,54 @@ public class consultaEnderecoServlet extends HttpServlet {
             e.getLocalizedMessage();
             System.out.println("erro DAO endereco: " + e);
         }
-        /* RETORNA PRA PÁGINA DE CONSULTAR ENDERECOS */
-        RequestDispatcher dispatcher
-                = request.getRequestDispatcher("JSP-PAGES/consultaEndereco.jsp");
-        dispatcher.forward(request, response);
+
+        String page = request.getParameter("finalizarCompra");
+        if (page == null) {
+            /* RETORNA PRA PÁGINA DE CONSULTAR ENDERECOS */
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher("JSP-PAGES/CRUD-ENDERECO/consultaEndereco.jsp");
+            dispatcher.forward(request, response);
+        } else if (page.equals("redirectToFinalizarCompra")) {
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher("JSP-PAGES/finalizarCompra.jsp");
+            dispatcher.forward(request, response);
+        } else if (page.equals("frontEnd")) {
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher("JSP-PAGES/CRUD-ENDERECO/consultaEnderecoCliente.jsp");
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+        request.setCharacterEncoding("UTF-8");
+        int ID = Integer.parseInt(request.getParameter("ID"));
+
+        try {
+            /* Pega os Dados no Banco */
+            List<Endereco> listaEndereco = EnderecoDAO.listByID(ID);
+            request.setAttribute("listaEndereco", listaEndereco);
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getLocalizedMessage();
+            System.out.println("erro DAO endereco: " + e);
+        }
+
+        String page = request.getParameter("finalizarCompra");
+        if (page == null) {
+            /* RETORNA PRA PÁGINA DE CONSULTAR ENDERECOS */
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher("JSP-PAGES/CRUD-ENDERECO/consultaEndereco.jsp");
+            dispatcher.forward(request, response);
+        } else if (page.equals("redirectToFinalizarCompra")) {
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher("JSP-PAGES/finalizarCompra.jsp");
+            dispatcher.forward(request, response);
+        } else if (page.equals("frontEnd")) {
+            RequestDispatcher dispatcher
+                    = request.getRequestDispatcher("JSP-PAGES/CRUD-ENDERECO/consultaEnderecoCliente.jsp");
+            dispatcher.forward(request, response);
+        }
     }
-    
+
 }

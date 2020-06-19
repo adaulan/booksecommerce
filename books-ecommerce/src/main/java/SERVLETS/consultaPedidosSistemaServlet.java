@@ -5,11 +5,13 @@
  */
 package SERVLETS;
 
+import DAO.CarrinhoDAO;
 import DAO.LivroDAO;
 import MODELS.Livro;
+import MODELS.Pedido;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,45 +23,39 @@ import javax.servlet.http.HttpSession;
  *
  * @author Adaulan
  */
-@WebServlet(name = "deletarProdutoServlet", urlPatterns = {"/deletarProdutoServlet"})
-public class deletarProdutoServlet extends HttpServlet {
+@WebServlet(name = "consultaPedidosSistemaServlet", urlPatterns = {"/consultaPedidosSistemaServlet"})
+public class consultaPedidosSistemaServlet extends HttpServlet {
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
     }
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         HttpSession sessao = request.getSession();
         request.setCharacterEncoding("UTF-8");
-        int ID = Integer.parseInt(request.getParameter("ID"));
-        HttpSession sessao = request.getSession();
-        Livro L = null;
 
         try {
-            L = LivroDAO.getByID(ID);
-            L.setStatus("I");
-            LivroDAO.atualizarStatus(L);
-            List<Livro> listaProduto = LivroDAO.listar();
-
-            request.setAttribute("listaProduto", listaProduto);
+            List<Pedido> listaPedidos = CarrinhoDAO.listarPedidos();
+            request.setAttribute("listaPedidos", listaPedidos);
+            sessao.setAttribute("listaPedidos", listaPedidos);
         } catch (Exception e) {
-            e.printStackTrace();
-            e.getLocalizedMessage();
-            System.out.println("erro DAO produto: " + e);
+            System.out.println(e);
         }
+        
 
-        RequestDispatcher dispatcher
-                = request.getRequestDispatcher("JSP-PAGES/CRUD-PRODUTOS/consultaProdutos.jsp");
-        dispatcher.forward(request, response);
-
+        request.getRequestDispatcher("JSP-PAGES/consultaPedidos.jsp").forward(request, response);
     }
 
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
 
 }

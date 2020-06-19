@@ -15,9 +15,10 @@ import java.sql.ResultSet;
  * @author Adaulan
  */
 public class LoginDAO {
-        public static Usuario Logar(String usuario) throws Exception {
+
+    public static Usuario Logar(String usuario) throws Exception {
         String sql = "SELECT * FROM USUARIO WHERE USUARIO=?";
-        Usuario user = null ;
+        Usuario user = null;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -49,7 +50,4 @@ public class LoginDAO {
         return user;
     }
 
-    public static Usuario Logar(Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

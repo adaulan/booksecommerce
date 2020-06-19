@@ -8,12 +8,14 @@ package SERVLETS;
 import DAO.EnderecoDAO;
 import MODELS.Endereco;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -28,17 +30,18 @@ public class cadastrarEnderecoServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         /* Pega o ID na Página */
         int ID = Integer.parseInt(request.getParameter("ID"));
-        
+
         /* CRIA OS ATRIBUTOS NO REQUEST*/
         request.setAttribute("IDEndereco", ID);
-        /* RETORNA PRA PÁGINA DE EDITAR PRODUTOS */
-        RequestDispatcher dispatcher
-                = request.getRequestDispatcher("JSP-PAGES/cadastrarEndereco.jsp");
-        dispatcher.forward(request, response);
-    }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        RequestDispatcher dispatcher
+                = request.getRequestDispatcher("JSP-PAGES/CRUD-ENDERECO/cadastrarEndereco.jsp");
+        dispatcher.forward(request, response);
+    
+}
+
+@Override
+        protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         int IDUSUARIO = Integer.parseInt(request.getParameter("ID"));
@@ -63,7 +66,43 @@ public class cadastrarEnderecoServlet extends HttpServlet {
             e.getLocalizedMessage();
             System.out.println(e);
         }
-        request.getRequestDispatcher("homeServlet").forward(request, response);
+        if (request.getParameter("frontEnd") != null) {
+            if (request.getParameter("frontEnd").equals("frontEnd")) {
+
+                try {
+                    /* Pega os Dados no Banco */
+                    List<Endereco> listaEndereco = EnderecoDAO.listByID(IDUSUARIO);
+                    request.setAttribute("listaEndereco", listaEndereco);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    e.getLocalizedMessage();
+                    System.out.println("erro DAO endereco: " + e);
+                }
+
+                RequestDispatcher dispatcher
+                        = request.getRequestDispatcher("JSP-PAGES/finalizarCompra.jsp");
+                dispatcher.forward(request, response);
+            } else if (request.getParameter("frontEnd").equals("visualizarEnderecos")) {
+            try {
+                    /* Pega os Dados no Banco */
+                    List<Endereco> listaEndereco = EnderecoDAO.listByID(IDUSUARIO);
+                    request.setAttribute("listaEndereco", listaEndereco);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    e.getLocalizedMessage();
+                    System.out.println("erro DAO endereco: " + e);
+                }
+
+                RequestDispatcher dispatcher
+                        = request.getRequestDispatcher("JSP-PAGES/CRUD-ENDERECO/consultaEnderecoCliente.jsp");
+                dispatcher.forward(request, response);
+            }else {
+                request.getRequestDispatcher("homeServlet").forward(request, response);
+
+            }
+        } else {
+            request.getRequestDispatcher("homeServlet").forward(request, response);
+        }
     }
 
 }

@@ -20,7 +20,7 @@
 
     </style>
 
-    <jsp:include page="navbar.jsp"/>
+    <jsp:include page="../navbar.jsp"/>
 
     <body onload="mensagemCadastro()">
 

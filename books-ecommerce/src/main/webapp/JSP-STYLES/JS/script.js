@@ -16,6 +16,7 @@ var swiper = new Swiper('.swiper-container', {
 function redirectToPage(jspAddress) {
     window.location.href = jspAddress;
 }
+;
 
 //Mudar o nome do input ao escolher imagem
 $('#customFile').on('change', function () {
@@ -84,12 +85,13 @@ function moeda(a, e, r, t) {
 ;
 
 function mensagemCadastro() {
+
     if ($('#alertaR').val() === "sucesso") {
         $('#RespostaSucesso').css("display", "block");
         setTimeout(function () {
             $('#RespostaSucesso').css("display", "none");
         }, 5000);
-    } else if ($('#alertaR').val() == "falha") {
+    } else if ($('#alertaR').val() === "falha") {
         if ($('#alertaR').val() === "sucesso") {
             $('#RespostaFalha').css("display", "block");
             setTimeout(function () {
@@ -101,6 +103,7 @@ function mensagemCadastro() {
     }
     ;
 }
+;
 
 function ativaDivLogin() {
     $("#loginButton").trigger('click');
@@ -298,6 +301,7 @@ function checarEmail(form, email) {
         $('.btn-confirmar').prop('disabled', false);
     }
 }
+;
 
 function checarEmailCliente(form, email) {
     if (document.forms[form][email].value === ""
@@ -313,6 +317,7 @@ function checarEmailCliente(form, email) {
         $('.btn-confirmar-cliente').prop('disabled', false);
     }
 }
+;
 
 function checarEmailUpdate(form, email) {
     if (document.forms[form][email].value === ""
@@ -328,6 +333,7 @@ function checarEmailUpdate(form, email) {
         $('.btn-confirmar-update').prop('disabled', false);
     }
 }
+;
 
 function checarSenha(form, senha, confirmaSenha) {
     if (document.forms[form][senha].value !== document.forms[form][confirmaSenha].value)
@@ -342,12 +348,13 @@ function checarSenha(form, senha, confirmaSenha) {
         $('.btn-confirmar').prop('disabled', false);
     }
 }
+;
 
 
 function checarSenhaCliente(form, senha, confirmaSenha) {
     if (document.forms[form][senha].value !== document.forms[form][confirmaSenha].value)
     {
-        
+
         $('#erroCliente').fadeIn();
         $('#mensagemValCliente').html('Campo de senha');
         $('.btn-confirmar-cliente').prop('disabled', true);
@@ -357,11 +364,12 @@ function checarSenhaCliente(form, senha, confirmaSenha) {
         $('.btn-confirmar-cliente').prop('disabled', false);
     }
 }
+;
 
 function checarSenhaUpdate(form, senha, confirmaSenha) {
     if (document.forms[form][senha].value !== document.forms[form][confirmaSenha].value)
     {
-        
+
         $('#erroUpdate').fadeIn();
         $('#mensagemValUpdate').html('Campo de senha');
         $('.btn-confirmar-update').prop('disabled', true);
@@ -371,4 +379,4 @@ function checarSenhaUpdate(form, senha, confirmaSenha) {
         $('.btn-confirmar-update').prop('disabled', false);
     }
 }
-
+;

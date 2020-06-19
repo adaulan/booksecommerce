@@ -25,8 +25,14 @@ public class homeServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         HttpSession sessao = request.getSession();
+
+        if (sessao.getAttribute("loginStatus") == null) {
+            sessao.setAttribute("loginStatus", "deslogado");
+        }
+
         request.setCharacterEncoding("UTF-8");
         try {
             List<Livro> listaMaisVendidos = LivroDAO.listarMaisVendidos();
@@ -52,22 +58,26 @@ public class homeServlet extends HttpServlet {
                 request.setAttribute("tipo", "cliente");
                 sessao.setAttribute("tipo", "cliente");
                 sessao.setAttribute("datatarget", "#exampleModalCenter");//MUDA O MODAL AO CLICAR NO NOME DA PESSOA NO HEADER
+
             } else {
                 if (sessao.getAttribute("tipo").equals("administrador")) {
                     request.setAttribute("tipo", "administrador");
                     sessao.setAttribute("tipo", "administrador");
                     sessao.setAttribute("datatarget", "#exampleModalCenter3");
+                    
                 } else if (sessao.getAttribute("tipo").equals("estoquista")) {
                     request.setAttribute("tipo", "estoquista");
                     sessao.setAttribute("tipo", "estoquista");
                     sessao.setAttribute("datatarget", "#exampleModalCenter3");
-                } else if (sessao.getAttribute("tipo").equals("cliente")) {
+                    
+                } else if (sessao.getAttribute("tipo").equals("cliente") && sessao.getAttribute("loginStatus").equals("logado")) {
                     request.setAttribute("tipo", "cliente");
                     sessao.setAttribute("tipo", "cliente");
                     sessao.setAttribute("datatarget", "#exampleModalCenter3");
                 } else {
                     request.setAttribute("tipo", "cliente");
                     sessao.setAttribute("tipo", "cliente");
+                    
                 }
             }
 

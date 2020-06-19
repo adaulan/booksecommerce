@@ -54,7 +54,26 @@
             .clear {
                 clear:both;
             }
+            .badge {
+                padding-left: 9px;
+                padding-right: 9px;
+                -webkit-border-radius: 9px;
+                -moz-border-radius: 9px;
+                border-radius: 9px;
+            }
 
+            .label-warning[href],
+            .badge-warning[href] {
+                background-color: #c67605;
+            }
+            #lblCartCount {
+                font-size: 12px;
+                background: #ff0000;
+                color: #fff;
+                padding: 0 5px;
+                vertical-align: top;
+                margin-left: -10px; 
+            }
 
         </style>
         <title>Navbar</title>
@@ -63,17 +82,15 @@
         <!-- TOP BAR -->
         <div id="top-bar">
             <div id="signin-div" class="top-bar-section">
-
-                <button type="text" class="btn" data-toggle="modal" data-target="${datatarget}" id="loginButton"> 
+                <button type="text" class="btn" data-toggle="modal" data-target="${datatarget}" id="loginButton" style="margin-top:-23px;"> 
                     <c:forEach items ="${loginText}" var="loginText">
                         <a href="#" ><span id="signin-text"><c:out value="${loginText}"/></span></a>
                         <input type="hidden" value="${tipo}" id="loginInput" class="tipo"/>
                     </c:forEach>
                 </button>
-
-
-                <a href="#"><img src="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/LANDING-PAGE/cart.png"></a>
-
+                <form method="post" style="display:inline-block;" action="${pageContext.request.contextPath}/consultaCarrinhoServlet">
+                    <input type="image" value="submit" src="${pageContext.request.contextPath}/JSP-STYLES/IMAGES/LANDING-PAGE/cart.png"/><span class='badge badge-warning' id='lblCartCount'> ${quantidadeDeItens} </span>
+                </form>
             </div>
         </div>
         <!-- NAVBAR -->
@@ -105,8 +122,8 @@
                         <li id="produtos" class="nav-item dropdown" style="display:none">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Produtos</a>
                             <div class="dropdown-menu">
-                                <a href="${pageContext.request.contextPath}/JSP-PAGES/cadastrarProdutos.jsp" class="dropdown-item">Cadastro</a>
-                                <a href="${pageContext.request.contextPath}/JSP-PAGES/consultaProdutos.jsp" class="dropdown-item">Consulta</a>
+                                <a href="${pageContext.request.contextPath}/JSP-PAGES/CRUD-PRODUTOS/cadastrarProdutos.jsp" class="dropdown-item">Cadastro</a>
+                                <a href="${pageContext.request.contextPath}/JSP-PAGES/CRUD-PRODUTOS/consultaProdutos.jsp" class="dropdown-item">Consulta</a>
                             </div>
                         </li>
                         <li id="clientes" class="nav-item dropdown" style="display:none">
@@ -119,8 +136,15 @@
                         <li id="usuarios" class="nav-item dropdown" style="display:none">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Usuarios</a>
                             <div class="dropdown-menu">
-                                <a href="${pageContext.request.contextPath}/JSP-PAGES/cadastrarUsuario.jsp" class="dropdown-item">Cadastro</a>
-                                <a href="${pageContext.request.contextPath}/JSP-PAGES/consultaUsuario.jsp" class="dropdown-item">Consulta</a>
+                                <a href="${pageContext.request.contextPath}/JSP-PAGES/CRUD-USUARIO/cadastrarUsuario.jsp" class="dropdown-item">Cadastro</a>
+                                <a href="${pageContext.request.contextPath}/JSP-PAGES/CRUD-USUARIO/consultaUsuario.jsp" class="dropdown-item">Consulta</a>
+                            </div>
+                        </li>
+                        
+                        <li id="pedidos" class="nav-item dropdown" style="display:none">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pedidos</a>
+                            <div class="dropdown-menu">
+                                <a href="${pageContext.request.contextPath}/JSP-PAGES/consultaPedidos.jsp" class="dropdown-item">Consulta</a>
                             </div>
                         </li>
                     </ul>
@@ -156,6 +180,7 @@
                             </form>
                             <br/>
                             <button data-toggle="modal" data-target="#exampleModalCenter2" class="btn btn-lg btn-primary btn-block" id="btn-singin"> Inscrever-se <i class="fas fa-user-plus"></i> </button>
+
                         </div>
                     </div>
 
@@ -238,6 +263,9 @@
             </div>
         </div>
 
+
+
+
         <!-- Modal LOGOUT-->
         <div class="modal fade" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document" style="color: black;">
@@ -247,14 +275,14 @@
                         <div class="" id="" >
                             <form  action = "${pageContext.request.contextPath}/logoutServlet" method = "post" style="text-align: center;">
                                 <i class="fa fa-journal-whills"></i>
-                                <h1 class="h3 mb-3 font-weight-normal">Deseja sair?</h1>
+                                <h1 class="h3 mb-3 font-weight-normal">Opções</h1>
                                 <br>
                                 <button class="btn btn-lg btn-primary btn-block" type="submit" id="btn-singin"> Logout <i class="fas fa-sign-in-alt"></i> </button>
                             </form>
-                            <br/>
+
 
                             <!-- ATUALIZAR CADASTRO FORM -->
-                            <button data-toggle="modal" data-target="#exampleModalCenter4" class="btn btn-lg btn-primary btn-block" id="btn-singin"> Atualizar Cadastro <i class="fas fa-edit"></i> </button>
+                            <button data-toggle="modal" data-target="#exampleModalCenter4" class="btn btn-lg btn-primary btn-block" id="btn-singin" style="margin-top:5px;"> Atualizar Cadastro <i class="fas fa-edit"></i> </button>
 
                             <div class="modal fade" id="exampleModalCenter4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"
                                  onload="">
@@ -334,10 +362,21 @@
                                         </form>
                                     </div>
                                 </div>
-
                             </div>
+                            <!-- MEUS PEDIDOS -->
+                            <form  action = "${pageContext.request.contextPath}/consultarPedidosServlet" method = "get" style="text-align: center; margin-top:5px;">
+                                <button class="btn btn-lg btn-primary btn-block" type="submit" id="btn-singin"> Meus Pedidos </button>
+                            </form>
                         </div>
-
+                        <!-- ENDEREÇOS -->
+                        <!-- BOTAO DE VISUALIZAR ENDEREÇOS-->
+                        <form method="post" action="${pageContext.request.contextPath}/consultaEnderecoServlet" style="margin-top:5px;">
+                            <input type="hidden" value="${IDUsuario}" name="ID">
+                            <input type="hidden" value="frontEnd" name="finalizarCompra">
+                            <div>
+                                <button type="submit" class="btn btn-lg btn-primary btn-block" id="btn-singin">Visualizar Endereços</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -361,6 +400,7 @@
                                                                        $('#produtos').css('display', 'none');
                                                                        $('#clientes').css('display', 'none');
                                                                        $('#usuarios').css('display', 'none');
+                                                                       $('#pedidos').css('display', 'none');
 
                                                                        /* CPF DISABLE*/
                                                                        $('#CPFUpdate').css("background", '#eee');
@@ -376,10 +416,12 @@
                                                                        $('#produtos').css('display', 'block');
                                                                        $('#clientes').css('display', 'block');
                                                                        $('#usuarios').css('display', 'block');
+                                                                       $('#pedidos').css('display', 'block');
                                                                    } else if ($('#loginInput').val() === 'estoquista') {
                                                                        $('#produtos').css('display', 'block');
                                                                        $('#clientes').css('display', 'none');
                                                                        $('#usuarios').css('display', 'none');
+                                                                       $('#pedidos').css('display', 'block');
                                                                        /* CPF DISABLE*/
                                                                        $('#CPFUpdate').css("background", '#eee');
                                                                        $('#CPFUpdate').css("pointer-events", 'none');
