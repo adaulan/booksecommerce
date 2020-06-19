@@ -25,7 +25,7 @@ public class connectionDB {
         conn = DriverManager.getConnection(
                 "jdbc:mysql://127.0.0.1:3306/ECOMMERCE_PROJECT",
                 "root",
-                "");
+                "root");
         return conn;
          }
     
